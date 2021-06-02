@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+$main-color: #eee;
+$secondary-color: #222;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Press Start 2P", sans-serif;
+  color: $main-color;
+  background-color: $secondary-color;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.game-body {
+  max-width: 800px;
+  margin: 0px auto;
+  padding: 20px;
+  text-align: center;
+
+  &__output {
+    position: relative;
+    font-size: 3rem;
+    background-color: $main-color;
+    color: $secondary-color;
+    padding: 15px;
+    width: 126px;
+    margin: 80px auto;
+  }
+
+  &__line {
+    position: relative;
+    z-index: -1;
+    width: 100%;
+    height: 6px;
+    background-color: $main-color;
+    transform: translateY(-131.5px);
+  }
+
+  &__title {
+    font-size: 2.8rem;
+  }
+
+  &__subtitle {
+    margin: 15px 0px;
+    font-size: 1.1rem;
+  }
+
+  &__controls {
+    margin: 15px 0px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__col {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__input {
+    outline: none;
+    font-size: 3rem;
+    padding: 15px;
+    text-align: center;
+    font-family: inherit;
+    color: $main-color;
+    background-color: transparent;
+    border: 4px solid $main-color;
+    width: 65%;
+  }
+
+  &__stats {
+    text-align: start;
+  }
+
+  &__info {
+    font-size: 1.2rem;
+    margin: 15px 0px;
+  }
+}
+
+.btn {
+  color: $secondary-color;
+  padding: 20px 30px;
+  font-size: 1.4rem;
+  font-family: inherit;
+  border: none;
+  margin: 15px;
+  cursor: pointer;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.bg-green {
+  background-color: rgb(96, 179, 71);
+}
+
+@media (max-width: 535px) {
+  .game-body {
+    &__output {
+      margin: 40px auto;
+    }
+
+    &__line {
+      transform: translateY(-88.5px);
+    }
+
+    &__controls {
+      flex-direction: column;
+    }
+  }
+}
+
+@media (max-width: 435px) {
+  .game-body {
+    padding: 10px;
+    &__title {
+      font-size: 2.1rem;
+    }
+
+    &__input {
+      font-size: 2.1rem;
+    }
+  }
+
+  .btn {
+    font-size: 1.2rem;
+    padding: 15px 20px;
+  }
+}

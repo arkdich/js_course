@@ -1,0 +1,179 @@
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Press Start 2P", sans-serif;
+  color: #eee;
+  background-color: #222;
+  line-height: 1.4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  min-height: 100vh;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.game-body {
+  max-width: 800px;
+  margin: 0px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.game-body__output {
+  position: relative;
+  font-size: 3rem;
+  background-color: #eee;
+  color: #222;
+  padding: 15px;
+  width: 126px;
+  margin: 80px auto;
+}
+
+.game-body__line {
+  position: relative;
+  z-index: -1;
+  width: 100%;
+  height: 6px;
+  background-color: #eee;
+  -webkit-transform: translateY(-131.5px);
+          transform: translateY(-131.5px);
+}
+
+.game-body__title {
+  font-size: 2.8rem;
+}
+
+.game-body__subtitle {
+  margin: 15px 0px;
+  font-size: 1.1rem;
+}
+
+.game-body__controls {
+  margin: 15px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.game-body__col {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.game-body__input {
+  outline: none;
+  font-size: 3rem;
+  padding: 15px;
+  text-align: center;
+  font-family: inherit;
+  color: #eee;
+  background-color: transparent;
+  border: 4px solid #eee;
+  width: 65%;
+}
+
+.game-body__stats {
+  text-align: start;
+}
+
+.game-body__info {
+  font-size: 1.2rem;
+  margin: 15px 0px;
+}
+
+.btn {
+  color: #222;
+  padding: 20px 30px;
+  font-size: 1.4rem;
+  font-family: inherit;
+  border: none;
+  margin: 15px;
+  cursor: pointer;
+}
+
+.btn:active {
+  -webkit-transform: scale(0.98);
+          transform: scale(0.98);
+}
+
+.bg-green {
+  background-color: #60b347;
+}
+
+@media (max-width: 535px) {
+  .game-body__output {
+    margin: 40px auto;
+  }
+  .game-body__line {
+    -webkit-transform: translateY(-88.5px);
+            transform: translateY(-88.5px);
+  }
+  .game-body__controls {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media (max-width: 435px) {
+  .game-body {
+    padding: 10px;
+  }
+  .game-body__title {
+    font-size: 2.1rem;
+  }
+  .game-body__input {
+    font-size: 2.1rem;
+  }
+  .btn {
+    font-size: 1.2rem;
+    padding: 15px 20px;
+  }
+}
+/*# sourceMappingURL=style.css.map */
