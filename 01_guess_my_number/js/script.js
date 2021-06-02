@@ -17,7 +17,7 @@ resetGame();
 
 function resetGame() {
   score = 20;
-  prevValue = 0;
+  prevValue = undefined;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
 
   numOutput.innerText = "?";
@@ -39,7 +39,10 @@ function keyCheck(ev) {
 function checkNumber() {
   const currValue = +numInput.value;
 
-  if (!prevValue) {
+  const prevDiff = secretNumber - prevValue;
+  const currDiff = secretNumber - currValue;
+
+  if (prevValue === undefined) {
     if (currValue > secretNumber) {
       gameInfo.innerText = "Too High!";
       decreaseScore();
@@ -47,35 +50,24 @@ function checkNumber() {
       gameInfo.innerText = "Too Low!";
       decreaseScore();
     } else {
-      gameInfo.innerText = "Correct Number!";
-      numOutput.innerText = secretNumber;
-      localStorage.setItem("_01_highscore", score);
-
-      document.body.classList.add("bg-green");
+      gameWinState();
     }
 
     prevValue = currValue;
     return;
   }
 
-  if (
-    secretNumber - currValue < secretNumber - prevValue &&
-    currValue != secretNumber
-  ) {
-    gameInfo.innerText = "Getting Closer!";
-    decreaseScore();
-  } else if (
-    secretNumber - currValue > secretNumber - prevValue &&
-    currValue != secretNumber
-  ) {
-    gameInfo.innerText = "Cold";
+  if (currValue > secretNumber) {
+    gameInfo.innerText = "Too High!";
     decreaseScore();
   } else if (currValue == secretNumber) {
-    gameInfo.innerText = "Correct Number!";
-    numOutput.innerText = secretNumber;
-    localStorage.setItem("_01_highscore", score);
-
-    document.body.classList.add("bg-green");
+    gameWinState();
+  } else if (currDiff < prevDiff) {
+    gameInfo.innerText = "Getting Closer!";
+    decreaseScore();
+  } else if (currDiff > prevDiff) {
+    gameInfo.innerText = "Cold!";
+    decreaseScore();
   }
 
   prevValue = currValue;
@@ -83,4 +75,15 @@ function checkNumber() {
 
 function decreaseScore() {
   gameScore.innerText = --score;
+}
+
+function gameWinState() {
+  gameInfo.innerText = "Correct Number!";
+  numOutput.innerText = secretNumber;
+
+  if (gameScore.innerText > gameRecord.innerText) {
+    localStorage.setItem("_01_highscore", score);
+  }
+
+  document.body.classList.add("bg-green");
 }
