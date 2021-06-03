@@ -17,7 +17,7 @@ resetGame();
 
 function resetGame() {
   score = 20;
-  prevValue = undefined;
+  prevValue = null;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
 
   numOutput.innerText = "?";
@@ -42,19 +42,14 @@ function checkNumber() {
   const prevDiff = secretNumber - prevValue;
   const currDiff = secretNumber - currValue;
 
-  if (prevValue === undefined) {
-    if (currValue > secretNumber) {
-      gameInfo.innerText = "Too High!";
-      decreaseScore();
-    } else if (currValue < secretNumber) {
+  if (prevValue === null) {
+    if (currValue < secretNumber) {
       gameInfo.innerText = "Too Low!";
       decreaseScore();
-    } else {
-      gameWinState();
-    }
 
-    prevValue = currValue;
-    return;
+      prevValue = currValue;
+      return;
+    }
   }
 
   if (currValue > secretNumber) {
@@ -65,7 +60,7 @@ function checkNumber() {
   } else if (currDiff < prevDiff) {
     gameInfo.innerText = "Getting Closer!";
     decreaseScore();
-  } else if (currDiff > prevDiff) {
+  } else if (currDiff > prevDiff || currDiff == prevDiff) {
     gameInfo.innerText = "Cold!";
     decreaseScore();
   }
@@ -81,7 +76,7 @@ function gameWinState() {
   gameInfo.innerText = "Correct Number!";
   numOutput.innerText = secretNumber;
 
-  if (gameScore.innerText > gameRecord.innerText) {
+  if (+gameScore.innerText > +gameRecord.innerText) {
     localStorage.setItem("_01_highscore", score);
   }
 
