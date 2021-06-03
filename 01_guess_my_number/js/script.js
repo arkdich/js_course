@@ -37,6 +37,13 @@ function keyCheck(ev) {
 }
 
 function checkNumber() {
+  if (numInput.value === "") {
+    return;
+  } else if (score === 0) {
+    gameInfo.innerText = "You Lost! Try Again";
+    return;
+  }
+
   const currValue = +numInput.value;
 
   const prevDiff = secretNumber - prevValue;
