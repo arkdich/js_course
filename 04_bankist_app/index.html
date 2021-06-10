@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>Bankist App</title>
+  </head>
+  <body>
+    <header class="header">
+      <h3 class="header__title">Log in to get started</h3>
+      <div class="header__img">
+        <img src="imgs/logo.png" alt="" />
+      </div>
+      <div class="header__form">
+        <input type="text" class="header__input" placeholder="user" />
+        <input type="password" class="header__input" placeholder="PIN" />
+        <button class="btn btn_header">→</button>
+      </div>
+    </header>
+    <main>
+      <div class="wrapper">
+        <div class="balance">
+          <div>
+            <h3 class="balance__title">Current balance</h3>
+            <p class="balance__date">As of <span class="date"></span> 05/03/2037</p>
+          </div>
+          <p class="balance__value">3840$</p>
+        </div>
+        <div class="app-body">
+          <div class="app-body__col">
+            <div class="movements">
+              <div class="movements__entry">
+                <p class="movemwnts__type">1 Deposit</p>
+                <p class="movements__value">1300$</p>
+              </div>
+            </div>
+          </div>
+          <div class="app-body__col">
+            <div class="operation bg-orange">
+              <h4 class="operation__title">Transfer money</h4>
+              <div class="operation__controls">
+                  <input class="operation__input" type="text"></input>
+                  <input class="operation__input" type="text"></input>
+                  <button class="btn btn_oper">→</button>
+                  <label class="operation__label">Transfer to</label>
+                  <label class="operation__label">Ammount</label>
+              </div>
+            </div>
+            <div class="operation bg-green">
+              <h4 class="operation__title">Request loan</h4>
+              <div class="operation__controls operation__controls_loan">
+                  <input class="operation__input" type="text"></input>
+                  <button class="btn btn_oper">→</button>
+                  <label class="operation__label operation__label_loan">Ammount</label>
+              </div>
+            </div>
+            <div class="operation bg-red">
+              <h4 class="operation__title">Close account</h4>
+              <div class="operation__controls">
+                  <input class="operation__input" type="text"></input>
+                  <input class="operation__input" type="text"></input>
+                  <button class="btn btn_oper">→</button>
+                  <label class="operation__label">Confirm user</label>
+                  <label class="operation__label">Confirm PIN</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script type="module" src="js/script.js"></script>
+  </body>
+</html>
