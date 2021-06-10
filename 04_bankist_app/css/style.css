@@ -14,6 +14,8 @@ input[type="number"] {
 .hidden {
   opacity: 0;
   visibility: hidden;
+  -webkit-transition: none;
+  transition: none;
 }
 
 .c-green {
@@ -196,6 +198,8 @@ body {
 .wrapper {
   max-width: 1000px;
   margin: 20px auto;
+  -webkit-transition: all 1s ease;
+  transition: all 1s ease;
 }
 
 .app-body {

@@ -21,6 +21,7 @@ $orange-color: linear-gradient(to top left, #ffb003, #ffcb03);
 .hidden {
   opacity: 0;
   visibility: hidden;
+  transition: none;
 }
 
 .c-green {
