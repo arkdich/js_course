@@ -1,0 +1,30 @@
+@media (max-width: 745px) and (min-width: 581px), (max-width: 410px) {
+  .summary {
+    &__value {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    flex-direction: column;
+
+    &__img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .app-body {
+    flex-direction: column;
+  }
+
+  .balance {
+    &__value {
+      font-size: 38px;
+    }
+  }
+}

@@ -1,9 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap");
-
-$main-color: #f3f3f3;
-$green-color: linear-gradient(to top left, #39b385, #9be15d);
-$red-color: linear-gradient(to top left, #e52a5a, #ff585f);
-$orange-color: linear-gradient(to top left, #ffb003, #ffcb03);
+@import "_utilities.scss";
+@import "_media.scss";
 
 * {
   box-sizing: border-box;
@@ -27,15 +24,18 @@ body {
   padding: 0px 20px;
 
   &__title {
+    margin-bottom: 10px;
     font-size: 22px;
     font-weight: 500;
   }
 
   &__img {
     width: 50px;
+    height: 50px;
 
     img {
       width: 100%;
+      object-fit: fill;
     }
   }
 
@@ -65,42 +65,20 @@ body {
   }
 }
 
-.bg {
-  &-orange {
-    background: $orange-color;
-  }
-  &-green {
-    background: $green-color;
-  }
-  &-red {
-    background: $red-color;
-  }
-}
-
-.btn {
-  font-size: 20px;
-  border: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  border-radius: 10px;
-  background-color: transparent;
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  &_oper {
-    background-color: #fff;
-  }
-}
-
 .wrapper {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 20px auto;
 }
 
+.app-body {
+  display: flex;
+
+  &__col {
+    flex: 1;
+  }
+}
+
 .balance {
-  margin: 20px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -120,20 +98,61 @@ body {
     font-weight: 400;
   }
 }
-.app-body {
-  display: flex;
 
-  &__col {
-    flex: 1;
+.timer {
+  text-align: center;
+
+  &__time {
+    font-weight: 700;
   }
 }
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 10px;
+
+  &__value {
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  &__info {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
+
 .movements {
+  height: 460px;
+  margin: 10px 0px;
+  overflow-y: auto;
+
   &__entry {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+
+    &:first-of-type {
+      margin-top: 0px;
+    }
   }
 
   &__value {
+    font-weight: 600;
   }
+
   &__type {
+    color: #fff;
+    font-weight: 700;
+    border-radius: 10px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    font-size: 10px;
   }
 }
 
@@ -151,9 +170,6 @@ body {
     &_loan {
       grid-template-columns: 2.5fr 1.2fr 2.5fr;
     }
-  }
-
-  &__block {
   }
 
   &__title {
