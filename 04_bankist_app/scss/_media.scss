@@ -1,4 +1,4 @@
-@media (max-width: 745px) and (min-width: 581px), (max-width: 410px) {
+@media (max-width: 900px) and (min-width: 661px), (max-width: 495px) {
   .summary {
     &__value {
       display: block;
@@ -6,7 +6,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 660px) {
   .header {
     flex-direction: column;
 
@@ -15,16 +15,24 @@
       height: 30px;
     }
   }
-}
 
-@media (max-width: 580px) {
   .app-body {
     flex-direction: column;
   }
+}
 
+@media (max-width: 480px) {
   .balance {
+    &__title {
+      font-size: 18px;
+    }
+
+    &__date {
+      font-size: 14px;
+    }
+
     &__value {
-      font-size: 38px;
+      font-size: 30px;
     }
   }
 }

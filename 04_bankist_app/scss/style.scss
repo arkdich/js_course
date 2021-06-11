@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap");
 @import "_utilities.scss";
-@import "_media.scss";
 
 * {
   box-sizing: border-box;
@@ -95,13 +94,14 @@ body {
   }
 
   &__value {
-    font-size: 46px;
+    font-size: 42px;
     font-weight: 400;
   }
 }
 
 .timer {
   text-align: center;
+  margin: 5px;
 
   &__time {
     font-weight: 700;
@@ -111,11 +111,11 @@ body {
 .summary {
   display: grid;
   grid-template-columns: repeat(3, auto);
-  gap: 10px;
+  gap: 12px;
 
   &__value {
-    font-size: 19px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: 600;
   }
 
   &__info {
@@ -143,10 +143,6 @@ body {
     }
   }
 
-  &__value {
-    font-weight: 600;
-  }
-
   &__type {
     color: #fff;
     font-weight: 700;
@@ -154,6 +150,17 @@ body {
     padding: 5px 10px;
     text-transform: uppercase;
     font-size: 10px;
+    margin-right: 10px;
+  }
+
+  &__date {
+    font-size: 14px;
+    margin-right: auto;
+    opacity: 0.9;
+  }
+
+  &__value {
+    font-weight: 600;
   }
 }
 
@@ -198,3 +205,5 @@ body {
     }
   }
 }
+
+@import "_media.scss";

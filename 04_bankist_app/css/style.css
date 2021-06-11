@@ -74,37 +74,6 @@ input[type="number"] {
   opacity: 0.8;
 }
 
-@media (max-width: 745px) and (min-width: 581px), (max-width: 410px) {
-  .summary__value {
-    display: block;
-  }
-}
-
-@media (max-width: 700px) {
-  .header {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .header__img {
-    width: 30px;
-    height: 30px;
-  }
-}
-
-@media (max-width: 580px) {
-  .app-body {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .balance__value {
-    font-size: 38px;
-  }
-}
-
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -237,12 +206,13 @@ body {
 }
 
 .balance__value {
-  font-size: 46px;
+  font-size: 42px;
   font-weight: 400;
 }
 
 .timer {
   text-align: center;
+  margin: 5px;
 }
 
 .timer__time {
@@ -254,12 +224,12 @@ body {
   display: grid;
   -ms-grid-columns: (auto)[3];
       grid-template-columns: repeat(3, auto);
-  gap: 10px;
+  gap: 12px;
 }
 
 .summary__value {
-  font-size: 19px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .summary__info {
@@ -291,10 +261,6 @@ body {
   margin-top: 0px;
 }
 
-.movements__value {
-  font-weight: 600;
-}
-
 .movements__type {
   color: #fff;
   font-weight: 700;
@@ -302,6 +268,17 @@ body {
   padding: 5px 10px;
   text-transform: uppercase;
   font-size: 10px;
+  margin-right: 10px;
+}
+
+.movements__date {
+  font-size: 14px;
+  margin-right: auto;
+  opacity: 0.9;
+}
+
+.movements__value {
+  font-weight: 600;
 }
 
 .operation {
@@ -348,5 +325,42 @@ body {
 .operation__label_loan {
   -ms-grid-row: 2;
   grid-row: 2;
+}
+
+@media (max-width: 900px) and (min-width: 661px), (max-width: 495px) {
+  .summary__value {
+    display: block;
+  }
+}
+
+@media (max-width: 660px) {
+  .header {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .header__img {
+    width: 30px;
+    height: 30px;
+  }
+  .app-body {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .balance__title {
+    font-size: 18px;
+  }
+  .balance__date {
+    font-size: 14px;
+  }
+  .balance__value {
+    font-size: 30px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
