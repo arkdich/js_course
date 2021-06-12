@@ -3,7 +3,7 @@
 const account1 = {
   owner: "Jonas Schmedtmann",
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
-  interestRate: 1.2, // %
+  interestRate: 1.2,
   login: "jonas",
   pin: 1111,
 
@@ -23,17 +23,15 @@ const account1 = {
 
 const account2 = {
   owner: "Jessica Davis",
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  movements: [5000, -150, -790, -1000, 8500, -30],
   interestRate: 1.5,
   login: "jess",
   pin: 2222,
 
   movementsDates: [
     "2019-11-01T13:15:33.035Z",
-    "2019-11-30T09:48:16.867Z",
     "2019-12-25T06:04:23.907Z",
     "2020-01-25T14:18:46.235Z",
-    "2020-02-05T16:33:06.386Z",
     "2020-04-10T14:43:26.374Z",
     "2020-06-25T18:49:59.371Z",
     "2020-07-26T12:01:20.894Z",
@@ -44,8 +42,10 @@ const account2 = {
 
 const accounts = [account1, account2];
 
+let user;
+let totalBalance;
 let isSorted = false;
-const user = accounts[0];
+let timerIntId;
 
 const btnLog = document.querySelector(".btn_header");
 const btnTrans = document.querySelector(".btn_trans");
@@ -53,58 +53,129 @@ const btnLoan = document.querySelector(".btn_loan");
 const btnClose = document.querySelector(".btn_close");
 const btnSort = document.querySelector(".btn_sort");
 
-logUser();
+const labelLogOut = document.querySelector(".timer__log-out");
 
 document.body.addEventListener("keydown", checkKey);
 
-btnLog.addEventListener("click", logUser);
-btnSort.addEventListener("click", () => showMovements(user));
+btnLog.addEventListener("click", () => {
+  setTimeout(() => {
+    logInUser();
+  }, 1000);
+});
 
-function logUser() {
-  // const userLogin = document.querySelector(".header__input_login").value;
-  // const userPin = +document.querySelector(".header__input_pin").value;
+btnTrans.addEventListener("click", () => {
+  const transLogin = document.querySelector(".operation__transfer_login").value;
+  const transValue = +document.querySelector(".operation__transfer_ammount")
+    .value;
 
-  // const user = accounts.find(
-  //   (entry) => entry.login === userLogin && entry.pin === userPin
-  // );
+  transactMoney(moneyTransfer, transValue * 0.2, transLogin, transValue);
+  clearOperationsUI();
+});
 
-  if (user == null) return;
+btnLoan.addEventListener("click", () => {
+  const loanValue = +document.querySelector(".operation__loan_ammount").value;
 
-  showUi(user);
+  transactMoney(moneyLoan, loanValue * 0.25, loanValue);
+  clearOperationsUI();
+});
+
+btnClose.addEventListener("click", closeAccount);
+
+btnSort.addEventListener("click", () => {
+  if (isSorted) {
+    showMovements(user, false);
+  } else {
+    showMovements(user, true);
+  }
+});
+
+labelLogOut.addEventListener("click", () => {
+  setTimeout(() => {
+    logOutUser();
+  }, 1000);
+});
+
+function logInUser() {
+  const userLogin = document.querySelector(".header__input_login").value;
+  const userPin = +document.querySelector(".header__input_pin").value;
+
+  user = accounts.find(
+    (entry) => entry.login === userLogin && entry.pin === userPin
+  );
+
+  if (user == undefined) return;
+
+  toggleUI();
+  updateHeaderUI();
   updateUI(user);
-  updateDateAndTime(user);
-  updateBalance(user);
-  showMovements(user);
+  setLogOutTimer(9, 59);
 }
 
-function showUi(user) {
-  const wrapper = document.querySelector(".wrapper");
-
-  wrapper.classList.remove("hidden");
+function toggleUI() {
+  document.body.classList.toggle("hidden");
 }
 
-function updateUI(user) {
+function updateHeaderUI() {
   const headerTitle = document.querySelector(".header__title");
-  const inputLogin = document.querySelector(".header__input_login");
-  const inputPin = document.querySelector(".header__input_pin");
+  const logLogin = document.querySelector(".header__input_login");
+  const logPin = document.querySelector(".header__input_pin");
+
+  logLogin.value = logPin.value = "";
+  logPin.blur();
+
+  if (user == undefined) {
+    headerTitle.innerText = "Log in to get started";
+    return;
+  }
 
   const userName = user.owner.split(" ")[0];
   headerTitle.innerText = `Welcome back, ${userName}`;
+}
 
-  inputLogin.value = inputPin.value = "";
-  inputPin.blur();
+function clearOperationsUI() {
+  const trasferLogin = document.querySelector(".operation__transfer_login");
+  const transferAmmount = document.querySelector(
+    ".operation__transfer_ammount"
+  );
+  const loanAmmount = document.querySelector(".operation__loan_ammount");
+  const closeLogin = document.querySelector(".operation__close_login");
+  const closePin = document.querySelector(".operation__close_pin");
+
+  trasferLogin.value =
+    transferAmmount.value =
+    loanAmmount.value =
+    closeLogin.value =
+    closePin.value =
+      "";
+
+  transferAmmount.blur();
+  loanAmmount.blur();
+  closePin.blur();
+}
+
+function updateUI(user) {
+  updateDateAndTime(user);
+  updateBalance(user);
+  showMovements(user, false);
 }
 
 function updateDateAndTime(user) {
-  let dateStr;
-
   const dateTag = document.querySelector(".date");
 
   const currentDate = new Date();
 
-  const date = currentDate.getDate();
-  const month = currentDate.getMonth() + 1;
-  const year = currentDate.getFullYear();
+  const dateStr = formatDate(user, currentDate);
+  const timeStr = formatTime(user, currentDate);
+
+  dateTag.innerText = `${dateStr}, ${timeStr}`;
+}
+
+function formatDate(user, currDate) {
+  const date = currDate.getDate();
+  const month = currDate.getMonth() + 1;
+  const year = currDate.getFullYear();
+
+  let dateStr;
 
   const dateAndMonth = [
     date < 10 ? "0" + date : date,
@@ -119,12 +190,10 @@ function updateDateAndTime(user) {
 
   dateStr += `/${year}`;
 
-  const timeStr = updateTime(user, currentDate);
-
-  dateTag.innerText = `${dateStr}, ${timeStr}`;
+  return dateStr;
 }
 
-function updateTime(user, date) {
+function formatTime(user, date) {
   let timeStr;
 
   const dateHours = date.getHours();
@@ -151,7 +220,6 @@ function updateBalance(user) {
   const balanceOut = document.querySelector(".summary__out");
   const balanceInterest = document.querySelector(".summary__interest");
 
-  let totalBalance;
   let totalIn = 0;
   let totalOut = 0;
   let totalInterest;
@@ -178,10 +246,14 @@ function updateBalance(user) {
 }
 
 function addCurrency(user, sum) {
-  return user.locale == "en-US" ? `$${sum}` : `${sum}€`;
+  if (user.locale == "en-US") {
+    return sum > 0 ? `$${sum}` : `-$${Math.abs(sum)}`;
+  } else {
+    return `${sum}€`;
+  }
 }
 
-function showMovements(user) {
+function showMovements(user, descending) {
   const movementsWrapper = document.querySelector(".movements");
 
   movementsWrapper.innerHTML = "";
@@ -192,7 +264,7 @@ function showMovements(user) {
     movementsMap.set(user.movementsDates[i], user.movements[i]);
   }
 
-  const sortedMov = sortMovements(Array.from(movementsMap));
+  const sortedMov = sortMovements(Array.from(movementsMap), descending);
 
   sortedMov.forEach((entry, index) => {
     const movementEntry = document.createElement("div");
@@ -201,21 +273,21 @@ function showMovements(user) {
     movementEntry.innerHTML = `
     <p class="movements__type ${entry[1] > 0 ? "bg-green" : "bg-red"}">
     ${index + 1} ${entry[1] > 0 ? "Deposit" : "Withdrawal"}</p>
-    <p class="movements__date">${entry[0].substr(0, 10)}</p>
-    <p class="movements__value">${addCurrency(user.locale, entry[1])}</p>`;
+    <p class="movements__date">${formatDate(user, new Date(entry[0]))}</p>
+    <p class="movements__value">${addCurrency(user, entry[1])}</p>`;
 
     movementsWrapper.append(movementEntry);
   });
 }
 
-function sortMovements(movements) {
-  if (!isSorted) {
-    isSorted = true;
+function sortMovements(movements, descending) {
+  if (!descending) {
+    isSorted = false;
     movements.sort((a, b) => {
       return new Date(b[0]) - new Date(a[0]);
     });
   } else {
-    isSorted = false;
+    isSorted = true;
     movements.sort((a, b) => {
       return b[1] - a[1];
     });
@@ -228,8 +300,96 @@ function checkKey(ev) {
   if (ev.key !== "Enter") return;
 
   if (ev.target.parentElement.classList.contains("header__form")) {
-    logUser();
+    btnLog.click();
+  } else if (
+    ev.target.parentElement.classList.contains("operation__transfer")
+  ) {
+    btnTrans.click();
+  } else if (ev.target.parentElement.classList.contains("operation__loan")) {
+    btnLoan.click();
+  } else if (ev.target.parentElement.classList.contains("operation__close")) {
+    btnClose.click();
   }
 }
 
-function moneyTransfer(to, ammount) {}
+function moneyTransfer(to, ammount) {
+  const recipient = accounts.find((r) => r.login === to);
+
+  if (
+    recipient === undefined ||
+    recipient === user ||
+    totalBalance - ammount < 0 ||
+    ammount < 0 ||
+    ammount < 1 ||
+    isNaN(ammount)
+  )
+    return;
+
+  recipient.movements.push(ammount);
+  recipient.movementsDates.push(new Date().toISOString());
+
+  user.movements.push(-ammount);
+  user.movementsDates.push(new Date().toISOString());
+
+  updateUI(user);
+}
+
+function moneyLoan(ammount) {
+  if (ammount > 50_000 || ammount <= 0 || ammount < 1000 || isNaN(ammount))
+    return;
+
+  user.movements.push(ammount);
+  user.movementsDates.push(new Date().toISOString());
+
+  updateUI(user);
+}
+
+function closeAccount() {
+  const closeLogin = document.querySelector(".operation__close_login").value;
+  const closePin = +document.querySelector(".operation__close_pin").value;
+
+  if (closeLogin !== user.login || closePin !== user.pin) return;
+
+  accounts.splice(accounts.indexOf(user), 1);
+  logOutUser();
+}
+
+function setLogOutTimer(timeMin, timeSec) {
+  const labelTime = document.querySelector(".timer__time");
+
+  labelTime.innerText = `${timeMin < 10 ? "0" + timeMin : timeMin}:${
+    timeSec < 10 ? "0" + timeSec : timeSec
+  }`;
+
+  timerIntId = setInterval(() => {
+    if (timeMin == 0 && timeSec == 0) {
+      logOutUser();
+      return;
+    }
+
+    if (timeSec === 0) {
+      timeSec = 59;
+      timeMin -= 1;
+    } else {
+      timeSec -= 1;
+    }
+
+    labelTime.innerText = `${timeMin < 10 ? "0" + timeMin : timeMin}:${
+      timeSec < 10 ? "0" + timeSec : timeSec
+    }`;
+  }, 1000);
+}
+
+function logOutUser() {
+  clearInterval(timerIntId);
+  user = undefined;
+  toggleUI();
+  updateHeaderUI();
+}
+
+function transactMoney(callback, timeout, ...args) {
+  setTimeout(() => {
+    callback(...args);
+    updateUI(user);
+  }, timeout);
+}

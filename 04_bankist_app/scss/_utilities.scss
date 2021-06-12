@@ -18,12 +18,6 @@ $red-color: linear-gradient(to top left, #e52a5a, #ff585f);
 $orange-color: linear-gradient(to top left, #ffb003, #ffcb03);
 
 //UTILITIES
-.hidden {
-  opacity: 0;
-  visibility: hidden;
-  transition: none;
-}
-
 .c-green {
   color: #66c873;
 }
