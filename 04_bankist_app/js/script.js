@@ -79,7 +79,11 @@ btnLoan.addEventListener("click", () => {
   clearOperationsUI();
 });
 
-btnClose.addEventListener("click", closeAccount);
+btnClose.addEventListener("click", () => {
+  setTimeout(() => {
+    closeAccount();
+  }, 1000);
+});
 
 btnSort.addEventListener("click", () => {
   if (isSorted) {
@@ -351,6 +355,7 @@ function closeAccount() {
   if (closeLogin !== user.login || closePin !== user.pin) return;
 
   accounts.splice(accounts.indexOf(user), 1);
+  clearOperationsUI();
   logOutUser();
 }
 
@@ -384,6 +389,7 @@ function logOutUser() {
   clearInterval(timerIntId);
   user = undefined;
   toggleUI();
+  clearOperationsUI();
   updateHeaderUI();
 }
 
