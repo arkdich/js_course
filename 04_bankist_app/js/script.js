@@ -70,6 +70,7 @@ btnTrans.addEventListener("click", () => {
 
   transactMoney(moneyTransfer, transValue * 0.2, transLogin, transValue);
   clearOperationsUI();
+  updateUI(user);
 });
 
 btnLoan.addEventListener("click", () => {
@@ -77,25 +78,24 @@ btnLoan.addEventListener("click", () => {
 
   transactMoney(moneyLoan, loanValue * 0.25, loanValue);
   clearOperationsUI();
+  updateUI(user);
 });
 
 btnClose.addEventListener("click", () => {
   setTimeout(() => {
     closeAccount();
+    clearOperationsUI();
+    logOutUser(user);
   }, 1000);
 });
 
 btnSort.addEventListener("click", () => {
-  if (isSorted) {
-    showMovements(user, false);
-  } else {
-    showMovements(user, true);
-  }
+  showMovements(user, isSorted == true ? false : true);
 });
 
 labelLogOut.addEventListener("click", () => {
   setTimeout(() => {
-    logOutUser();
+    logOutUser(user);
   }, 1000);
 });
 
@@ -110,7 +110,7 @@ function logInUser() {
   if (user == undefined) return;
 
   toggleUI();
-  updateHeaderUI();
+  updateHeaderUI(user);
   updateUI(user);
   setLogOutTimer(9, 59);
 }
@@ -119,7 +119,7 @@ function toggleUI() {
   document.body.classList.toggle("hidden");
 }
 
-function updateHeaderUI() {
+function updateHeaderUI(user) {
   const headerTitle = document.querySelector(".header__title");
   const logLogin = document.querySelector(".header__input_login");
   const logPin = document.querySelector(".header__input_pin");
@@ -164,14 +164,14 @@ function updateUI(user) {
 }
 
 function updateDateAndTime(user) {
-  const dateTag = document.querySelector(".date");
+  const labelDate = document.querySelector(".date");
 
   const currentDate = new Date();
 
   const dateStr = formatDate(user, currentDate);
   const timeStr = formatTime(user, currentDate);
 
-  dateTag.innerText = `${dateStr}, ${timeStr}`;
+  labelDate.innerText = `${dateStr}, ${timeStr}`;
 }
 
 function formatDate(user, currDate) {
@@ -257,7 +257,7 @@ function addCurrency(user, sum) {
   }
 }
 
-function showMovements(user, descending) {
+function showMovements(user, isDescending) {
   const movementsWrapper = document.querySelector(".movements");
 
   movementsWrapper.innerHTML = "";
@@ -268,9 +268,9 @@ function showMovements(user, descending) {
     movementsMap.set(user.movementsDates[i], user.movements[i]);
   }
 
-  const sortedMov = sortMovements(Array.from(movementsMap), descending);
+  const sortedMovements = sortMovements(movementsMap, isDescending);
 
-  sortedMov.forEach((entry, index) => {
+  sortedMovements.forEach((entry, index) => {
     const movementEntry = document.createElement("div");
 
     movementEntry.className = "movements__entry";
@@ -284,20 +284,22 @@ function showMovements(user, descending) {
   });
 }
 
-function sortMovements(movements, descending) {
-  if (!descending) {
+function sortMovements(movements, isDescending) {
+  const movementsArr = Array.from(movements);
+
+  if (!isDescending) {
     isSorted = false;
-    movements.sort((a, b) => {
+    movementsArr.sort((a, b) => {
       return new Date(b[0]) - new Date(a[0]);
     });
   } else {
     isSorted = true;
-    movements.sort((a, b) => {
+    movementsArr.sort((a, b) => {
       return b[1] - a[1];
     });
   }
 
-  return movements;
+  return movementsArr;
 }
 
 function checkKey(ev) {
@@ -334,8 +336,6 @@ function moneyTransfer(to, ammount) {
 
   user.movements.push(-ammount);
   user.movementsDates.push(new Date().toISOString());
-
-  updateUI(user);
 }
 
 function moneyLoan(ammount) {
@@ -344,8 +344,6 @@ function moneyLoan(ammount) {
 
   user.movements.push(ammount);
   user.movementsDates.push(new Date().toISOString());
-
-  updateUI(user);
 }
 
 function closeAccount() {
@@ -355,8 +353,6 @@ function closeAccount() {
   if (closeLogin !== user.login || closePin !== user.pin) return;
 
   accounts.splice(accounts.indexOf(user), 1);
-  clearOperationsUI();
-  logOutUser();
 }
 
 function setLogOutTimer(timeMin, timeSec) {
@@ -368,7 +364,7 @@ function setLogOutTimer(timeMin, timeSec) {
 
   timerIntId = setInterval(() => {
     if (timeMin == 0 && timeSec == 0) {
-      logOutUser();
+      logOutUser(user);
       return;
     }
 
@@ -385,12 +381,12 @@ function setLogOutTimer(timeMin, timeSec) {
   }, 1000);
 }
 
-function logOutUser() {
+function logOutUser(user) {
   clearInterval(timerIntId);
   user = undefined;
   toggleUI();
   clearOperationsUI();
-  updateHeaderUI();
+  updateHeaderUI(user);
 }
 
 function transactMoney(callback, timeout, ...args) {
