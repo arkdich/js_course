@@ -63,9 +63,11 @@
             </div>
             <div class="operation bg-green">
               <h4 class="operation__title">Request loan</h4>
-              <div class="operation__controls operation__controls_loan operation__loan">
+              <div class="operation__controls operation__loan">
+                 <input class="operation__input operation__loan_login" type="text"></input>
                   <input class="operation__input operation__loan_ammount" type="number"></input>
                   <button class="btn btn_oper btn_loan">→</button>
+                  <label class="operation__label operation__label_loan">Loan from</label>
                   <label class="operation__label operation__label_loan">Ammount</label>
               </div>
             </div>
@@ -81,7 +83,19 @@
             </div>
           </div>
         </div>
-      </div>
+        <div class="requests">
+          <div class="requests__col">
+            <h3 class="requests__title">Incoming requests</h3>
+            <div class="requests__body requests_inc">
+            </div>
+          </div>
+          <div class="requests__col">
+            <h3 class="requests__title">Your requests</h3>
+            <div class="requests__body requests_sent">
+            </div>
+          </div>
+       </div>
+     </div>
     </main>
     <script src="js/script.js"></script>
   </body>

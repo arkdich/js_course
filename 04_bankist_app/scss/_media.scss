@@ -19,6 +19,10 @@
   .app-body {
     flex-direction: column;
   }
+
+  .requests {
+    width: 100%;
+  }
 }
 
 @media (max-width: 480px) {

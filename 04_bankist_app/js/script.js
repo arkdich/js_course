@@ -2,11 +2,10 @@
 
 const account1 = {
   owner: "Jonas Schmedtmann",
-  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
-  interestRate: 1.2,
   login: "jonas",
   pin: 1111,
-
+  interestRate: 1.2,
+  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   movementsDates: [
     "2019-11-18T21:31:17.178Z",
     "2019-12-23T07:42:02.383Z",
@@ -17,17 +16,26 @@ const account1 = {
     "2020-07-28T23:36:17.929Z",
     "2020-08-01T10:51:36.790Z",
   ],
+  incomingRequests: [],
+  sentRequests: [
+    {
+      to: "jess",
+      ammount: 1000,
+      currency: "EUR",
+      date: "2021-06-12T12:01:20.894Z",
+      status: "Sent",
+    },
+  ],
   currency: "EUR",
   locale: "pt-PT",
 };
 
 const account2 = {
   owner: "Jessica Davis",
-  movements: [5000, -150, -790, -1000, 8500, -30],
-  interestRate: 1.5,
   login: "jess",
   pin: 2222,
-
+  interestRate: 1.5,
+  movements: [5000, -150, -790, -1000, 8500, -30],
   movementsDates: [
     "2019-11-01T13:15:33.035Z",
     "2019-12-25T06:04:23.907Z",
@@ -35,6 +43,30 @@ const account2 = {
     "2020-04-10T14:43:26.374Z",
     "2020-06-25T18:49:59.371Z",
     "2020-07-26T12:01:20.894Z",
+  ],
+  incomingRequests: [
+    {
+      from: "jonas",
+      ammount: 1000,
+      currency: "EUR",
+      date: "2021-06-12T12:01:20.894Z",
+    },
+  ],
+  sentRequests: [
+    {
+      to: "jonas",
+      ammount: 1000,
+      currency: "USD",
+      date: "2020-05-08T14:11:59.604Z",
+      status: "Fullfilled",
+    },
+    {
+      to: "jonas",
+      ammount: 5000,
+      currency: "USD",
+      date: "2020-06-12T14:11:59.604Z",
+      status: "Declined",
+    },
   ],
   currency: "USD",
   locale: "en-US",
@@ -74,9 +106,10 @@ btnTrans.addEventListener("click", () => {
 });
 
 btnLoan.addEventListener("click", () => {
+  const loanLogin = document.querySelector(".operation__loan_login").value;
   const loanValue = +document.querySelector(".operation__loan_ammount").value;
 
-  transactMoney(moneyLoan, loanValue * 0.25, loanValue);
+  transactMoney(moneyLoan, loanValue * 0.2, loanLogin, loanValue);
   clearOperationsUI();
   updateUI(user);
 });
@@ -99,13 +132,17 @@ labelLogOut.addEventListener("click", () => {
   }, 1000);
 });
 
+logInUser();
+
 function logInUser() {
   const userLogin = document.querySelector(".header__input_login").value;
   const userPin = +document.querySelector(".header__input_pin").value;
 
-  user = accounts.find(
-    (entry) => entry.login === userLogin && entry.pin === userPin
-  );
+  // user = accounts.find(
+  //   (entry) => entry.login === userLogin && entry.pin === userPin
+  // );
+
+  user = accounts[1];
 
   if (user == undefined) return;
 
@@ -141,12 +178,14 @@ function clearOperationsUI() {
   const transferAmmount = document.querySelector(
     ".operation__transfer_ammount"
   );
+  const loanLogin = document.querySelector(".operation__loan_login");
   const loanAmmount = document.querySelector(".operation__loan_ammount");
   const closeLogin = document.querySelector(".operation__close_login");
   const closePin = document.querySelector(".operation__close_pin");
 
   trasferLogin.value =
     transferAmmount.value =
+    loanLogin.value =
     loanAmmount.value =
     closeLogin.value =
     closePin.value =
@@ -161,6 +200,7 @@ function updateUI(user) {
   updateDateAndTime(user);
   updateBalance(user);
   showMovements(user, false);
+  showRequests(user);
 }
 
 function updateDateAndTime(user) {
@@ -168,13 +208,13 @@ function updateDateAndTime(user) {
 
   const currentDate = new Date();
 
-  const dateStr = formatDate(user, currentDate);
-  const timeStr = formatTime(user, currentDate);
+  const dateStr = formatDate(user.locale, currentDate);
+  const timeStr = formatTime(user.locale, currentDate);
 
   labelDate.innerText = `${dateStr}, ${timeStr}`;
 }
 
-function formatDate(user, currDate) {
+function formatDate(locale, currDate) {
   const date = currDate.getDate();
   const month = currDate.getMonth() + 1;
   const year = currDate.getFullYear();
@@ -186,7 +226,7 @@ function formatDate(user, currDate) {
     month + 1 < 10 ? "0" + month : month,
   ];
 
-  if (user.locale !== "en-US") {
+  if (locale !== "en-US") {
     dateStr = dateAndMonth[0] + "/" + dateAndMonth[1];
   } else {
     dateStr = dateAndMonth[1] + "/" + dateAndMonth[0];
@@ -197,13 +237,13 @@ function formatDate(user, currDate) {
   return dateStr;
 }
 
-function formatTime(user, date) {
+function formatTime(locale, date) {
   let timeStr;
 
   const dateHours = date.getHours();
   const dateMins = date.getMinutes();
 
-  if (user.locale != "en-US") {
+  if (locale != "en-US") {
     timeStr = `${dateHours < 10 ? "0" + dateHours : dateHours}`;
   } else {
     timeStr = `${dateHours % 12}`;
@@ -211,7 +251,7 @@ function formatTime(user, date) {
 
   timeStr += `:${dateMins < 10 ? "0" + dateMins : dateMins}`;
 
-  if (user.locale == "en-US") {
+  if (locale == "en-US") {
     timeStr += dateHours < 12 ? " AM" : " PM";
   }
 
@@ -243,14 +283,17 @@ function updateBalance(user) {
 
   totalInterest = (totalIn * user.interestRate) / 100;
 
-  balanceValue.innerText = addCurrency(user, totalBalance.toFixed(2));
-  balanceIn.innerText = addCurrency(user, totalIn.toFixed(2));
-  balanceOut.innerText = addCurrency(user, totalOut.toFixed(2));
-  balanceInterest.innerText = addCurrency(user, totalInterest.toFixed(2));
+  balanceValue.innerText = addCurrency(user.currency, totalBalance.toFixed(2));
+  balanceIn.innerText = addCurrency(user.currency, totalIn.toFixed(2));
+  balanceOut.innerText = addCurrency(user.currency, totalOut.toFixed(2));
+  balanceInterest.innerText = addCurrency(
+    user.currency,
+    totalInterest.toFixed(2)
+  );
 }
 
-function addCurrency(user, sum) {
-  if (user.locale == "en-US") {
+function addCurrency(currency, sum) {
+  if (currency == "USD") {
     return sum > 0 ? `$${sum}` : `-$${Math.abs(sum)}`;
   } else {
     return `${sum}€`;
@@ -277,8 +320,11 @@ function showMovements(user, isDescending) {
     movementEntry.innerHTML = `
     <p class="movements__type ${entry[1] > 0 ? "bg-green" : "bg-red"}">
     ${index + 1} ${entry[1] > 0 ? "Deposit" : "Withdrawal"}</p>
-    <p class="movements__date">${formatDate(user, new Date(entry[0]))}</p>
-    <p class="movements__value">${addCurrency(user, entry[1])}</p>`;
+    <p class="movements__date">${formatDate(
+      user.locale,
+      new Date(entry[0])
+    )}</p>
+    <p class="movements__value">${addCurrency(user.currency, entry[1])}</p>`;
 
     movementsWrapper.append(movementEntry);
   });
@@ -338,12 +384,31 @@ function moneyTransfer(to, ammount) {
   user.movementsDates.push(new Date().toISOString());
 }
 
-function moneyLoan(ammount) {
-  if (ammount > 50_000 || ammount <= 0 || ammount < 1000 || isNaN(ammount))
+function moneyLoan(from, ammount) {
+  const loanFrom = accounts.find((f) => f.login === from);
+
+  if (
+    ammount <= 0 ||
+    isNaN(ammount) ||
+    loanFrom == undefined ||
+    loanFrom == user
+  )
     return;
 
-  user.movements.push(ammount);
-  user.movementsDates.push(new Date().toISOString());
+  loanFrom.incomingRequests.push({
+    from: user.login,
+    ammount,
+    currency: user.currency,
+    date: new Date().toISOString(),
+  });
+
+  user.sentRequests.push({
+    to: from,
+    ammount,
+    currency: user.currency,
+    date: new Date().toISOString(),
+    status: "Sent",
+  });
 }
 
 function closeAccount() {
@@ -394,4 +459,101 @@ function transactMoney(callback, timeout, ...args) {
     callback(...args);
     updateUI(user);
   }, timeout);
+}
+
+function showRequests(user) {
+  sortRequests(user.incomingRequests);
+  sortRequests(user.sentRequests);
+
+  renderIncomingRequests(user);
+  renderSentRequests(user);
+}
+
+function sortRequests(requests) {
+  return requests.sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+function renderIncomingRequests({
+  locale,
+  currency,
+  incomingRequests: requests,
+}) {
+  const incRequests = document.querySelector(".requests_inc");
+  incRequests.innerHTML = "";
+
+  if (requests.length == 0) {
+    const requestEntry = document.createElement("div");
+
+    requestEntry.className = "requests__entry  requests__entry_empty";
+    requestEntry.innerText = "You've got no requests";
+
+    incRequests.append(requestEntry);
+    return;
+  }
+
+  requests.forEach((request) => {
+    const requestEntry = document.createElement("div");
+
+    requestEntry.className = "requests__entry";
+
+    requestEntry.innerHTML = `
+    <div class="requests__info">
+      <div class="requests__block">
+        <div class="requests__ammount">${addCurrency(
+          currency,
+          request.ammount
+        )}</div>
+        <div class="requests__from">From: ${request.from}</div>
+      </div>
+      <div class="requests__date">${formatDate(
+        locale,
+        new Date(request.date)
+      )}</div>
+    </div>
+    <div class="requests__controls">
+      <button class="btn btn_request bg-green">Accept</button>
+      <button class="btn btn_request bg-red c-">Decline</button>
+    </div>`;
+
+    incRequests.append(requestEntry);
+  });
+}
+
+function renderSentRequests({ locale, currency, sentRequests: requests }) {
+  const sentRequests = document.querySelector(".requests_sent");
+  sentRequests.innerHTML = "";
+
+  if (requests.length == 0) {
+    const requestEntry = document.createElement("div");
+
+    requestEntry.className = "requests__entry  requests__entry_empty";
+    requestEntry.innerText = "You've got no requests";
+
+    incRequests.append(requestEntry);
+    return;
+  }
+
+  requests.forEach((request) => {
+    const requestEntry = document.createElement("div");
+
+    requestEntry.className = "requests__entry";
+
+    requestEntry.innerHTML = `
+    <div class="requests__info">
+      <div class="requests__block">
+        <div class="requests__ammount">${addCurrency(
+          currency,
+          request.ammount
+        )}</div>
+        <div class="requests__from">From: ${request.to}</div>
+      </div>
+      <div class="requests__date">${formatDate(
+        locale,
+        new Date(request.date)
+      )}</div>
+    </div>
+    <div class="requests__status">${request.status}</div>`;
+
+    sentRequests.append(requestEntry);
+  });
 }

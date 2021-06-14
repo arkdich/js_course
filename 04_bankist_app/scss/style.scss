@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap");
-@import "_utilities.scss";
+@import "_variables.scss";
 
 * {
   box-sizing: border-box;
@@ -229,4 +229,73 @@ body.hidden {
   }
 }
 
+.requests {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+
+  &__col {
+    flex: 1;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  &__body {
+  }
+
+  &__entry {
+    margin: 5px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+  }
+
+  &__block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(250, 250, 250);
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  &__ammount {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  &__from {
+    margin-top: 2.5px;
+  }
+
+  &__date {
+    @extend .movements__date;
+    margin-right: none;
+    margin-left: 10px;
+  }
+
+  &__controls {
+  }
+
+  &__status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: rgb(250, 250, 250);
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@import "_utilities.scss";
 @import "_media.scss";

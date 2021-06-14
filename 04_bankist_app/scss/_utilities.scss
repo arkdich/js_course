@@ -11,12 +11,6 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
-//COLORS
-$main-color: #f3f3f3;
-$green-color: linear-gradient(to top left, #39b385, #9be15d);
-$red-color: linear-gradient(to top left, #e52a5a, #ff585f);
-$orange-color: linear-gradient(to top left, #ffb003, #ffcb03);
-
 //UTILITIES
 .c-green {
   color: #66c873;
@@ -69,4 +63,18 @@ $orange-color: linear-gradient(to top left, #ffb003, #ffcb03);
     font-weight: 500;
     opacity: 0.8;
   }
+
+  &_request {
+    padding: 5px 10px;
+    font-size: 17px;
+    color: #fff;
+    opacity: 0.9;
+    box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.requests__entry_empty {
+  justify-content: center;
+  padding: 20px;
+  font-size: 17px;
 }
