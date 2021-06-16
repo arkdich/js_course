@@ -1,559 +1,109 @@
-"use strict";
+import { isSorted, currentUser } from './globalVar.js';
+import { sortRequests } from './requests.js';
+import { showMovements } from './movements.js';
+import { clearOperationsUI, updateUI } from './functionsUI.js';
+import { acceptRequest, declineRequest } from './requestsControls.js';
+import { logInUser, logOutUser } from './userLogging.js';
+import {
+  transactMoney,
+  moneyTransfer,
+  moneyLoan,
+  closeAccount,
+} from './operations.js';
 
-const account1 = {
-  owner: "Jonas Schmedtmann",
-  login: "jonas",
-  pin: 1111,
-  interestRate: 1.2,
-  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
-  movementsDates: [
-    "2019-11-18T21:31:17.178Z",
-    "2019-12-23T07:42:02.383Z",
-    "2020-01-28T09:15:04.904Z",
-    "2020-04-01T10:17:24.185Z",
-    "2020-05-08T14:11:59.604Z",
-    "2020-07-26T17:01:17.194Z",
-    "2020-07-28T23:36:17.929Z",
-    "2020-08-01T10:51:36.790Z",
-  ],
-  incomingRequests: [],
-  sentRequests: [
-    {
-      to: "jess",
-      ammount: 1000,
-      currency: "EUR",
-      date: "2021-06-12T12:01:20.894Z",
-      status: "Sent",
-    },
-  ],
-  currency: "EUR",
-  locale: "pt-PT",
-};
+const btnLog = document.querySelector('.btn_header');
+const btnTrans = document.querySelector('.btn_trans');
+const btnLoan = document.querySelector('.btn_loan');
+const btnClose = document.querySelector('.btn_close');
+const btnSort = document.querySelector('.btn_sort');
 
-const account2 = {
-  owner: "Jessica Davis",
-  login: "jess",
-  pin: 2222,
-  interestRate: 1.5,
-  movements: [5000, -150, -790, -1000, 8500, -30],
-  movementsDates: [
-    "2019-11-01T13:15:33.035Z",
-    "2019-12-25T06:04:23.907Z",
-    "2020-01-25T14:18:46.235Z",
-    "2020-04-10T14:43:26.374Z",
-    "2020-06-25T18:49:59.371Z",
-    "2020-07-26T12:01:20.894Z",
-  ],
-  incomingRequests: [
-    {
-      from: "jonas",
-      ammount: 1000,
-      currency: "EUR",
-      date: "2021-06-12T12:01:20.894Z",
-    },
-  ],
-  sentRequests: [
-    {
-      to: "jonas",
-      ammount: 1000,
-      currency: "USD",
-      date: "2020-05-08T14:11:59.604Z",
-      status: "Fullfilled",
-    },
-    {
-      to: "jonas",
-      ammount: 5000,
-      currency: "USD",
-      date: "2020-06-12T14:11:59.604Z",
-      status: "Declined",
-    },
-  ],
-  currency: "USD",
-  locale: "en-US",
-};
+const labelLogOut = document.querySelector('.timer__log-out');
 
-const accounts = [account1, account2];
+const requestsCont = document.querySelector('.requests_inc');
 
-let user;
-let totalBalance;
-let isSorted = false;
-let timerIntId;
+requestsCont.addEventListener('click', (ev) => {
+  const requestEntry = ev.target.parentElement.parentElement;
 
-const btnLog = document.querySelector(".btn_header");
-const btnTrans = document.querySelector(".btn_trans");
-const btnLoan = document.querySelector(".btn_loan");
-const btnClose = document.querySelector(".btn_close");
-const btnSort = document.querySelector(".btn_sort");
+  const entryID = Array.from(requestsCont.children).indexOf(requestEntry);
 
-const labelLogOut = document.querySelector(".timer__log-out");
+  const requestObj = sortRequests(currentUser.incomingRequests)[entryID];
 
-document.body.addEventListener("keydown", checkKey);
+  if (requestObj === undefined) return;
 
-btnLog.addEventListener("click", () => {
+  if (ev.target.classList.contains('bg-green')) {
+    acceptRequest(currentUser, requestObj, entryID);
+  } else {
+    declineRequest(currentUser, requestObj, entryID);
+    updateUI(currentUser);
+    return;
+  }
+
+  transactMoney(moneyTransfer, 0, requestObj.from, requestObj.ammount);
+});
+
+document.body.addEventListener('keydown', checkKey);
+
+btnLog.addEventListener('click', () => {
   setTimeout(() => {
     logInUser();
   }, 1000);
 });
 
-btnTrans.addEventListener("click", () => {
-  const transLogin = document.querySelector(".operation__transfer_login").value;
-  const transValue = +document.querySelector(".operation__transfer_ammount")
+btnTrans.addEventListener('click', () => {
+  const transLogin = document.querySelector('.operation__transfer_login').value;
+  const transValue = +document.querySelector('.operation__transfer_ammount')
     .value;
 
-  transactMoney(moneyTransfer, transValue * 0.2, transLogin, transValue);
+  transactMoney(
+    moneyTransfer,
+    transValue * 0.2,
+    currentUser,
+    transLogin,
+    transValue
+  );
   clearOperationsUI();
-  updateUI(user);
+  updateUI(currentUser);
 });
 
-btnLoan.addEventListener("click", () => {
-  const loanLogin = document.querySelector(".operation__loan_login").value;
-  const loanValue = +document.querySelector(".operation__loan_ammount").value;
+btnLoan.addEventListener('click', () => {
+  const loanLogin = document.querySelector('.operation__loan_login').value;
+  const loanValue = +document.querySelector('.operation__loan_ammount').value;
 
   transactMoney(moneyLoan, loanValue * 0.2, loanLogin, loanValue);
   clearOperationsUI();
-  updateUI(user);
+  updateUI(currentUser);
 });
 
-btnClose.addEventListener("click", () => {
+btnClose.addEventListener('click', () => {
   setTimeout(() => {
     closeAccount();
     clearOperationsUI();
-    logOutUser(user);
+    logOutUser();
   }, 1000);
 });
 
-btnSort.addEventListener("click", () => {
-  showMovements(user, isSorted == true ? false : true);
+btnSort.addEventListener('click', () => {
+  showMovements(currentUser, isSorted !== true);
 });
 
-labelLogOut.addEventListener("click", () => {
+labelLogOut.addEventListener('click', () => {
   setTimeout(() => {
-    logOutUser(user);
+    logOutUser();
   }, 1000);
 });
-
-logInUser();
-
-function logInUser() {
-  const userLogin = document.querySelector(".header__input_login").value;
-  const userPin = +document.querySelector(".header__input_pin").value;
-
-  // user = accounts.find(
-  //   (entry) => entry.login === userLogin && entry.pin === userPin
-  // );
-
-  user = accounts[1];
-
-  if (user == undefined) return;
-
-  toggleUI();
-  updateHeaderUI(user);
-  updateUI(user);
-  setLogOutTimer(9, 59);
-}
-
-function toggleUI() {
-  document.body.classList.toggle("hidden");
-}
-
-function updateHeaderUI(user) {
-  const headerTitle = document.querySelector(".header__title");
-  const logLogin = document.querySelector(".header__input_login");
-  const logPin = document.querySelector(".header__input_pin");
-
-  logLogin.value = logPin.value = "";
-  logPin.blur();
-
-  if (user == undefined) {
-    headerTitle.innerText = "Log in to get started";
-    return;
-  }
-
-  const userName = user.owner.split(" ")[0];
-  headerTitle.innerText = `Welcome back, ${userName}`;
-}
-
-function clearOperationsUI() {
-  const trasferLogin = document.querySelector(".operation__transfer_login");
-  const transferAmmount = document.querySelector(
-    ".operation__transfer_ammount"
-  );
-  const loanLogin = document.querySelector(".operation__loan_login");
-  const loanAmmount = document.querySelector(".operation__loan_ammount");
-  const closeLogin = document.querySelector(".operation__close_login");
-  const closePin = document.querySelector(".operation__close_pin");
-
-  trasferLogin.value =
-    transferAmmount.value =
-    loanLogin.value =
-    loanAmmount.value =
-    closeLogin.value =
-    closePin.value =
-      "";
-
-  transferAmmount.blur();
-  loanAmmount.blur();
-  closePin.blur();
-}
-
-function updateUI(user) {
-  updateDateAndTime(user);
-  updateBalance(user);
-  showMovements(user, false);
-  showRequests(user);
-}
-
-function updateDateAndTime(user) {
-  const labelDate = document.querySelector(".date");
-
-  const currentDate = new Date();
-
-  const dateStr = formatDate(user.locale, currentDate);
-  const timeStr = formatTime(user.locale, currentDate);
-
-  labelDate.innerText = `${dateStr}, ${timeStr}`;
-}
-
-function formatDate(locale, currDate) {
-  const date = currDate.getDate();
-  const month = currDate.getMonth() + 1;
-  const year = currDate.getFullYear();
-
-  let dateStr;
-
-  const dateAndMonth = [
-    date < 10 ? "0" + date : date,
-    month + 1 < 10 ? "0" + month : month,
-  ];
-
-  if (locale !== "en-US") {
-    dateStr = dateAndMonth[0] + "/" + dateAndMonth[1];
-  } else {
-    dateStr = dateAndMonth[1] + "/" + dateAndMonth[0];
-  }
-
-  dateStr += `/${year}`;
-
-  return dateStr;
-}
-
-function formatTime(locale, date) {
-  let timeStr;
-
-  const dateHours = date.getHours();
-  const dateMins = date.getMinutes();
-
-  if (locale != "en-US") {
-    timeStr = `${dateHours < 10 ? "0" + dateHours : dateHours}`;
-  } else {
-    timeStr = `${dateHours % 12}`;
-  }
-
-  timeStr += `:${dateMins < 10 ? "0" + dateMins : dateMins}`;
-
-  if (locale == "en-US") {
-    timeStr += dateHours < 12 ? " AM" : " PM";
-  }
-
-  return timeStr;
-}
-
-function updateBalance(user) {
-  const balanceValue = document.querySelector(".balance__value");
-  const balanceIn = document.querySelector(".summary__in");
-  const balanceOut = document.querySelector(".summary__out");
-  const balanceInterest = document.querySelector(".summary__interest");
-
-  let totalIn = 0;
-  let totalOut = 0;
-  let totalInterest;
-
-  totalBalance = user.movements.reduce((prev, curr) => {
-    prev += curr;
-    return prev;
-  });
-
-  user.movements.forEach((value) => {
-    if (value > 0) {
-      totalIn += value;
-    } else {
-      totalOut += Math.abs(value);
-    }
-  });
-
-  totalInterest = (totalIn * user.interestRate) / 100;
-
-  balanceValue.innerText = addCurrency(user.currency, totalBalance.toFixed(2));
-  balanceIn.innerText = addCurrency(user.currency, totalIn.toFixed(2));
-  balanceOut.innerText = addCurrency(user.currency, totalOut.toFixed(2));
-  balanceInterest.innerText = addCurrency(
-    user.currency,
-    totalInterest.toFixed(2)
-  );
-}
-
-function addCurrency(currency, sum) {
-  if (currency == "USD") {
-    return sum > 0 ? `$${sum}` : `-$${Math.abs(sum)}`;
-  } else {
-    return `${sum}€`;
-  }
-}
-
-function showMovements(user, isDescending) {
-  const movementsWrapper = document.querySelector(".movements");
-
-  movementsWrapper.innerHTML = "";
-
-  const movementsMap = new Map();
-
-  for (let i = 0; i < user.movements.length; i++) {
-    movementsMap.set(user.movementsDates[i], user.movements[i]);
-  }
-
-  const sortedMovements = sortMovements(movementsMap, isDescending);
-
-  sortedMovements.forEach((entry, index) => {
-    const movementEntry = document.createElement("div");
-
-    movementEntry.className = "movements__entry";
-    movementEntry.innerHTML = `
-    <p class="movements__type ${entry[1] > 0 ? "bg-green" : "bg-red"}">
-    ${index + 1} ${entry[1] > 0 ? "Deposit" : "Withdrawal"}</p>
-    <p class="movements__date">${formatDate(
-      user.locale,
-      new Date(entry[0])
-    )}</p>
-    <p class="movements__value">${addCurrency(user.currency, entry[1])}</p>`;
-
-    movementsWrapper.append(movementEntry);
-  });
-}
-
-function sortMovements(movements, isDescending) {
-  const movementsArr = Array.from(movements);
-
-  if (!isDescending) {
-    isSorted = false;
-    movementsArr.sort((a, b) => {
-      return new Date(b[0]) - new Date(a[0]);
-    });
-  } else {
-    isSorted = true;
-    movementsArr.sort((a, b) => {
-      return b[1] - a[1];
-    });
-  }
-
-  return movementsArr;
-}
 
 function checkKey(ev) {
-  if (ev.key !== "Enter") return;
+  if (ev.key !== 'Enter') return;
 
-  if (ev.target.parentElement.classList.contains("header__form")) {
+  if (ev.target.parentElement.classList.contains('header__form')) {
     btnLog.click();
   } else if (
-    ev.target.parentElement.classList.contains("operation__transfer")
+    ev.target.parentElement.classList.contains('operation__transfer')
   ) {
     btnTrans.click();
-  } else if (ev.target.parentElement.classList.contains("operation__loan")) {
+  } else if (ev.target.parentElement.classList.contains('operation__loan')) {
     btnLoan.click();
-  } else if (ev.target.parentElement.classList.contains("operation__close")) {
+  } else if (ev.target.parentElement.classList.contains('operation__close')) {
     btnClose.click();
   }
-}
-
-function moneyTransfer(to, ammount) {
-  const recipient = accounts.find((r) => r.login === to);
-
-  if (
-    recipient === undefined ||
-    recipient === user ||
-    totalBalance - ammount < 0 ||
-    ammount < 0 ||
-    ammount < 1 ||
-    isNaN(ammount)
-  )
-    return;
-
-  recipient.movements.push(ammount);
-  recipient.movementsDates.push(new Date().toISOString());
-
-  user.movements.push(-ammount);
-  user.movementsDates.push(new Date().toISOString());
-}
-
-function moneyLoan(from, ammount) {
-  const loanFrom = accounts.find((f) => f.login === from);
-
-  if (
-    ammount <= 0 ||
-    isNaN(ammount) ||
-    loanFrom == undefined ||
-    loanFrom == user
-  )
-    return;
-
-  loanFrom.incomingRequests.push({
-    from: user.login,
-    ammount,
-    currency: user.currency,
-    date: new Date().toISOString(),
-  });
-
-  user.sentRequests.push({
-    to: from,
-    ammount,
-    currency: user.currency,
-    date: new Date().toISOString(),
-    status: "Sent",
-  });
-}
-
-function closeAccount() {
-  const closeLogin = document.querySelector(".operation__close_login").value;
-  const closePin = +document.querySelector(".operation__close_pin").value;
-
-  if (closeLogin !== user.login || closePin !== user.pin) return;
-
-  accounts.splice(accounts.indexOf(user), 1);
-}
-
-function setLogOutTimer(timeMin, timeSec) {
-  const labelTime = document.querySelector(".timer__time");
-
-  labelTime.innerText = `${timeMin < 10 ? "0" + timeMin : timeMin}:${
-    timeSec < 10 ? "0" + timeSec : timeSec
-  }`;
-
-  timerIntId = setInterval(() => {
-    if (timeMin == 0 && timeSec == 0) {
-      logOutUser(user);
-      return;
-    }
-
-    if (timeSec === 0) {
-      timeSec = 59;
-      timeMin -= 1;
-    } else {
-      timeSec -= 1;
-    }
-
-    labelTime.innerText = `${timeMin < 10 ? "0" + timeMin : timeMin}:${
-      timeSec < 10 ? "0" + timeSec : timeSec
-    }`;
-  }, 1000);
-}
-
-function logOutUser(user) {
-  clearInterval(timerIntId);
-  user = undefined;
-  toggleUI();
-  clearOperationsUI();
-  updateHeaderUI(user);
-}
-
-function transactMoney(callback, timeout, ...args) {
-  setTimeout(() => {
-    callback(...args);
-    updateUI(user);
-  }, timeout);
-}
-
-function showRequests(user) {
-  sortRequests(user.incomingRequests);
-  sortRequests(user.sentRequests);
-
-  renderIncomingRequests(user);
-  renderSentRequests(user);
-}
-
-function sortRequests(requests) {
-  return requests.sort((a, b) => new Date(b.date) - new Date(a.date));
-}
-
-function renderIncomingRequests({
-  locale,
-  currency,
-  incomingRequests: requests,
-}) {
-  const incRequests = document.querySelector(".requests_inc");
-  incRequests.innerHTML = "";
-
-  if (requests.length == 0) {
-    const requestEntry = document.createElement("div");
-
-    requestEntry.className = "requests__entry  requests__entry_empty";
-    requestEntry.innerText = "You've got no requests";
-
-    incRequests.append(requestEntry);
-    return;
-  }
-
-  requests.forEach((request) => {
-    const requestEntry = document.createElement("div");
-
-    requestEntry.className = "requests__entry";
-
-    requestEntry.innerHTML = `
-    <div class="requests__info">
-      <div class="requests__block">
-        <div class="requests__ammount">${addCurrency(
-          currency,
-          request.ammount
-        )}</div>
-        <div class="requests__from">From: ${request.from}</div>
-      </div>
-      <div class="requests__date">${formatDate(
-        locale,
-        new Date(request.date)
-      )}</div>
-    </div>
-    <div class="requests__controls">
-      <button class="btn btn_request bg-green">Accept</button>
-      <button class="btn btn_request bg-red c-">Decline</button>
-    </div>`;
-
-    incRequests.append(requestEntry);
-  });
-}
-
-function renderSentRequests({ locale, currency, sentRequests: requests }) {
-  const sentRequests = document.querySelector(".requests_sent");
-  sentRequests.innerHTML = "";
-
-  if (requests.length == 0) {
-    const requestEntry = document.createElement("div");
-
-    requestEntry.className = "requests__entry  requests__entry_empty";
-    requestEntry.innerText = "You've got no requests";
-
-    incRequests.append(requestEntry);
-    return;
-  }
-
-  requests.forEach((request) => {
-    const requestEntry = document.createElement("div");
-
-    requestEntry.className = "requests__entry";
-
-    requestEntry.innerHTML = `
-    <div class="requests__info">
-      <div class="requests__block">
-        <div class="requests__ammount">${addCurrency(
-          currency,
-          request.ammount
-        )}</div>
-        <div class="requests__from">From: ${request.to}</div>
-      </div>
-      <div class="requests__date">${formatDate(
-        locale,
-        new Date(request.date)
-      )}</div>
-    </div>
-    <div class="requests__status">${request.status}</div>`;
-
-    sentRequests.append(requestEntry);
-  });
 }
