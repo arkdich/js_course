@@ -7,7 +7,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -65,11 +65,13 @@ input[type="number"] {
   }
 
   &_request {
+    font-family: inherit;
+    font-weight: 300;
+    border-radius: 5px;
     padding: 5px 10px;
-    font-size: 17px;
+    font-size: 16px;
     color: #fff;
-    opacity: 0.9;
-    box-shadow: 2px 2px 4px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
   }
 }
 

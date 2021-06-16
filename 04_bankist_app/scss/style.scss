@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap");
-@import "_variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&display=swap');
+@import '_variables.scss';
 
 * {
   box-sizing: border-box;
@@ -8,11 +8,11 @@
 }
 
 body {
-  font-family: "Mulish", sans-serif;
+  font-family: 'Mulish', sans-serif;
   min-height: 100vh;
   background-color: $main-color;
   color: #444;
-  padding: 20px;
+  padding: 10px;
 }
 
 body.hidden {
@@ -147,7 +147,7 @@ body.hidden {
 }
 
 .movements {
-  height: 500px;
+  max-height: 500px;
   margin: 10px 0px;
   overflow-y: auto;
 
@@ -172,6 +172,7 @@ body.hidden {
     text-transform: uppercase;
     font-size: 10px;
     margin-right: 10px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
   }
 
   &__date {
@@ -237,18 +238,12 @@ body.hidden {
 
   &__col {
     flex: 1;
-
-    &:last-of-type {
-      margin-top: 10px;
-    }
+    margin-top: 10px;
   }
 
   &__title {
     text-align: center;
     margin-bottom: 10px;
-  }
-
-  &__body {
   }
 
   &__entry {
@@ -275,7 +270,7 @@ body.hidden {
     border-radius: 5px;
   }
 
-  &__ammount {
+  &__amount {
     font-size: 17px;
     font-weight: 600;
   }
@@ -290,15 +285,14 @@ body.hidden {
     margin-left: 10px;
   }
 
-  &__controls {
-  }
-
   &__status {
+    font-weight: 300;
     padding: 5px 10px;
     border-radius: 5px;
-    background-color: #666;
+    background-color: transparentize(#ffb003, 0.2);
     color: #fff;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
   }
 }
 
-@import "_utilities.scss", "_media.scss";
+@import '_utilities.scss', '_media.scss';

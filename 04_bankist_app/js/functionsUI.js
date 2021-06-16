@@ -31,24 +31,22 @@ export function updateHeaderUI(user) {
 
 export function clearOperationsUI() {
   const trasferLogin = document.querySelector('.operation__transfer_login');
-  const transferAmmount = document.querySelector(
-    '.operation__transfer_ammount'
-  );
+  const transferamount = document.querySelector('.operation__transfer_amount');
   const loanLogin = document.querySelector('.operation__loan_login');
-  const loanAmmount = document.querySelector('.operation__loan_ammount');
+  const loanamount = document.querySelector('.operation__loan_amount');
   const closeLogin = document.querySelector('.operation__close_login');
   const closePin = document.querySelector('.operation__close_pin');
 
   trasferLogin.value =
-    transferAmmount.value =
+    transferamount.value =
     loanLogin.value =
-    loanAmmount.value =
+    loanamount.value =
     closeLogin.value =
     closePin.value =
       '';
 
-  transferAmmount.blur();
-  loanAmmount.blur();
+  transferamount.blur();
+  loanamount.blur();
   closePin.blur();
 }
 
@@ -91,14 +89,8 @@ export function updateBalance(user) {
 
   const totalInterest = (totalIn * user.interestRate) / 100;
 
-  balanceValue.innerText = formatCurrency(
-    user.currency,
-    totalBalance.toFixed(2)
-  );
-  balanceIn.innerText = formatCurrency(user.currency, totalIn.toFixed(2));
-  balanceOut.innerText = formatCurrency(user.currency, totalOut.toFixed(2));
-  balanceInterest.innerText = formatCurrency(
-    user.currency,
-    totalInterest.toFixed(2)
-  );
+  balanceValue.innerText = formatCurrency(user.currency, totalBalance);
+  balanceIn.innerText = formatCurrency(user.currency, totalIn);
+  balanceOut.innerText = formatCurrency(user.currency, totalOut);
+  balanceInterest.innerText = formatCurrency(user.currency, totalInterest);
 }

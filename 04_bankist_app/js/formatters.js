@@ -41,10 +41,23 @@ export function formatTime(locale, date) {
 
 export function formatCurrency(currency, sum) {
   if (currency === 'USD') {
-    return sum > 0 ? `$${sum}` : `-$${Math.abs(sum)}`;
+    return sum > 0 ? `$${sum.toFixed(2)}` : `-$${Math.abs(sum).toFixed(2)}`;
   }
 
-  return `${sum}€`;
+  return `${sum.toFixed(2)}€`;
+}
+
+export async function convertCurrency(amount, from) {
+  const API_URL =
+    'https://openexchangerates.org/api/latest.json?app_id=e879d3cc2b214bc38c15d990ab264302';
+  const req = await fetch(API_URL);
+  const date = await req.json();
+
+  const convRate = date.rates.EUR;
+
+  const converted = from === 'USD' ? amount * convRate : amount / convRate;
+
+  return converted;
 }
 
 export function getTotalBalance(movements) {

@@ -22,8 +22,6 @@ export function logInUser() {
 
   setCurrentUser(acc);
 
-  // user = accounts[1];
-
   if (user === undefined) return;
 
   toggleUI();

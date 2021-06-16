@@ -18,21 +18,21 @@ const account1 = {
   sentRequests: [
     {
       to: 'jess',
-      ammount: 1000,
+      amount: 1000,
       currency: 'EUR',
       date: '2021-06-12T12:01:20.894Z',
       status: 'Sent',
     },
     {
       to: 'jess',
-      ammount: 1000,
+      amount: 1000,
       currency: 'EUR',
       date: '2021-06-12T12:01:25.894Z',
       status: 'Sent',
     },
     {
       to: 'jess',
-      ammount: 4500,
+      amount: 4500,
       currency: 'EUR',
       date: '2020-06-12T12:01:25.894Z',
       status: 'Declined',
@@ -59,13 +59,13 @@ const account2 = {
   incomingRequests: [
     {
       from: 'jonas',
-      ammount: 1000,
+      amount: 1211.65,
       currency: 'EUR',
       date: '2021-06-12T12:01:20.894Z',
     },
     {
       from: 'jonas',
-      ammount: 1000,
+      amount: 1211.65,
       currency: 'EUR',
       date: '2021-06-12T12:01:25.894Z',
     },
@@ -73,14 +73,14 @@ const account2 = {
   sentRequests: [
     {
       to: 'jonas',
-      ammount: 1000,
+      amount: 1000,
       currency: 'USD',
       date: '2020-05-08T14:11:59.604Z',
       status: 'Fullfilled',
     },
     {
       to: 'jonas',
-      ammount: 5000,
+      amount: 5000,
       currency: 'USD',
       date: '2020-06-12T14:11:59.604Z',
       status: 'Declined',

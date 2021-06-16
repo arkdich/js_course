@@ -39,4 +39,12 @@
       font-size: 30px;
     }
   }
+
+  .requests {
+    &__controls {
+      display: grid;
+      grid-template-rows: repeat(2, 1fr);
+      gap: 5px;
+    }
+  }
 }

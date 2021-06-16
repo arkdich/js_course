@@ -38,9 +38,9 @@ export function renderIncomingRequests({
     requestEntry.innerHTML = `
       <div class="requests__info">
         <div class="requests__block">
-          <div class="requests__ammount">${formatCurrency(
+          <div class="requests__amount">${formatCurrency(
             currency,
-            request.ammount
+            request.amount
           )}</div>
           <div class="requests__from">From: ${request.from}</div>
         </div>
@@ -84,9 +84,9 @@ export function renderSentRequests({
     requestEntry.innerHTML = `
       <div class="requests__info">
         <div class="requests__block">
-          <div class="requests__ammount">${formatCurrency(
+          <div class="requests__amount">${formatCurrency(
             currency,
-            request.ammount
+            request.amount
           )}</div>
           <div class="requests__from">To: ${request.to}</div>
         </div>

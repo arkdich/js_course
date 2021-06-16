@@ -2,7 +2,7 @@ import accounts from './usersData.js';
 import { getTotalBalance } from './formatters.js';
 
 export function acceptRequest(user, reqObj, index) {
-  if (reqObj.ammount > getTotalBalance(user.movements)) return;
+  if (reqObj.amount > getTotalBalance(user.movements)) return;
 
   user.incomingRequests.splice(index, 1);
 

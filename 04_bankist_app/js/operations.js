@@ -1,56 +1,59 @@
 import accounts from './usersData.js';
 import { currentUser as user } from './globalVar.js';
-import { getTotalBalance } from './formatters.js';
+import { convertCurrency, getTotalBalance } from './formatters.js';
 import { updateUI } from './functionsUI.js';
 
 export function transactMoney(callback, timeout, ...args) {
   setTimeout(() => {
-    callback(...args);
-    updateUI(user);
+    callback(...args).then(() => updateUI(user));
   }, timeout);
 }
 
-export function moneyTransfer(to, ammount) {
+export async function moneyTransfer(to, amount) {
   const recipient = accounts.find((r) => r.login === to);
 
   if (
     recipient === undefined ||
     recipient === user ||
-    getTotalBalance(user.movements) - ammount < 0 ||
-    ammount < 0 ||
-    ammount < 1 ||
-    isNaN(ammount)
+    getTotalBalance(user.movements) - amount < 0 ||
+    amount < 0 ||
+    amount < 1 ||
+    isNaN(amount)
   )
     return;
 
-  recipient.movements.push(ammount);
+  const amountConverted = await convertCurrency(amount, user.currency);
+
+  recipient.movements.push(amountConverted);
   recipient.movementsDates.push(new Date().toISOString());
 
-  user.movements.push(-ammount);
+  user.movements.push(amount * -1);
   user.movementsDates.push(new Date().toISOString());
 }
 
-export function moneyLoan(from, ammount) {
+export async function moneyLoan(from, amount) {
   const loanFrom = accounts.find((f) => f.login === from);
 
   if (
-    ammount <= 0 ||
-    isNaN(ammount) ||
+    amount <= 0 ||
+    isNaN(amount) ||
     loanFrom === undefined ||
     loanFrom === user
   )
     return;
 
+  const amountConverted = await convertCurrency(amount, user.currency);
+
   loanFrom.incomingRequests.push({
     from: user.login,
-    ammount,
+    amount: amountConverted,
     currency: user.currency,
     date: new Date().toISOString(),
   });
 
   user.sentRequests.push({
     to: from,
-    ammount,
+    amount,
     currency: user.currency,
     date: new Date().toISOString(),
     status: 'Sent',

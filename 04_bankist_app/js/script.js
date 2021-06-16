@@ -21,28 +21,6 @@ const labelLogOut = document.querySelector('.timer__log-out');
 
 const requestsCont = document.querySelector('.requests_inc');
 
-requestsCont.addEventListener('click', (ev) => {
-  const requestEntry = ev.target.parentElement.parentElement;
-
-  const entryID = Array.from(requestsCont.children).indexOf(requestEntry);
-
-  const requestObj = sortRequests(currentUser.incomingRequests)[entryID];
-
-  if (requestObj === undefined) return;
-
-  if (ev.target.classList.contains('bg-green')) {
-    acceptRequest(currentUser, requestObj, entryID);
-  } else {
-    declineRequest(currentUser, requestObj, entryID);
-    updateUI(currentUser);
-    return;
-  }
-
-  transactMoney(moneyTransfer, 0, requestObj.from, requestObj.ammount);
-});
-
-document.body.addEventListener('keydown', checkKey);
-
 btnLog.addEventListener('click', () => {
   setTimeout(() => {
     logInUser();
@@ -51,23 +29,17 @@ btnLog.addEventListener('click', () => {
 
 btnTrans.addEventListener('click', () => {
   const transLogin = document.querySelector('.operation__transfer_login').value;
-  const transValue = +document.querySelector('.operation__transfer_ammount')
+  const transValue = +document.querySelector('.operation__transfer_amount')
     .value;
 
-  transactMoney(
-    moneyTransfer,
-    transValue * 0.2,
-    currentUser,
-    transLogin,
-    transValue
-  );
+  transactMoney(moneyTransfer, transValue * 0.2, transLogin, transValue);
   clearOperationsUI();
   updateUI(currentUser);
 });
 
 btnLoan.addEventListener('click', () => {
   const loanLogin = document.querySelector('.operation__loan_login').value;
-  const loanValue = +document.querySelector('.operation__loan_ammount').value;
+  const loanValue = +document.querySelector('.operation__loan_amount').value;
 
   transactMoney(moneyLoan, loanValue * 0.2, loanLogin, loanValue);
   clearOperationsUI();
@@ -91,6 +63,30 @@ labelLogOut.addEventListener('click', () => {
     logOutUser();
   }, 1000);
 });
+
+requestsCont.addEventListener('click', (ev) => {
+  const requestEntry = ev.target.parentElement.parentElement;
+
+  const entryID = Array.from(requestsCont.children).indexOf(requestEntry);
+
+  const requestObj = sortRequests(currentUser.incomingRequests)[entryID];
+
+  if (requestObj === undefined) return;
+
+  if (ev.target.classList.contains('bg-green')) {
+    acceptRequest(currentUser, requestObj, entryID);
+  } else {
+    declineRequest(currentUser, requestObj, entryID);
+    updateUI(currentUser);
+    return;
+  }
+
+  const { amount, from } = requestObj;
+
+  transactMoney(moneyTransfer, amount * 0.2, from, amount);
+});
+
+document.body.addEventListener('keydown', checkKey);
 
 function checkKey(ev) {
   if (ev.key !== 'Enter') return;
