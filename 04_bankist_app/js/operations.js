@@ -1,7 +1,8 @@
 import accounts from './usersData.js';
 import { currentUser as user } from './globalVar.js';
 import { convertCurrency, getTotalBalance } from './formatters.js';
-import { updateUI } from './functionsUI.js';
+import { clearOperationsUI, updateUI } from './functionsUI.js';
+import { logOutUser } from './userLogging.js';
 
 export function transactMoney(callback, timeout, ...args) {
   setTimeout(() => {
@@ -22,6 +23,8 @@ export async function moneyTransfer(to, amount) {
   )
     return;
 
+  clearOperationsUI();
+
   const amountConverted = await convertCurrency(amount, user.currency);
 
   recipient.movements.push(amountConverted);
@@ -41,6 +44,8 @@ export async function moneyLoan(from, amount) {
     loanFrom === user
   )
     return;
+
+  clearOperationsUI();
 
   const amountConverted = await convertCurrency(amount, user.currency);
 
@@ -67,4 +72,6 @@ export function closeAccount() {
   if (closeLogin !== user.login || closePin !== user.pin) return;
 
   accounts.splice(accounts.indexOf(user), 1);
+
+  logOutUser();
 }

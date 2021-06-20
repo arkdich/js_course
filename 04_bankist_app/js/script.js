@@ -33,7 +33,6 @@ btnTrans.addEventListener('click', () => {
     .value;
 
   transactMoney(moneyTransfer, transValue * 0.2, transLogin, transValue);
-  clearOperationsUI();
   updateUI(currentUser);
 });
 
@@ -42,15 +41,12 @@ btnLoan.addEventListener('click', () => {
   const loanValue = +document.querySelector('.operation__loan_amount').value;
 
   transactMoney(moneyLoan, loanValue * 0.2, loanLogin, loanValue);
-  clearOperationsUI();
   updateUI(currentUser);
 });
 
 btnClose.addEventListener('click', () => {
   setTimeout(() => {
     closeAccount();
-    clearOperationsUI();
-    logOutUser();
   }, 1000);
 });
 
