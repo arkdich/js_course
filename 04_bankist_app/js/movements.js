@@ -25,10 +25,7 @@ export function showMovements(user, isDescending) {
         user.locale,
         new Date(entry[0])
       )}</p>
-      <p class="movements__value">${formatCurrency(
-        user.currency,
-        entry[1]
-      )}</p>`;
+      <p class="movements__value">${formatCurrency(user, entry[1])}</p>`;
 
     movementsWrapper.append(movementEntry);
   });

@@ -47,11 +47,9 @@ export async function moneyLoan(from, amount) {
 
   clearOperationsUI();
 
-  const amountConverted = await convertCurrency(amount, user.currency);
-
   loanFrom.incomingRequests.push({
     from: user.login,
-    amount: amountConverted,
+    amount,
     currency: user.currency,
     date: new Date().toISOString(),
   });
@@ -73,5 +71,6 @@ export function closeAccount() {
 
   accounts.splice(accounts.indexOf(user), 1);
 
+  clearOperationsUI();
   logOutUser();
 }

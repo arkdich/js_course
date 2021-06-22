@@ -1,6 +1,5 @@
 import {
-  formatDate,
-  formatTime,
+  formatDateAndTime,
   formatCurrency,
   getTotalBalance,
 } from './formatters.js';
@@ -60,12 +59,7 @@ export function updateUI(user) {
 export function updateDateAndTime(user) {
   const labelDate = document.querySelector('.date');
 
-  const currentDate = new Date();
-
-  const dateStr = formatDate(user.locale, currentDate);
-  const timeStr = formatTime(user.locale, currentDate);
-
-  labelDate.innerText = `${dateStr}, ${timeStr}`;
+  labelDate.innerText = formatDateAndTime(user.locale, new Date());
 }
 
 export function updateBalance(user) {
@@ -89,8 +83,8 @@ export function updateBalance(user) {
 
   const totalInterest = (totalIn * user.interestRate) / 100;
 
-  balanceValue.innerText = formatCurrency(user.currency, totalBalance);
-  balanceIn.innerText = formatCurrency(user.currency, totalIn);
-  balanceOut.innerText = formatCurrency(user.currency, totalOut);
-  balanceInterest.innerText = formatCurrency(user.currency, totalInterest);
+  balanceValue.innerText = formatCurrency(user, totalBalance);
+  balanceIn.innerText = formatCurrency(user, totalIn);
+  balanceOut.innerText = formatCurrency(user, totalOut);
+  balanceInterest.innerText = formatCurrency(user, totalInterest);
 }

@@ -1,7 +1,7 @@
 import { isSorted, currentUser } from './globalVar.js';
 import { sortRequests } from './requests.js';
 import { showMovements } from './movements.js';
-import { clearOperationsUI, updateUI } from './functionsUI.js';
+import { updateUI } from './functionsUI.js';
 import { acceptRequest, declineRequest } from './requestsControls.js';
 import { logInUser, logOutUser } from './userLogging.js';
 import {
@@ -10,6 +10,7 @@ import {
   moneyLoan,
   closeAccount,
 } from './operations.js';
+import { convertCurrency } from './formatters.js';
 
 const btnLog = document.querySelector('.btn_header');
 const btnTrans = document.querySelector('.btn_trans');
@@ -60,7 +61,7 @@ labelLogOut.addEventListener('click', () => {
   }, 1000);
 });
 
-requestsCont.addEventListener('click', (ev) => {
+requestsCont.addEventListener('click', async (ev) => {
   const requestEntry = ev.target.parentElement.parentElement;
 
   const entryID = Array.from(requestsCont.children).indexOf(requestEntry);
@@ -78,8 +79,9 @@ requestsCont.addEventListener('click', (ev) => {
   }
 
   const { amount, from } = requestObj;
+  const converted = await convertCurrency(amount, requestObj.currency);
 
-  transactMoney(moneyTransfer, amount * 0.2, from, amount);
+  transactMoney(moneyTransfer, amount * 0.2, from, converted);
 });
 
 document.body.addEventListener('keydown', checkKey);

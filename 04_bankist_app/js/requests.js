@@ -12,11 +12,7 @@ export function sortRequests(requests) {
   return requests.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
-export function renderIncomingRequests({
-  locale,
-  currency,
-  incomingRequests: requests,
-}) {
+export function renderIncomingRequests({ locale, incomingRequests: requests }) {
   const incRequests = document.querySelector('.requests_inc');
   incRequests.innerHTML = '';
 
@@ -35,11 +31,13 @@ export function renderIncomingRequests({
 
     requestEntry.className = 'requests__entry';
 
+    const { currency } = request;
+
     requestEntry.innerHTML = `
       <div class="requests__info">
         <div class="requests__block">
           <div class="requests__amount">${formatCurrency(
-            currency,
+            { locale, currency },
             request.amount
           )}</div>
           <div class="requests__from">From: ${request.from}</div>
@@ -85,7 +83,7 @@ export function renderSentRequests({
       <div class="requests__info">
         <div class="requests__block">
           <div class="requests__amount">${formatCurrency(
-            currency,
+            { locale, currency },
             request.amount
           )}</div>
           <div class="requests__from">To: ${request.to}</div>

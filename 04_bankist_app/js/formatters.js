@@ -1,50 +1,27 @@
 export function formatDate(locale, currDate) {
-  const date = currDate.getDate();
-  const month = currDate.getMonth() + 1;
-  const year = currDate.getFullYear();
-
-  let dateStr;
-
-  const dateAndMonth = [
-    date < 10 ? `0${date}` : date,
-    month + 1 < 10 ? `0${month}` : month,
-  ];
-
-  if (locale !== 'en-US') {
-    dateStr = `${dateAndMonth[0]}/${dateAndMonth[1]}`;
-  } else {
-    dateStr = `${dateAndMonth[1]}/${dateAndMonth[0]}`;
-  }
-
-  dateStr += `/${year}`;
-
-  return dateStr;
+  return Intl.DateTimeFormat(locale, {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric',
+  }).format(currDate);
 }
 
-export function formatTime(locale, date) {
-  const dateHours = date.getHours();
-  const dateMins = date.getMinutes();
-
-  let timeStr =
-    locale !== 'en-US'
-      ? `${dateHours < 10 ? `0${dateHours}` : dateHours}`
-      : `${dateHours % 12}`;
-
-  timeStr += `:${dateMins < 10 ? `0${dateMins}` : dateMins}`;
-
-  if (locale === 'en-US') {
-    timeStr += dateHours < 12 ? ' AM' : ' PM';
-  }
-
-  return timeStr;
+export function formatDateAndTime(locale, date) {
+  return Intl.DateTimeFormat(locale, {
+    weekday: 'short',
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(date);
 }
 
-export function formatCurrency(currency, sum) {
-  if (currency === 'USD') {
-    return sum > 0 ? `$${sum.toFixed(2)}` : `-$${Math.abs(sum).toFixed(2)}`;
-  }
-
-  return `${sum.toFixed(2)}€`;
+export function formatCurrency({ locale, currency }, value) {
+  return Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency,
+    maximumFractionDigits: 2,
+  }).format(value);
 }
 
 export async function convertCurrency(amount, from) {

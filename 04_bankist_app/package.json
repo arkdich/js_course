@@ -1,11 +1,11 @@
 {
   "name": "04_bankist_app",
   "version": "1.0.0",
-  "main": "js/script.js",
+  "main": "index.html",
   "scripts": {
     "start": "concurrently \" npm run server \" \" npm run watch \"",
     "server": "live-server",
-    "watch": "sass --watch --style=compressed scss:css"
+    "watch": "sass --watch scss:css"
   },
   "repository": {
     "type": "git",

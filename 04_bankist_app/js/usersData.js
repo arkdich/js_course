@@ -47,7 +47,7 @@ const account2 = {
   login: 'jess',
   pin: 2222,
   interestRate: 1.5,
-  movements: [5000, -150, -790, -1000, 8500, -30],
+  movements: [5000, -150.5, -790.98, -1000, 8500.22, -30],
   movementsDates: [
     '2019-11-01T13:15:33.035Z',
     '2019-12-25T06:04:23.907Z',
@@ -59,13 +59,13 @@ const account2 = {
   incomingRequests: [
     {
       from: 'jonas',
-      amount: 1211.65,
+      amount: 1000,
       currency: 'EUR',
       date: '2021-06-12T12:01:20.894Z',
     },
     {
       from: 'jonas',
-      amount: 1211.65,
+      amount: 1000,
       currency: 'EUR',
       date: '2021-06-12T12:01:25.894Z',
     },
