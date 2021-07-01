@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.html",
   "scripts": {
-    "start": "concurrently \" npm run server \" \" npm run watch \"",
+    "start": "concurrently \" npm run server \" \" npm run watchSass \"",
     "server": "live-server",
-    "watch": "sass --watch scss:css"
+    "watchSass": "npx sass scss:css --watch",
+    "prefix": "npx postcss css/style.css --dir css --use autoprefixer"
   },
   "repository": {
     "type": "git",
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/arkdich/js_course#readme",
   "description": "",
   "devDependencies": {
+    "autoprefixer": "^10.2.6",
     "eslint": "^7.28.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-node": "^4.1.0",
@@ -29,6 +31,14 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.3.1"
-  }
+    "postcss": "^8.3.5",
+    "postcss-cli": "^8.3.1",
+    "prettier": "^2.3.1",
+    "sass": "^1.35.1"
+  },
+  "browserslist": [
+    "defaults",
+    "not IE 11",
+    "maintained node versions"
+  ]
 }

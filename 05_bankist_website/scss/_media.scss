@@ -8,24 +8,80 @@
       align-self: flex-start;
     }
 
-    &__title {
-      // font-size: 4rem;
-    }
-
-    &__subtitle {
-    }
-
     &__col-img {
       align-self: flex-end;
-      // max-width: 400px;
+      max-width: 400px;
+    }
+  }
+}
+
+@media (max-width: 830px) {
+  .btn {
+    &_oper {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 0.8rem;
+    }
+
+    &_closing {
+      grid-column: 1 / span 2;
+      margin: auto;
+    }
+  }
+
+  .info {
+    &__buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 5px;
+    }
+
+    &__wrapper {
+      grid-template-columns: 1fr;
+      padding: 45px 20px 25px 20px;
+
+      &-active {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    &__icon {
+      display: none;
+    }
+
+    &__text {
+      grid-column: 1;
+    }
+  }
+
+  .slider {
+    &__row {
+      display: none;
+    }
+  }
+
+  .testimonial {
+    &__text {
+      -webkit-line-clamp: 4;
+    }
+
+    &__body {
+      width: 100%;
+    }
+
+    &__quote {
+      top: 35px;
+      font-size: 8rem;
+    }
+
+    &__dots {
+      margin-top: 20px;
     }
   }
 }
 
 @media (max-width: 700px) {
-  html {
-    // font-size: 14px;
-  }
   .navbar {
     padding: 10px 20px;
 
@@ -43,19 +99,12 @@
       padding: 30px;
     }
 
-    &__col-text {
-    }
-
     &__title {
       font-size: 1.8rem;
     }
 
     &__subtitle {
       font-size: 1.2rem;
-    }
-
-    &__col-img {
-      // max-width: 400px;
     }
   }
 
@@ -69,5 +118,25 @@
 
   .section {
     padding: 20px;
+  }
+
+  .modal {
+    padding: 30px;
+
+    &__title {
+      font-size: 1.6rem;
+    }
+
+    &__form {
+      padding: 0;
+    }
+  }
+}
+
+@media (max-height: 400px) {
+  .showcase {
+    &__col-img {
+      display: none;
+    }
   }
 }

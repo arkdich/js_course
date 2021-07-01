@@ -7,6 +7,26 @@
     <title>Bankist Website</title>
   </head>
   <body>
+    <div class="overlay hidden"></div>
+    <div class="modal hidden">
+      <button class="modal__close">&times;</button>
+      <h2 class="modal__title">
+        Open your bank account <br />
+        in just
+        <span class="text-highlight">5 minutes</span>
+      </h2>
+      <form action="" class="modal__form">
+        <label for="firstName" class="modal__label">First Name</label>
+        <input id="firstName" type="text" class="modal__input" />
+        <label for="lastName" class="modal__label">Last Name</label>
+        <input id="lastName" type="text" class="modal__input" />
+        <label for="email" class="modal__label">Email Adress</label>
+        <input id="email" type="email" class="modal__input" />
+        <button class="btn btn_loans modal__submit" type="submit">
+          Next step →
+        </button>
+      </form>
+    </div>
     <nav class="navbar">
       <div class="navbar__logo">
         <img class="navbar__img" src="img/logo.png" alt="Website Logo" />
@@ -21,9 +41,7 @@
         <li class="navbar__entry">
           <a href="#testimonials" class="navbar__link">Testimonials</a>
         </li>
-        <li class="navbar__entry">
-          <button class="btn bg_green">Open Account</button>
-        </li>
+        <button class="btn btn_open">Open Account</button>
       </ul>
       <button class="navbar__mobile">
         <div class="navbar__bar"></div>
@@ -45,69 +63,81 @@
         </div>
       </div>
     </section>
-    <main>
-      <section id="features" class="section">
-        <div class="section-header">
-          <h4 class="section-header__title">Features</h4>
-          <h2 class="section-header__text">
-            Everything you need in a modern bank and more
-          </h2>
+    <section id="features" class="section">
+      <div class="section-header">
+        <h4 class="section-header__title">Features</h4>
+        <h2 class="section-header__text">
+          Everything you need in a modern bank and more
+        </h2>
+      </div>
+      <div class="grid-items">
+        <img class="grid-items__img" src="img/digital.jpg" alt="" />
+        <div class="grid-items__block">
+          <div class="item-icon"></div>
+          <h3 class="h3 grid-items__title">100% digital bank</h3>
+          <p class="grid-items__text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Praesentium, voluptas eveniet harum aut omnis vero doloremque id
+            expedita. Maxime impedit, laborum ea ipsum ullam perspiciatis?
+          </p>
         </div>
-        <div class="grid-items">
-          <img class="grid-items__img" src="img/digital.jpg" alt="" />
-          <div class="grid-items__block">
-            <div class="item-icon"></div>
-            <h3 class="h3 grid-items__title">100% digital bank</h3>
-            <p class="grid-items__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Praesentium, voluptas eveniet harum aut omnis vero doloremque id
-              expedita. Maxime impedit, laborum ea ipsum ullam perspiciatis?
-            </p>
-          </div>
-          <div class="grid-items__block">
-            <div class="item-icon"></div>
-            <h3 class="h3 grid-items__title">Watch your money grow</h3>
-            <p class="grid-items__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime,
-              eum! Amet nisi accusantium possimus pariatur!
-            </p>
-          </div>
-          <img
-            class="grid-items__img grid-items__img_reverse"
-            src="img/grow.jpg"
-            alt=""
-          />
-          <img class="grid-items__img" src="img/card.jpg" alt="" />
-          <div class="grid-items__block">
-            <div class="item-icon"></div>
-            <h3 class="h3 grid-items__title">Free debit card included</h3>
-            <p class="grid-items__text">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui
-              veniam deserunt explicabo maiores magni maxime eius quaerat
-              accusamus. Ut, molestiae.
-            </p>
-          </div>
+        <div class="grid-items__block">
+          <div class="item-icon"></div>
+          <h3 class="h3 grid-items__title">Watch your money grow</h3>
+          <p class="grid-items__text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime,
+            eum! Amet nisi accusantium possimus pariatur!
+          </p>
         </div>
-      </section>
-      <section id="operations" class="section">
-        <div class="section-header">
-          <h4 class="section-header__title">Operations</h4>
-          <h2 class="section-header__text">
-            Everything you need in a modern bank and more
-          </h2>
+        <img
+          class="grid-items__img grid-items__img_reverse"
+          src="img/grow.jpg"
+          alt=""
+        />
+        <img class="grid-items__img" src="img/card.jpg" alt="" />
+        <div class="grid-items__block">
+          <div class="item-icon"></div>
+          <h3 class="h3 grid-items__title">Free debit card included</h3>
+          <p class="grid-items__text">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui veniam
+            deserunt explicabo maiores magni maxime eius quaerat accusamus. Ut,
+            molestiae.
+          </p>
         </div>
-        <div class="info">
-          <div class="info__buttons">
-            <button class="btn btn_oper bg_yellow btn_oper-active">
-              Instant Transfers
-            </button>
-            <button class="btn btn_oper bg_green">Instant Loans</button>
-            <button class="btn btn_oper bg_red">Instant Closing</button>
-          </div>
-          <div class="info__wrapper info__wrapper-active">
-            <div class="item-icon bg_yellow-op"></div>
+      </div>
+    </section>
+    <section id="operations" class="section">
+      <div class="section-header">
+        <h4 class="section-header__title">Operations</h4>
+        <h2 class="section-header__text">
+          Everything you need in a modern bank and more
+        </h2>
+      </div>
+      <div class="info">
+        <div class="info__buttons">
+          <button class="btn btn_oper btn_transf btn_oper-active">
+            Instant Transfers
+          </button>
+          <button class="btn btn_oper btn_loans">Instant Loans</button>
+          <button class="btn btn_oper btn_closing">Instant Closing</button>
+        </div>
+        <div class="info__wrapper info__wrapper-active">
+          <div class="info__icon bg_yellow-op"></div>
+          <h3 class="info__title">
+            Tranfser money to anyone, instantly! No fees, no BS.
+          </h3>
+          <p class="info__text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+            minus, corporis odio provident recusandae harum quidem minima
+            explicabo consequuntur, doloremque eos adipisci eaque eius iusto!
+            Perspiciatis debitis aspernatur similique quae.
+          </p>
+        </div>
+        <div class="info__wrapper">
+          <div class="info__icon bg_green-op"></div>
+          <div>
             <h3 class="info__title">
-              Tranfser money to anyone, instantly! No fees, no BS.
+              Buy a home or make your dreams come true, with instant loans.
             </h3>
             <p class="info__text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
@@ -116,37 +146,136 @@
               Perspiciatis debitis aspernatur similique quae.
             </p>
           </div>
-          <div class="info__wrapper">
-            <div class="item-icon bg_green-op"></div>
-            <div>
-              <h3 class="info__title">
-                Buy a home or make your dreams come true, with instant loans.
-              </h3>
-              <p class="info__text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-                minus, corporis odio provident recusandae harum quidem minima
-                explicabo consequuntur, doloremque eos adipisci eaque eius
-                iusto! Perspiciatis debitis aspernatur similique quae.
+        </div>
+        <div class="info__wrapper">
+          <div class="info__icon bg_red-op"></div>
+          <div>
+            <h3 class="info__title">
+              No longer need your account? No problem! Close it instantly.
+            </h3>
+            <p class="info__text">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+              minus, corporis odio provident recusandae harum quidem minima
+              explicabo consequuntur, doloremque eos adipisci eaque eius iusto!
+              Perspiciatis debitis aspernatur similique quae.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="testimonials" class="section">
+      <div class="section-header">
+        <h4 class="section-header__title">Not sure yet?</h4>
+        <h2 class="section-header__text">
+          Millions of Bankists are already making their lifes simpler
+        </h2>
+      </div>
+      <div class="slider">
+        <div class="slider__row slider__row_left">←</div>
+        <div class="testimonial">
+          <div class="testimonial__entry">
+            <div class="testimonial__body">
+              <div class="testimonial__quote">&#8220;</div>
+              <h3 class="testimonial__title">Best financial decision ever!</h3>
+              <p class="testimonial__text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Pariatur ex est, omnis alias sunt, cumque illum, saepe inventore
+                commodi aperiam minima reprehenderit! Animi eum nisi commodi
+                earum quo veritatis officia cum iste, illo culpa possimus enim
+                sequi praesentium molestias mollitia.
               </p>
+              <div class="testimonial__user">
+                <img src="img/user-1.jpg" alt="" class="testimonial__photo" />
+                <h3 class="testimonial__name">Arav Lynn</h3>
+                <p class="testimonial__location">San Francisco, USA</p>
+              </div>
             </div>
           </div>
-          <div class="info__wrapper">
-            <div class="item-icon bg_red-op"></div>
-            <div>
-              <h3 class="info__title">
-                No longer need your account? No problem! Close it instantly.
+          <div class="testimonial__entry">
+            <div class="testimonial__body">
+              <div class="testimonial__quote">&#8220;</div>
+              <h3 class="testimonial__title">
+                The last step to becoming a complete minimalist
               </h3>
-              <p class="info__text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-                minus, corporis odio provident recusandae harum quidem minima
-                explicabo consequuntur, doloremque eos adipisci eaque eius
-                iusto! Perspiciatis debitis aspernatur similique quae.
+              <p class="testimonial__text">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum
+                ex porro commodi esse iure dignissimos, id ab. Possimus porro
+                cupiditate vel provident expedita delectus unde vero quas
+                dolorum eaque fugiat, soluta nam dolor, impedit error.
               </p>
+              <div class="testimonial__user">
+                <img src="img/user-2.jpg" alt="" class="testimonial__photo" />
+                <h3 class="testimonial__name">Miyah Miles</h3>
+                <p class="testimonial__location">London, UK</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial__entry">
+            <div class="testimonial__body">
+              <div class="testimonial__quote">&#8220;</div>
+              <h3 class="testimonial__title">
+                Finally free from old-school banks
+              </h3>
+              <p class="testimonial__text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
+                recusandae aliquid consectetur iste delectus ut aperiam
+                excepturi natus itaque optio quo minus cum, ullam neque,
+                temporibus, magnam suscipit omnis possimus.
+              </p>
+              <div class="testimonial__user">
+                <img src="img/user-3.jpg" alt="" class="testimonial__photo" />
+                <h3 class="testimonial__name">Francisco Gomes</h3>
+                <p class="testimonial__location">Lisbon, Portugal</p>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </main>
-    <script src="js/script.js"></script>
+        <div class="slider__row slider__row_right">→</div>
+      </div>
+      <div class="testimonial__dots">
+        <div class="testimonial__dot"></div>
+        <div class="testimonial__dot"></div>
+        <div class="testimonial__dot"></div>
+      </div>
+    </section>
+    <section id="join">
+      <div class="big-floppa">
+        <h1 class="big-floppa__header">
+          The best day to join Bankist was yesterday. The second best one is
+          today!
+        </h1>
+        <button class="btn btn_loans big-floppa__btn">
+          Open your free account today!
+        </button>
+      </div>
+    </section>
+    <footer class="footer">
+      <ul class="footer__list">
+        <li class="footer__item"><a href="#" class="footer__link">About</a></li>
+        <li class="footer__item">
+          <a href="#" class="footer__link">Pricing</a>
+        </li>
+        <li class="footer__item">
+          <a href="#" class="footer__link">Terms of Use</a>
+        </li>
+        <li class="footer__item">
+          <a href="#" class="footer__link">Privacy Policy</a>
+        </li>
+        <li class="footer__item">
+          <a href="#" class="footer__link">Careers</a>
+        </li>
+        <li class="footer__item"><a href="#" class="footer__link">Blog</a></li>
+        <li class="footer__item">
+          <a href="#" class="footer__link">Contact Us</a>
+        </li>
+      </ul>
+      <p class="footer__copy">
+        &copy; Copyright by
+        <a href="https://twitter.com/jonasschmedtman" class="footer__link"
+          >Jonas Schmedtmann</a
+        >
+      </p>
+    </footer>
+    <script type="module" src="js/script.js"></script>
   </body>
 </html>

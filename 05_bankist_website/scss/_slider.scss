@@ -1,0 +1,127 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+.testimonial::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.testimonial {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.slider {
+  position: relative;
+  max-width: 1000px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+
+  &__row {
+    position: absolute;
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 50%;
+    background-color: #fff;
+    font-size: 30px;
+    opacity: 0.7;
+
+    &_left {
+      left: 0;
+    }
+
+    &_right {
+      right: 0;
+    }
+  }
+}
+
+.testimonial {
+  width: 100%;
+  min-height: 450px;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: scroll;
+  scroll-snap-type: x mandatory;
+
+  &__body {
+    width: 75%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 0.4fr 4fr;
+  }
+
+  &__entry {
+    flex-shrink: 0;
+    width: 100%;
+    scroll-snap-align: start;
+  }
+
+  &__title {
+    position: relative;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+
+  &__quote {
+    position: relative;
+    top: 20px;
+    font-size: 12rem;
+    color: $color-primary;
+    line-height: 0.1;
+    font-weight: 300;
+    grid-row: 1 / span 2;
+  }
+
+  &__text {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    line-height: 2;
+    font-size: 1.1rem;
+    font-weight: 300;
+    opacity: 0.8;
+  }
+
+  &__user {
+    width: fit-content;
+    margin-top: 20px;
+    margin-left: 20px;
+    display: grid;
+    grid-template-columns: 0.4fr 1fr;
+    column-gap: 20px;
+    grid-column: 2;
+  }
+
+  &__photo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    grid-row: 1 / span 2;
+  }
+
+  &__name {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  &__location {
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+
+  &__dots {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+  }
+
+  &__dot {
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin: 8px;
+    cursor: pointer;
+  }
+}
