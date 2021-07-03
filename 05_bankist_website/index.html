@@ -4,9 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      referrerpolicy="no-referrer"
+    />
     <title>Bankist Website</title>
   </head>
-  <body>
+  <body ontouchstart>
     <div class="overlay hidden"></div>
     <div class="modal hidden">
       <button class="modal__close">&times;</button>
@@ -43,9 +48,29 @@
         </li>
         <button class="btn btn_open">Open Account</button>
       </ul>
-      <button class="navbar__mobile">
-        <div class="navbar__bar"></div>
-      </button>
+      <button class="navbar__mobile"></button>
+      <div class="mobile-menu">
+        <ul class="mobile-menu__list">
+          <li class="mobile-menu__item">
+            <a href="#features" class="mobile-menu__link">
+              <p class="mobile-menu__text">Features</p>
+              <i class="fas fa-cogs"></i>
+            </a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="#operations" class="mobile-menu__link">
+              <p class="mobile-menu__text">Operations</p>
+              <i class="fas fa-compress-alt"></i>
+            </a>
+          </li>
+          <li class="mobile-menu__item">
+            <a href="#testimonials" class="mobile-menu__link">
+              <p class="mobile-menu__text">Testimonials</p>
+              <i class="fas fa-user-friends"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
     </nav>
     <section class="showcase">
       <div class="showcase__content">
@@ -277,5 +302,6 @@
       </p>
     </footer>
     <script type="module" src="js/script.js"></script>
+    <script src="js/smooth-scroll.js"></script>
   </body>
 </html>

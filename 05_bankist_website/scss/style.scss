@@ -18,7 +18,7 @@ img {
 }
 
 .showcase {
-  height: calc($showcase-width);
+  height: $showcase-width;
   display: flex;
   flex-direction: column;
 

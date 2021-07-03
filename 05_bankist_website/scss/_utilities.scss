@@ -25,6 +25,7 @@
   &_open {
     @extend .btn_loans;
     margin: 5px;
+    transition: opacity $nav-elems-trans;
   }
 
   &_transf {
@@ -100,11 +101,20 @@
 
 .transparent.navbar {
   .navbar {
-    &__link {
-      opacity: 0.5;
+    &__link[data-hovered] {
+      opacity: 1;
     }
 
-    &__link[data-hovered] {
+    &__link,
+    &__logo {
+      opacity: 0.6;
+    }
+  }
+
+  .btn_open {
+    opacity: 0.6;
+
+    &[data-hovered] {
       opacity: 1;
     }
   }

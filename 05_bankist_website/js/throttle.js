@@ -1,14 +1,25 @@
-export function throttle(callback, delay, ...args) {
+export function throttle(callback, delay) {
   let isOnCoolDown = false;
+  let lastThis;
+  let lastArgs;
 
-  return () => {
+  return function wrapper(...args) {
     if (isOnCoolDown) {
+      lastThis = this;
+      lastArgs = args;
       return;
-    } else {
-      callback(args);
-      isOnCoolDown = true;
-
-      setTimeout(() => (isOnCoolDown = false), delay);
     }
+
+    callback.apply(this, args);
+    isOnCoolDown = true;
+
+    setTimeout(() => {
+      isOnCoolDown = false;
+
+      if (lastThis) {
+        wrapper.apply(lastThis, lastArgs);
+        lastThis = lastArgs = null;
+      }
+    }, delay);
   };
 }

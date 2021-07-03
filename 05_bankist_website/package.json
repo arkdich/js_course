@@ -5,8 +5,8 @@
   "scripts": {
     "start": "concurrently \" npm run server \" \" npm run watchSass \"",
     "server": "live-server",
-    "watchSass": "npx sass scss:css --watch",
-    "prefix": "npx postcss css/style.css --dir css --use autoprefixer"
+    "watchSass": "sass scss:css --watch",
+    "prefix": "postcss css/style.css --dir css --use autoprefixer"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "description": "",
   "devDependencies": {
     "autoprefixer": "^10.2.6",
+    "concurrently": "^6.2.0",
     "eslint": "^7.28.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-node": "^4.1.0",

@@ -1,33 +1,35 @@
 import { throttle } from './throttle.js';
-import { navbarStick, toggleMobileMenu } from './navbar.js';
+import {
+  navbarItemsHide,
+  navbarItemsShow,
+  navbarScroll,
+  navbarStick,
+  toggleSignUpModal,
+} from './navbar.js';
+import {
+  navbar,
+  mobNavbar,
+  btnOpen,
+  overlay,
+  modalClose,
+  modalSubmit,
+} from './globalVariables.js';
 
-const navbar = document.querySelector('.navbar');
-const mobNavbar = document.querySelector('.navbar__mobile');
-const btnOpen = document.querySelector('.btn_open');
-const overlay = document.querySelector('.overlay');
-const modalClose = document.querySelector('.modal__close');
-const modalSubmit = document.querySelector('.modal__submit');
+navbar.addEventListener('mouseover', navbarItemsHide);
+navbar.addEventListener('mouseout', navbarItemsShow);
 
-navbar.addEventListener('mouseover', (ev) => {
-  if (
-    ev.target.className.includes('navbar__link') ||
-    ev.target.className.includes('btn_open')
-  ) {
-    navbar.classList.add('transparent');
-    ev.target.setAttribute('data-hovered', '');
-  }
-});
+navbar.addEventListener('click', navbarScroll);
 
-mobNavbar.addEventListener('click', toggleMobileMenu);
+// mobNavbar.addEventListener('click', toggleMobileMenu);
 
-btnOpen.addEventListener('click', toggleMobileMenu);
-overlay.addEventListener('click', toggleMobileMenu);
+btnOpen.addEventListener('click', toggleSignUpModal);
+overlay.addEventListener('click', toggleSignUpModal);
 
-modalClose.addEventListener('click', toggleMobileMenu);
+modalClose.addEventListener('click', toggleSignUpModal);
 modalSubmit.addEventListener('click', (ev) => {
   ev.preventDefault();
   setTimeout(() => {
-    toggleMobileMenu();
+    toggleSignUpModal();
   }, 2000);
 });
 

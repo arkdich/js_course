@@ -81,9 +81,9 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 740px) {
   .navbar {
-    padding: 10px 20px;
+    padding: 10px 25px;
 
     &__menu {
       display: none;
@@ -137,6 +137,14 @@
   .showcase {
     &__col-img {
       display: none;
+    }
+  }
+}
+
+@media (max-width: 340px) {
+  .showcase {
+    &__title {
+      font-size: 1.4rem;
     }
   }
 }
