@@ -1,4 +1,4 @@
-export function throttle(callback, delay) {
+export default function throttle(callback, delay) {
   let isOnCoolDown = false;
   let lastThis;
   let lastArgs;

@@ -1,11 +1,13 @@
-import { throttle } from './throttle.js';
+import '../scss/style.scss';
+import smoothscroll from 'smoothscroll-polyfill';
+import throttle from './throttle';
 import {
   navbarItemsHide,
   navbarItemsShow,
   navbarScroll,
   navbarStick,
   toggleSignUpModal,
-} from './navbar.js';
+} from './navbar';
 import {
   navbar,
   mobNavbar,
@@ -13,14 +15,14 @@ import {
   overlay,
   modalClose,
   modalSubmit,
-} from './globalVariables.js';
+} from './globalVariables';
+
+smoothscroll.polyfill();
 
 navbar.addEventListener('mouseover', navbarItemsHide);
 navbar.addEventListener('mouseout', navbarItemsShow);
 
 navbar.addEventListener('click', navbarScroll);
-
-// mobNavbar.addEventListener('click', toggleMobileMenu);
 
 btnOpen.addEventListener('click', toggleSignUpModal);
 overlay.addEventListener('click', toggleSignUpModal);

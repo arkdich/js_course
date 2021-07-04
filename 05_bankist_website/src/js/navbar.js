@@ -1,4 +1,4 @@
-import { navbar } from './globalVariables.js';
+import { navbar } from './globalVariables';
 
 export function navbarStick() {
   if (scrollY > innerHeight) {
