@@ -119,3 +119,15 @@
     }
   }
 }
+
+@for $i from 1 through 4 {
+  .td-#{$i} {
+    transition-delay: ((4 - $i) * 0.1) + s;
+  }
+}
+
+@for $i from 1 through 4 {
+  .mobile-menu_show .td-#{$i} {
+    transition-delay: ($i * 0.1) + s;
+  }
+}

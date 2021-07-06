@@ -6,12 +6,12 @@ import {
   navbarItemsShow,
   navbarScroll,
   navbarStick,
+  toggleMobMenu,
   toggleSignUpModal,
 } from './navbar';
 import {
   navbar,
   mobNavbar,
-  btnOpen,
   overlay,
   modalClose,
   modalSubmit,
@@ -23,15 +23,17 @@ navbar.addEventListener('mouseover', navbarItemsHide);
 navbar.addEventListener('mouseout', navbarItemsShow);
 
 navbar.addEventListener('click', navbarScroll);
+navbar.addEventListener('click', toggleSignUpModal);
 
-btnOpen.addEventListener('click', toggleSignUpModal);
+mobNavbar.addEventListener('click', toggleMobMenu);
+
 overlay.addEventListener('click', toggleSignUpModal);
-
 modalClose.addEventListener('click', toggleSignUpModal);
+
 modalSubmit.addEventListener('click', (ev) => {
   ev.preventDefault();
   setTimeout(() => {
-    toggleSignUpModal();
+    toggleSignUpModal(ev);
   }, 2000);
 });
 

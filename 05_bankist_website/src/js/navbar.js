@@ -4,23 +4,38 @@ export function navbarStick() {
   if (scrollY > innerHeight) {
     navbar.classList.add('navbar_show');
   } else {
-    navbar.classList.remove('navbar_show');
+    navbar.classList.remove('navbar_show', 'mobile-menu_show');
   }
 }
 
-export function toggleSignUpModal() {
+export function toggleSignUpModal(ev) {
+  if (
+    !(
+      ev.target.className.includes('btn_open') ||
+      ev.target.className.includes('modal__close') ||
+      ev.target.className.includes('modal__submit') ||
+      ev.target.className.includes('overlay')
+    )
+  )
+    return;
+
   document.querySelector('.overlay').classList.toggle('hidden');
   document.querySelector('.modal').classList.toggle('hidden');
 }
 
 export function navbarItemsHide(ev) {
   if (
-    ev.target.className.includes('navbar__link') ||
-    ev.target.className.includes('btn_open')
-  ) {
-    navbar.classList.add('transparent');
-    ev.target.setAttribute('data-hovered', '');
-  }
+    !(
+      ev.target.className.includes('navbar__link') ||
+      ev.target.className.includes('btn_open')
+    )
+  )
+    return;
+
+  if (ev.target.parentElement.className.includes('mobile-menu__list')) return;
+
+  navbar.classList.add('transparent');
+  ev.target.setAttribute('data-hovered', '');
 }
 
 export function navbarItemsShow(ev) {
@@ -30,19 +45,39 @@ export function navbarItemsShow(ev) {
 
 export function navbarScroll(ev) {
   if (
-    ev.target.classList.contains('navbar__link') ||
-    ev.target.classList.contains('mobile-menu__link')
-  ) {
-    ev.preventDefault();
-    const targetId = ev.target.getAttribute('href');
+    !(
+      ev.target.classList.contains('navbar__link') ||
+      ev.target.classList.contains('mobile-menu__link')
+    )
+  )
+    return;
 
-    const scrollTarget = document.querySelector(targetId);
-    const targetTop = scrollTarget.getBoundingClientRect().top;
+  ev.preventDefault();
 
-    scrollBy({
-      top: targetTop - 80,
-      left: 0,
-      behavior: 'smooth',
-    });
-  }
+  const targetId = ev.target.getAttribute('href');
+
+  const scrollTarget = document.querySelector(targetId);
+  const targetTop = scrollTarget.getBoundingClientRect().top;
+
+  scrollBy({
+    top: targetTop - 80,
+    left: 0,
+    behavior: 'smooth',
+  });
 }
+
+export function toggleMobMenu(ev) {
+  ev.target.parentElement.classList.toggle('mobile-menu_show');
+}
+
+function mobMenuItemsInit() {
+  const mobMenuItems = Array.from(
+    document.querySelector('.mobile-menu__list').children
+  );
+
+  mobMenuItems.forEach((elem, index) => {
+    elem.classList.add(`td-${index + 1}`);
+  });
+}
+
+mobMenuItemsInit();
