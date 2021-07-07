@@ -5,7 +5,7 @@ import {
   navbarItemsHide,
   navbarItemsShow,
   navbarScroll,
-  navbarStick,
+  // navbarStick,
   toggleMobMenu,
   toggleSignUpModal,
 } from './navbar';
@@ -16,6 +16,7 @@ import {
   modalClose,
   modalSubmit,
 } from './globalVariables';
+import { sectionFade } from './scroll';
 
 smoothscroll.polyfill();
 
@@ -37,4 +38,5 @@ modalSubmit.addEventListener('click', (ev) => {
   }, 2000);
 });
 
-window.addEventListener('scroll', throttle(navbarStick, 100));
+// window.addEventListener('scroll', throttle(navbarStick, 100));
+// window.addEventListener('scroll', throttle(sectionFade, 500));

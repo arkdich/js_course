@@ -1,11 +1,30 @@
 import { navbar } from './globalVariables';
 
-export function navbarStick() {
-  if (scrollY > innerHeight) {
-    navbar.classList.add('navbar_show');
-  } else {
-    navbar.classList.remove('navbar_show', 'mobile-menu_show');
-  }
+const navbarHeight = navbar.getBoundingClientRect().height;
+
+navbarStick();
+
+function navbarStick() {
+  const showcase = document.querySelector('.showcase');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const [entry] = entries;
+
+      if (entry.isIntersecting) {
+        navbar.classList.remove('navbar_show', 'mobile-menu_show');
+      } else {
+        navbar.classList.add('navbar_show');
+      }
+    },
+    {
+      root: null,
+      rootMargin: `${-navbarHeight}px`,
+      threshold: [0, 0.45],
+    }
+  );
+
+  observer.observe(showcase);
 }
 
 export function toggleSignUpModal(ev) {

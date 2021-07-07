@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "parcel src/index.html",
-    "build": "rm -rf && parcel build src/index.html --public-url ./ --dist-dir dist/public"
+    "build": "rm -rf dist/public && parcel build src/index.html --public-url ./ --dist-dir dist/public"
   },
   "repository": {
     "type": "git",
