@@ -99,7 +99,7 @@
         </h2>
       </div>
       <div class="grid-items">
-        <img class="grid-items__img lazy-img" src="img/digital-lazy.jpg" data-src="img/digital.jpg" alt="" />
+        <img class="grid-items__img" src="img/digital.jpg" data-src="img/digital.jpg" alt="" />
         <div class="grid-items__block">
           <div class="item-icon"></div>
           <h3 class="grid-items__title">100% digital bank</h3>
@@ -118,9 +118,9 @@
           </p>
         </div>
         <img
-          class="grid-items__img grid-items__img_reverse lazy-img" 
-          src="img/grow-lazy.jpg" alt="" data-src="img/grow.jpg" />
-        <img class="grid-items__img lazy-img" src="img/card-lazy.jpg" data-src="img/card.jpg" alt="" />
+          class="grid-items__img grid-items__img_reverse" 
+          src="img/grow.jpg" alt="" data-src="img/grow.jpg" />
+        <img class="grid-items__img" src="img/card.jpg" data-src="img/card.jpg" alt="" />
         <div class="grid-items__block">
           <div class="item-icon"></div>
           <h3 class="grid-items__title">Free debit card included</h3>
@@ -141,13 +141,13 @@
       </div>
       <div class="info">
         <div class="info__buttons">
-          <button class="btn btn_oper btn_transf btn_oper-active">
+          <button class="btn btn_oper btn_transf btn_oper-active" data-tab-btn="0">
             Instant Transfers
           </button>
-          <button class="btn btn_oper btn_loans">Instant Loans</button>
-          <button class="btn btn_oper btn_closing">Instant Closing</button>
+          <button class="btn btn_oper btn_loans" data-tab-btn="1">Instant Loans</button>
+          <button class="btn btn_oper btn_closing" data-tab-btn="2">Instant Closing</button>
         </div>
-        <div class="info__wrapper info__wrapper-active">
+        <div class="info__wrapper info__wrapper-active" data-tab="0">
           <div class="info__icon bg_yellow-op"></div>
           <h3 class="info__title">
             Tranfser money to anyone, instantly! No fees, no BS.
@@ -159,33 +159,23 @@
             Perspiciatis debitis aspernatur similique quae.
           </p>
         </div>
-        <div class="info__wrapper">
+        <div class="info__wrapper" data-tab="1">
           <div class="info__icon bg_green-op"></div>
-          <div>
             <h3 class="info__title">
               Buy a home or make your dreams come true, with instant loans.
             </h3>
             <p class="info__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-              minus, corporis odio provident recusandae harum quidem minima
-              explicabo consequuntur, doloremque eos adipisci eaque eius iusto!
-              Perspiciatis debitis aspernatur similique quae.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis ipsam dolore sed, rerum velit ratione, obcaecati quae facilis dolores delectus eaque aliquid rem sint magnam voluptatem architecto aperiam reiciendis quasi.
             </p>
-          </div>
         </div>
-        <div class="info__wrapper">
+        <div class="info__wrapper" data-tab="2">
           <div class="info__icon bg_red-op"></div>
-          <div>
             <h3 class="info__title">
               No longer need your account? No problem! Close it instantly.
             </h3>
             <p class="info__text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-              minus, corporis odio provident recusandae harum quidem minima
-              explicabo consequuntur, doloremque eos adipisci eaque eius iusto!
-              Perspiciatis debitis aspernatur similique quae.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit, rem neque. Commodi recusandae, magnam veritatis tenetur quaerat dolorem sequi ex perferendis provident dolores, voluptatem illum accusamus est eaque labore assumenda consequatur tempore voluptates odio possimus dolor iste eius aspernatur atque.
             </p>
-          </div>
         </div>
       </div>
     </section>
@@ -199,7 +189,7 @@
       <div class="slider">
         <div class="slider__row slider__row_left">←</div>
         <div class="testimonial">
-          <div class="testimonial__entry">
+          <div class="testimonial__entry" data-slide="0">
             <div class="testimonial__body">
               <div class="testimonial__quote">&#8220;</div>
               <h3 class="testimonial__title">Best financial decision ever!</h3>
@@ -217,7 +207,7 @@
               </div>
             </div>
           </div>
-          <div class="testimonial__entry">
+          <div class="testimonial__entry" data-slide="1">
             <div class="testimonial__body">
               <div class="testimonial__quote">&#8220;</div>
               <h3 class="testimonial__title">
@@ -236,7 +226,7 @@
               </div>
             </div>
           </div>
-          <div class="testimonial__entry">
+          <div class="testimonial__entry" data-slide="2">
             <div class="testimonial__body">
               <div class="testimonial__quote">&#8220;</div>
               <h3 class="testimonial__title">
@@ -297,7 +287,7 @@
       </ul>
       <p class="footer__copy">
         &copy; Copyright by
-        <a href="https://twitter.com/jonasschmedtman" class="footer__link"
+        <a href="https://twitter.com/jonasschmedtman" class="footer__link" target="_blank"
           >Jonas Schmedtmann</a
         >
       </p>

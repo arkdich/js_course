@@ -1,11 +1,10 @@
 import '../scss/style.scss';
+import './scroll';
 import smoothscroll from 'smoothscroll-polyfill';
-import throttle from './throttle';
 import {
   navbarItemsHide,
   navbarItemsShow,
   navbarScroll,
-  // navbarStick,
   toggleMobMenu,
   toggleSignUpModal,
 } from './navbar';
@@ -15,8 +14,12 @@ import {
   overlay,
   modalClose,
   modalSubmit,
+  infoBtns,
+  btnPrev,
+  btnNext,
+  btnFooter,
 } from './globalVariables';
-import { sectionFade } from './scroll';
+import { nextSlide, prevSlide, tabSwitch } from './components';
 
 smoothscroll.polyfill();
 
@@ -38,5 +41,9 @@ modalSubmit.addEventListener('click', (ev) => {
   }, 2000);
 });
 
-// window.addEventListener('scroll', throttle(navbarStick, 100));
-// window.addEventListener('scroll', throttle(sectionFade, 500));
+infoBtns.addEventListener('click', tabSwitch);
+
+btnPrev.addEventListener('click', prevSlide);
+btnNext.addEventListener('click', nextSlide);
+
+btnFooter.addEventListener('click', toggleSignUpModal);

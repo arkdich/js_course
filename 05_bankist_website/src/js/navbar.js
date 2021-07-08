@@ -1,11 +1,11 @@
 import { navbar } from './globalVariables';
 
-const navbarHeight = navbar.getBoundingClientRect().height;
-
 navbarStick();
+mobMenuItemsInit();
 
 function navbarStick() {
   const showcase = document.querySelector('.showcase');
+  const navbarHeight = navbar.getBoundingClientRect().height;
 
   const observer = new IntersectionObserver(
     (entries) => {
@@ -27,13 +27,24 @@ function navbarStick() {
   observer.observe(showcase);
 }
 
+function mobMenuItemsInit() {
+  const mobMenuItems = Array.from(
+    document.querySelector('.mobile-menu__list').children
+  );
+
+  mobMenuItems.forEach((elem, index) => {
+    elem.classList.add(`td-${index + 1}`);
+  });
+}
+
 export function toggleSignUpModal(ev) {
   if (
     !(
       ev.target.className.includes('btn_open') ||
       ev.target.className.includes('modal__close') ||
       ev.target.className.includes('modal__submit') ||
-      ev.target.className.includes('overlay')
+      ev.target.className.includes('overlay') ||
+      ev.target.className.includes('big-floppa__btn')
     )
   )
     return;
@@ -88,15 +99,3 @@ export function navbarScroll(ev) {
 export function toggleMobMenu(ev) {
   ev.target.parentElement.classList.toggle('mobile-menu_show');
 }
-
-function mobMenuItemsInit() {
-  const mobMenuItems = Array.from(
-    document.querySelector('.mobile-menu__list').children
-  );
-
-  mobMenuItems.forEach((elem, index) => {
-    elem.classList.add(`td-${index + 1}`);
-  });
-}
-
-mobMenuItemsInit();

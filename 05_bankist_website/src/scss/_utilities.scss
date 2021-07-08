@@ -1,3 +1,8 @@
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .btn {
   border: none;
   background: transparent;
@@ -7,6 +12,7 @@
   color: inherit;
   font-family: inherit;
   cursor: pointer;
+  transition: 0.3s ease;
 
   &_oper {
     position: relative;
@@ -18,14 +24,13 @@
     font-weight: 500;
 
     &-active {
-      top: -65%;
+      top: -68%;
     }
   }
 
   &_open {
     @extend .btn_loans;
     margin: 5px;
-    transition: opacity $nav-elems-trans;
   }
 
   &_transf {
