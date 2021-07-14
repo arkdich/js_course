@@ -7,3 +7,4 @@ export const infoBtns = document.querySelector('.info__buttons');
 export const btnNext = document.querySelector('.slider__row_right');
 export const btnPrev = document.querySelector('.slider__row_left');
 export const btnFooter = document.querySelector('.big-floppa__btn');
+export const sliderDots = document.querySelector('.testimonial__dots');

@@ -117,11 +117,12 @@
   }
 
   &__dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     background-color: #ccc;
+    background-size: 5px;
     border-radius: 50%;
-    margin: 8px;
+    margin: 5px;
     cursor: pointer;
     transition: 0.5s ease;
 

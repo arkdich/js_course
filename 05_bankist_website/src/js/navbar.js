@@ -6,7 +6,6 @@ mobMenuItemsInit();
 function navbarStick() {
   const showcase = document.querySelector('.showcase');
   const navbarHeight = navbar.getBoundingClientRect().height;
-
   const observer = new IntersectionObserver(
     (entries) => {
       const [entry] = entries;
@@ -40,11 +39,11 @@ function mobMenuItemsInit() {
 export function toggleSignUpModal(ev) {
   if (
     !(
-      ev.target.className.includes('btn_open') ||
-      ev.target.className.includes('modal__close') ||
-      ev.target.className.includes('modal__submit') ||
-      ev.target.className.includes('overlay') ||
-      ev.target.className.includes('big-floppa__btn')
+      ev.target.matches('.btn_open') ||
+      ev.target.matches('.modal__close') ||
+      ev.target.matches('.modal__submit') ||
+      ev.target.matches('.overlay') ||
+      ev.target.matches('.big-floppa__btn')
     )
   )
     return;
@@ -54,15 +53,10 @@ export function toggleSignUpModal(ev) {
 }
 
 export function navbarItemsHide(ev) {
-  if (
-    !(
-      ev.target.className.includes('navbar__link') ||
-      ev.target.className.includes('btn_open')
-    )
-  )
+  if (!(ev.target.matches('.navbar__link') || ev.target.matches('.btn_open')))
     return;
 
-  if (ev.target.parentElement.className.includes('mobile-menu__list')) return;
+  if (ev.target.parentElement.matches('.mobile-menu__list')) return;
 
   navbar.classList.add('transparent');
   ev.target.setAttribute('data-hovered', '');
@@ -76,8 +70,8 @@ export function navbarItemsShow(ev) {
 export function navbarScroll(ev) {
   if (
     !(
-      ev.target.classList.contains('navbar__link') ||
-      ev.target.classList.contains('mobile-menu__link')
+      ev.target.matches('.navbar__link') ||
+      ev.target.matches('.mobile-menu__link')
     )
   )
     return;

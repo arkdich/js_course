@@ -1,4 +1,3 @@
-import '../scss/style.scss';
 import './scroll';
 import smoothscroll from 'smoothscroll-polyfill';
 import {
@@ -18,8 +17,9 @@ import {
   btnPrev,
   btnNext,
   btnFooter,
+  sliderDots,
 } from './globalVariables';
-import { nextSlide, prevSlide, tabSwitch } from './components';
+import { changeSlide, nextSlide, prevSlide, tabSwitch } from './components';
 
 smoothscroll.polyfill();
 
@@ -45,5 +45,7 @@ infoBtns.addEventListener('click', tabSwitch);
 
 btnPrev.addEventListener('click', prevSlide);
 btnNext.addEventListener('click', nextSlide);
+
+sliderDots.addEventListener('click', changeSlide);
 
 btnFooter.addEventListener('click', toggleSignUpModal);

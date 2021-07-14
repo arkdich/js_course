@@ -1,5 +1,11 @@
 const tabs = document.querySelectorAll('.info__wrapper');
 
+const slides = document.querySelectorAll('.testimonial__entry');
+let currSlide = 0;
+const lastInx = slides.length - 1;
+
+slidesObserverInit();
+
 export function tabSwitch(ev) {
   if (!ev.target.className.includes('btn_oper')) return;
 
@@ -19,29 +25,32 @@ export function tabSwitch(ev) {
   btn.classList.add('btn_oper-active');
 }
 
-const slides = document.querySelectorAll('.testimonial__entry');
-let currSlide = 0;
-const lastInx = slides.length - 1;
-
 export function nextSlide() {
   if (currSlide === lastInx) {
     currSlide = 0;
-    switchSlide(currSlide);
-    return;
+  } else {
+    currSlide++;
   }
 
-  currSlide++;
   switchSlide(currSlide);
 }
 
 export function prevSlide() {
-  if (currSlide <= 0) {
+  if (currSlide === 0) {
     currSlide = lastInx;
-    switchSlide(currSlide);
-    return;
+  } else {
+    currSlide--;
   }
 
-  currSlide--;
+  switchSlide(currSlide);
+}
+
+export function changeSlide(ev) {
+  if (!ev.target.classList.contains('testimonial__dot')) return;
+
+  const slideNumber = ev.target.dataset.slide;
+  currSlide = +slideNumber;
+
   switchSlide(currSlide);
 }
 
@@ -52,8 +61,6 @@ function switchSlide(slideInx) {
     inline: 'center',
   });
 }
-
-slidesObserverInit();
 
 function slidesObserverInit() {
   const dots = document.querySelectorAll('.testimonial__dot');
