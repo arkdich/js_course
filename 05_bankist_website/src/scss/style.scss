@@ -146,10 +146,13 @@ img {
   }
 
   &__icon {
-    @extend .item-icon;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 80px;
+    height: 80px;
+    background-color: $color-primary-opacity;
+    border-radius: 50%;
 
     svg {
       width: 30px;
