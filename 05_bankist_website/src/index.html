@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="img/icon.png">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="scss/style.scss">
-    <script type="module" src="js/script.js" defer></script>
     <title>Bankist Website</title>
   </head>
   <body ontouchstart>
@@ -150,7 +150,11 @@
           <button class="btn btn_oper btn_closing" data-tab-btn="2">Instant Closing</button>
         </div>
         <div class="info__wrapper info__wrapper-active" data-tab="0">
-          <div class="info__icon bg_yellow-op"></div>
+          <div class="info__icon bg_yellow-op">
+            <svg>
+              <use xlink:href="img/icons.svg#icon-upload"></use>
+            </svg>
+          </div>
           <h3 class="info__title">
             Tranfser money to anyone, instantly! No fees, no BS.
           </h3>
@@ -162,7 +166,11 @@
           </p>
         </div>
         <div class="info__wrapper" data-tab="1">
-          <div class="info__icon bg_green-op"></div>
+          <div class="info__icon bg_green-op">
+            <svg>
+              <use xlink:href="img/icons.svg#icon-home"></use>
+            </svg>
+          </div>
             <h3 class="info__title">
               Buy a home or make your dreams come true, with instant loans.
             </h3>
@@ -171,7 +179,11 @@
             </p>
         </div>
         <div class="info__wrapper" data-tab="2">
-          <div class="info__icon bg_red-op"></div>
+          <div class="info__icon bg_red-op">
+            <svg>
+              <use xlink:href="img/icons.svg#icon-user-x"></use>
+            </svg>
+          </div>
             <h3 class="info__title">
               No longer need your account? No problem! Close it instantly.
             </h3>
@@ -294,5 +306,6 @@
         >
       </p>
     </footer>
+    <script type="module" src="js/script.js"></script>
   </body>
 </html>

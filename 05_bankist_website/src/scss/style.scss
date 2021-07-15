@@ -147,6 +147,14 @@ img {
 
   &__icon {
     @extend .item-icon;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 30px;
+      height: 30px;
+    }
   }
 
   &__wrapper {

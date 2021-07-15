@@ -43,34 +43,3 @@ function sectionsFade() {
 //     }
 //   });
 // }
-
-// setupImgsLazyLoad();
-
-// function setupImgsLazyLoad() {
-//   const imgs = document.querySelectorAll('.lazy-img');
-
-//   const observer = new IntersectionObserver(
-//     (entries, obs) => {
-//       const [entry] = entries;
-
-//       if (!entry.isIntersecting) return;
-
-//       const img = entry.target;
-
-//       img.classList.remove('lazy-img');
-//       img.src = img.getAttribute('data-src');
-
-//       console.log(img.src);
-
-//       obs.unobserve(img);
-//     },
-//     {
-//       root: null,
-//       rootMargin: `${80}px`,
-//     }
-//   );
-
-//   imgs.forEach((img) => {
-//     observer.observe(img);
-//   });
-// }

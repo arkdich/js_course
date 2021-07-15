@@ -61,14 +61,26 @@ button {
 .bg {
   &_yellow-op {
     background-color: $color-secondary-opacity !important;
+
+    svg {
+      fill: $color-secondary;
+    }
   }
 
   &_green-op {
     background-color: $color-primary-opacity !important;
+
+    svg {
+      fill: $color-primary;
+    }
   }
 
   &_red-op {
     background-color: $color-tertiary-opacity !important;
+
+    svg {
+      fill: $color-tertiary;
+    }
   }
 }
 

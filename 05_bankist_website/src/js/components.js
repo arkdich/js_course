@@ -6,6 +6,37 @@ const lastInx = slides.length - 1;
 
 slidesObserverInit();
 
+function slidesObserverInit() {
+  const dots = document.querySelectorAll('.testimonial__dot');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        dots.forEach((dot) => dot.classList.remove('testimonial__dot_active'));
+
+        const dotNumber = entry.target.dataset.slide;
+        dots[dotNumber].classList.add('testimonial__dot_active');
+      });
+    },
+    {
+      root: document.querySelector('.testimonial'),
+      threshold: 0.5,
+    }
+  );
+
+  slides.forEach((slide) => observer.observe(slide));
+}
+
+function switchSlide(slideInx) {
+  slides[slideInx].scrollIntoView({
+    behavior: 'smooth',
+    block: 'nearest',
+    inline: 'center',
+  });
+}
+
 export function tabSwitch(ev) {
   if (!ev.target.className.includes('btn_oper')) return;
 
@@ -52,35 +83,4 @@ export function changeSlide(ev) {
   currSlide = +slideNumber;
 
   switchSlide(currSlide);
-}
-
-function switchSlide(slideInx) {
-  slides[slideInx].scrollIntoView({
-    behavior: 'smooth',
-    block: 'nearest',
-    inline: 'center',
-  });
-}
-
-function slidesObserverInit() {
-  const dots = document.querySelectorAll('.testimonial__dot');
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-
-        dots.forEach((dot) => dot.classList.remove('testimonial__dot_active'));
-
-        const dotNumber = entry.target.dataset.slide;
-        dots[dotNumber].classList.add('testimonial__dot_active');
-      });
-    },
-    {
-      root: document.querySelector('.testimonial'),
-      threshold: 0.5,
-    }
-  );
-
-  slides.forEach((slide) => observer.observe(slide));
 }

@@ -19,6 +19,7 @@
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/plugin-transform-runtime": "^7.14.5",
+    "@parcel/transformer-image": "^2.0.0-nightly.2393",
     "@parcel/transformer-sass": "^2.0.0-nightly.752",
     "autoprefixer": "^10.2.6",
     "eslint": "^7.28.0",
@@ -31,7 +32,7 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "parcel": "^2.0.0-beta.2",
+    "parcel": "^2.0.0-beta.3.1",
     "prettier": "^2.3.1",
     "sass": "^1.35.1"
   },
