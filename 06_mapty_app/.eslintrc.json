@@ -1,0 +1,24 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["airbnb", "prettier", "plugin:node/recommended"],
+  "plugins": ["prettier"],
+  "parserOptions": {
+    "prettier/prettier": "error",
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-unused-vars": ["warn", { "vars": "all" }],
+    "node/no-unsupported-features/es-syntax": "off",
+    "no-multi-assign": "off",
+    "no-plusplus": "off",
+    "no-restricted-globals": "off",
+    "import/extensions": ["error", "never"],
+    "no-use-before-define": ["error", "nofunc"],
+    "import/prefer-default-export": "off",
+    "prefer-const": "off"
+  }
+}

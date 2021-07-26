@@ -1,0 +1,54 @@
+{
+  "name": "06_mapty_app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "rm -rf dist/public && parcel build src/index.html --public-url ./ --dist-dir dist/public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/arkdich/js_course.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arkdich/js_course/issues"
+  },
+  "homepage": "https://github.com/arkdich/js_course#readme",
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@parcel/transformer-image": "^2.0.0-nightly.2393",
+    "@parcel/transformer-sass": "^2.0.0-nightly.752",
+    "autoprefixer": "^10.2.6",
+    "eslint": "^7.28.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "parcel": "^2.0.0-beta.3.1",
+    "prettier": "^2.3.1",
+    "sass": "^1.35.1"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.14.7",
+    "leaflet": "^1.7.1"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {
+        "overrideBrowserslist": [
+          "> 1%",
+          "last 4 versions",
+          "ie >= 9"
+        ]
+      }
+    }
+  }
+}

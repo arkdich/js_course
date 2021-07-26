@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css?family=Manrope:300,400,500,600&display=swap');
+
+@import '_variables';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Manrope', sans-serif;
+}
+
+body {
+}
+
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.map-body {
+  width: 100vw;
+  flex: 1;
+}
+
+.sidebar {
+  width: 100vw;
+  flex: 2;
+  overflow: auto;
+}
+
+.sidebar {
+  background-color: $color-dark-1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  &__logo {
+    width: 80px;
+    margin: 0px auto 15px auto;
+  }
+}
+.entry {
+  display: grid;
+  // justify-content: center;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 2;
+  background-color: $color-dark-2;
+  row-gap: 5px;
+  column-gap: 20px;
+  padding: 12px;
+  border-radius: 5px;
+  border-left: 4px solid $color-brand-2;
+  margin: 7px 0px;
+  color: $color-light-2;
+
+  &_filled {
+    grid-template-columns: repeat(3, auto);
+    row-gap: 12px;
+    column-gap: unset;
+  }
+
+  &__type-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-row: 1 / span 2;
+  }
+
+  &__input-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__label {
+    font-family: inherit;
+    font-weight: 500;
+  }
+
+  &__input {
+    width: 70px;
+    padding: 2px 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    border-radius: 5px;
+    background-color: $color-light-3;
+    outline: none;
+
+    &:focus {
+      background-color: #fff;
+    }
+  }
+
+  &__type {
+    width: 100px;
+    padding: 2px 7px;
+    font-size: 1rem;
+    font-family: inherit;
+    border-radius: 5px;
+    background-color: $color-light-3;
+    outline: none;
+  }
+
+  &__option {
+  }
+
+  &__header {
+    grid-column: 1 / span 3;
+  }
+}
+
+.stats {
+  width: fit-content;
+  font-size: 1.2rem;
+  white-space: nowrap;
+  &__icon {
+  }
+
+  &__value {
+    margin: 0px 4px;
+  }
+
+  &__unit {
+  }
+}
