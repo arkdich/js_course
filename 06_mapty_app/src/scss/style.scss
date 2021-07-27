@@ -43,7 +43,7 @@ body {
 .entry {
   display: grid;
   // justify-content: center;
-  align-items: center;
+  // align-items: center;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 2;
   background-color: $color-dark-2;
@@ -64,8 +64,11 @@ body {
   &__type-box {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    grid-row: 1 / span 2;
+    align-items: baseline;
+
+    &_rows-span {
+      grid-row: 1 / span 2;
+    }
   }
 
   &__input-box {
@@ -104,6 +107,8 @@ body {
   }
 
   &__option {
+    width: 80px;
+    font-size: 1rem;
   }
 
   &__header {
