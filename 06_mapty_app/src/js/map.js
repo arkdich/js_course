@@ -1,8 +1,10 @@
-import { renderMap, addWorkout } from './mapHandlers';
+import { renderMap } from './mapHandlers';
+
+import { addForm } from './formHandlers';
 
 const mymap = window.L.map('map');
 
-mymap.on('click', addWorkout);
+mymap.on('click', addForm);
 
 navigator.geolocation.getCurrentPosition(
   (value) => {

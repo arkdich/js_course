@@ -7,7 +7,6 @@ export function renderSwimming() {
           <option value="swimming" class="entry__option" selected>Swimming</option>
           <option value="cycling" class="entry__option">Cycling</option>
           <option value="custom" class="entry__option">Custom</option>
-          <option value="set" class="entry__option">Set</option>
         </select>
       </div>
       <div class="entry__input-box">
@@ -18,6 +17,7 @@ export function renderSwimming() {
           name="distance"
           id="distance"
           placeholder="km"
+          required
         />
       </div>
       <div class="entry__input-box">
@@ -28,11 +28,13 @@ export function renderSwimming() {
           name="duration"
           id="duration"
           placeholder="min"
+          required
         />
-      </div>`;
+      </div>
+      <input type="submit" hidden>`;
 }
 
-export function renderRunCycling(option) {
+export function renderRunningCycling(option) {
   return `
       <div class="entry__type-box">
         <label for="type" class="entry__label">Type</label>
@@ -45,7 +47,6 @@ export function renderRunCycling(option) {
             option === 'cycling' ? 'selected' : ''
           }>Cycling</option>
           <option value="custom" class="entry__option">Custom</option>
-          <option value="set" class="entry__option">Set</option>
         </select>
       </div>
       <div class="entry__input-box">
@@ -59,12 +60,12 @@ export function renderRunCycling(option) {
         />
       </div>
       <div class="entry__input-box">
-        <label for="gain" class="entry__label">Elev. Gain</label>
+        <label for="elevation" class="entry__label">Elev. Gain</label>
         <input
           class="entry__input"
           type="number"
-          name="gain"
-          id="gain"
+          name="elevation"
+          id="elevation"
           placeholder="meters"
         />
       </div>
@@ -77,19 +78,19 @@ export function renderRunCycling(option) {
           id="duration"
           placeholder="min"
         />
-      </div>`;
+      </div>
+      <input type="submit" hidden>`;
 }
 
 export function renderCustom() {
   return `
-      <div class="entry__type-box entry__type-box_rows-span">
+      <div class="entry__type-box">
         <label for="type" class="entry__label">Type</label>
         <select name="type" id="type" class="entry__type">
           <option value="running" class="entry__option">Running</option>
           <option value="swimming" class="entry__option">Swimming</option>
           <option value="cycling" class="entry__option">Cycling</option>
           <option value="custom" class="entry__option" selected>Custom</option>
-          <option value="set" class="entry__option">Set</option>
         </select>
       </div>
       <div class="entry__input-box">
@@ -100,6 +101,18 @@ export function renderCustom() {
           name="count"
           id="count"
           placeholder="times"
+          required
+        />
+      </div>
+      <div class="entry__input-box">
+        <label for="title" class="entry__label">Title</label>
+        <input
+          class="entry__input"
+          type="text"
+          name="title"
+          id="title"
+          placeholder="..."
+          required
         />
       </div>
       <div class="entry__input-box">
@@ -110,6 +123,29 @@ export function renderCustom() {
           name="duration"
           id="duration"
           placeholder="min"
+          required
         />
-      </div>`;
+      </div>
+      <input type="submit" hidden>`;
+}
+
+export function renderEntry() {
+  return `
+    <div class="entry entry_filled">
+      <h3 class="entry__header">Running on July 24</h3>
+      <p class="stats">
+        <span class="stats__icon">🏃‍♂️</span
+        ><span class="stats__value">9</span
+        ><span class="stats__unit">km</span>
+      </p>
+      <p class="stats">
+        <span class="stats__icon">⏱</span><span class="stats__value">9</span
+        ><span class="stats__unit">min</span>
+      </p>
+      <p class="stats">
+        <span class="stats__icon">⚡️</span
+        ><span class="stats__value">1.0</span
+        ><span class="stats__unit">min/km</span>
+      </p>
+    </div>`;
 }

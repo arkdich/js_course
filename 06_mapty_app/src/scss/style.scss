@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Manrope:300,400,500,600&display=swap');
 
-@import '_variables';
+@import '_variables', '_utilities';
 
 * {
   box-sizing: border-box;
@@ -10,9 +10,6 @@
 }
 
 body {
-}
-
-.app-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -40,10 +37,9 @@ body {
     margin: 0px auto 15px auto;
   }
 }
+
 .entry {
   display: grid;
-  // justify-content: center;
-  // align-items: center;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 2;
   background-color: $color-dark-2;
@@ -51,7 +47,6 @@ body {
   column-gap: 20px;
   padding: 12px;
   border-radius: 5px;
-  border-left: 4px solid $color-brand-2;
   margin: 7px 0px;
   color: $color-light-2;
 
@@ -94,6 +89,10 @@ body {
     &:focus {
       background-color: #fff;
     }
+
+    &::placeholder {
+      font-size: 0.9rem;
+    }
   }
 
   &__type {
@@ -120,6 +119,7 @@ body {
   width: fit-content;
   font-size: 1.2rem;
   white-space: nowrap;
+
   &__icon {
   }
 
