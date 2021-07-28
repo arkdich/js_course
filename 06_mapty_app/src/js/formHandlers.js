@@ -6,10 +6,12 @@ import {
 
 import { addEntry } from './entryHandlers';
 
+let isBlocked = false;
+
 export function addForm() {
   const wrapper = document.querySelector('.entry-wrapper');
 
-  if (!wrapper.firstElementChild.matches('.entry_filled')) return;
+  if (isBlocked) return;
 
   const newEntry = document.createElement('form');
   newEntry.className = 'entry';
@@ -19,6 +21,8 @@ export function addForm() {
   newEntry.addEventListener('submit', addEntry);
 
   wrapper.prepend(newEntry);
+
+  isBlocked = true;
 }
 
 function changeWorkoutType(ev) {

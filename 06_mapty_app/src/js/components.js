@@ -129,11 +129,8 @@ export function renderCustom() {
       <input type="submit" hidden>`;
 }
 
-export function renderEntry(header) {
-  return `
-    <div class="entry entry_filled">
-      <h3 class="entry__header">${header}</h3>      
-    </div>`;
+export function renderHeader(title, date) {
+  return `<h3 class="entry__header">${title} on ${date}</h3>`;
 }
 
 export function renderStats(icon, value, unit) {
