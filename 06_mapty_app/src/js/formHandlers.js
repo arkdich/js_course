@@ -4,7 +4,7 @@ import {
   renderCustom,
 } from './components';
 
-import { createEntry } from './entryHandlers';
+import { addEntry } from './entryHandlers';
 
 export function addForm() {
   const wrapper = document.querySelector('.entry-wrapper');
@@ -16,7 +16,7 @@ export function addForm() {
   newEntry.innerHTML = renderRunningCycling('running');
 
   newEntry.addEventListener('change', changeWorkoutType);
-  newEntry.addEventListener('submit', createEntry);
+  newEntry.addEventListener('submit', addEntry);
 
   wrapper.prepend(newEntry);
 }

@@ -129,23 +129,18 @@ export function renderCustom() {
       <input type="submit" hidden>`;
 }
 
-export function renderEntry() {
+export function renderEntry(header) {
   return `
     <div class="entry entry_filled">
-      <h3 class="entry__header">Running on July 24</h3>
-      <p class="stats">
-        <span class="stats__icon">🏃‍♂️</span
-        ><span class="stats__value">9</span
-        ><span class="stats__unit">km</span>
-      </p>
-      <p class="stats">
-        <span class="stats__icon">⏱</span><span class="stats__value">9</span
-        ><span class="stats__unit">min</span>
-      </p>
-      <p class="stats">
-        <span class="stats__icon">⚡️</span
-        ><span class="stats__value">1.0</span
-        ><span class="stats__unit">min/km</span>
-      </p>
+      <h3 class="entry__header">${header}</h3>      
     </div>`;
+}
+
+export function renderStats(icon, value, unit) {
+  return `
+    <p class="stats">
+      <span class="stats__icon">${icon}</span
+      ><span class="stats__value">${value}</span
+      ><span class="stats__unit">${unit}</span>
+    </p>`;
 }
