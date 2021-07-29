@@ -1,5 +1,4 @@
 import { renderMap } from './mapHandlers';
-
 import { addForm } from './formHandlers';
 
 const mymap = window.L.map('map');

@@ -3,15 +3,13 @@ import {
   renderSwimming,
   renderCustom,
 } from './components';
-
 import { addEntry } from './entryHandlers';
-
-let isBlocked = false;
+import { setFormBlock, getFormBlock } from './utilities';
 
 export function addForm() {
   const wrapper = document.querySelector('.entry-wrapper');
 
-  if (isBlocked) return;
+  if (getFormBlock()) return;
 
   const newEntry = document.createElement('form');
   newEntry.className = 'entry';
@@ -22,7 +20,7 @@ export function addForm() {
 
   wrapper.prepend(newEntry);
 
-  isBlocked = true;
+  setFormBlock(true);
 }
 
 function changeWorkoutType(ev) {

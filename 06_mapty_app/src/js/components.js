@@ -14,6 +14,7 @@ export function renderSwimming() {
         <input
           class="entry__input"
           type="number"
+          step="0.01"
           name="distance"
           id="distance"
           placeholder="km"
@@ -54,6 +55,7 @@ export function renderRunningCycling(option) {
         <input
           class="entry__input"
           type="number"
+          step="0.01"
           name="distance"
           id="distance"
           placeholder="km"
@@ -64,6 +66,7 @@ export function renderRunningCycling(option) {
         <input
           class="entry__input"
           type="number"
+          step="0.01"
           name="elevation"
           id="elevation"
           placeholder="meters"
@@ -98,6 +101,7 @@ export function renderCustom() {
         <input
           class="entry__input"
           type="number"
+          step="0.01"
           name="count"
           id="count"
           placeholder="times"

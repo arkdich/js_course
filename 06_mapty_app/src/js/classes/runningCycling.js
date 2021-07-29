@@ -5,5 +5,7 @@ export default class RunningCycling extends Workout {
     super(type, duration);
     this.distance = distance;
     this.elevation = elevation;
+
+    this.pace = (this.duration / this.distance).toFixed(1);
   }
 }
