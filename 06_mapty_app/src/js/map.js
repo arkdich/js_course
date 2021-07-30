@@ -10,5 +10,5 @@ navigator.geolocation.getCurrentPosition(
     const { latitude, longitude } = value.coords;
     renderMap(mymap, latitude, longitude);
   },
-  (error) => console.log(error)
+  (error) => alert(error.message)
 );

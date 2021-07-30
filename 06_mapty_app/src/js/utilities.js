@@ -19,3 +19,7 @@ export function setWorkouts(workouts) {
 export function toStartsWithUpper(str) {
   return str.replace(str[0], str[0].toUpperCase());
 }
+
+export function isMobile() {
+  return window.matchMedia('only screen and (max-width: 760px)').matches;
+}

@@ -2,7 +2,7 @@
   "name": "06_mapty_app",
   "version": "1.0.0",
   "scripts": {
-    "start": "parcel src/index.html",
+    "start": "parcel src/index.html --https",
     "build": "rm -rf dist/public && parcel build src/index.html --public-url ./ --dist-dir dist/public"
   },
   "repository": {

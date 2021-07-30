@@ -18,6 +18,7 @@ export function renderSwimming() {
           name="distance"
           id="distance"
           placeholder="km"
+          enterkeyhint="next"
           required
         />
       </div>
@@ -29,10 +30,11 @@ export function renderSwimming() {
           name="duration"
           id="duration"
           placeholder="min"
+          enterkeyhint="send"
           required
         />
       </div>
-      <input type="submit" hidden>`;
+      <button type="submit" hidden></button>`;
 }
 
 export function renderRunningCycling(option) {
@@ -59,6 +61,8 @@ export function renderRunningCycling(option) {
           name="distance"
           id="distance"
           placeholder="km"
+          enterkeyhint="next"
+          required
         />
       </div>
       <div class="entry__input-box">
@@ -70,6 +74,8 @@ export function renderRunningCycling(option) {
           name="elevation"
           id="elevation"
           placeholder="meters"
+          enterkeyhint="next"
+          required
         />
       </div>
       <div class="entry__input-box">
@@ -80,9 +86,11 @@ export function renderRunningCycling(option) {
           name="duration"
           id="duration"
           placeholder="min"
+          enterkeyhint="send"
+          required
         />
       </div>
-      <input type="submit" hidden>`;
+      <button type="submit" hidden></button>`;
 }
 
 export function renderCustom() {
@@ -105,6 +113,7 @@ export function renderCustom() {
           name="count"
           id="count"
           placeholder="times"
+          enterkeyhint="next"
           required
         />
       </div>
@@ -115,7 +124,8 @@ export function renderCustom() {
           type="text"
           name="title"
           id="title"
-          placeholder="..."
+          placeholder="workout"
+          enterkeyhint="next"
           required
         />
       </div>
@@ -127,10 +137,11 @@ export function renderCustom() {
           name="duration"
           id="duration"
           placeholder="min"
+          enterkeyhint="send"
           required
         />
       </div>
-      <input type="submit" hidden>`;
+      <button type="submit" hidden></button>`;
 }
 
 export function renderHeader(title, date) {

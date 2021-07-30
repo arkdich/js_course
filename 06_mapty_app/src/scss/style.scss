@@ -45,7 +45,7 @@ body {
   background-color: $color-dark-2;
   row-gap: 5px;
   column-gap: 10px;
-  padding: 12px 8px;
+  padding: 12px 10px;
   border-radius: 5px;
   margin: 7px 0px;
   color: $color-light-2;
@@ -85,6 +85,10 @@ body {
     border-radius: 5px;
     background-color: $color-light-3;
     outline: none;
+
+    &_invalid {
+      border-color: rgb(245, 16, 16);
+    }
 
     &:focus {
       background-color: #fff;
