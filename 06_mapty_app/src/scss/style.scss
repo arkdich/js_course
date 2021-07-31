@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Manrope:300,400,500,600&display=swap');
 
-@import '_variables', '_utilities';
+@import '_variables';
 
 * {
   box-sizing: border-box;
@@ -31,6 +31,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  overflow-x: hidden;
 
   &__logo {
     width: 80px;
@@ -45,15 +46,19 @@ body {
   background-color: $color-dark-2;
   row-gap: 5px;
   column-gap: 10px;
+  height: 88.2px;
   padding: 12px 10px;
   border-radius: 5px;
   margin: 7px 0px;
   color: $color-light-2;
+  transition: transform 0.3s ease;
 
   &_filled {
     grid-template-columns: repeat(4, auto);
     row-gap: 12px;
     column-gap: unset;
+    user-select: none;
+    cursor: pointer;
   }
 
   &__type-box {
@@ -75,6 +80,7 @@ body {
   &__label {
     font-family: inherit;
     font-weight: 500;
+    user-select: none;
   }
 
   &__input {
@@ -138,3 +144,17 @@ body {
     opacity: 0.8;
   }
 }
+
+.footer {
+  &__text {
+    color: $color-light-2;
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+    color: $color-light-1;
+  }
+}
+
+@import '_utilities';

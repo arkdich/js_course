@@ -1,8 +1,9 @@
 import RunningCycling from './classes/runningCycling';
 import Swimming from './classes/swimming';
 import Custom from './classes/custom';
-import { createEntry } from './componentsHandlers';
 import { getWorkouts, setFormBlock, setWorkouts } from './utilities';
+import { getBorderStyle, getHeader, getStats } from './componentsHandlers';
+import { promptDeletingEntry } from './deletingHendlers';
 
 export function addEntry(ev) {
   ev.preventDefault();
@@ -65,4 +66,18 @@ function createEntryObj({ elements }) {
   }
 
   return {};
+}
+
+function createEntry(workout) {
+  const entry = document.createElement('div');
+  entry.className = 'entry entry_filled';
+
+  entry.classList.add(getBorderStyle(workout.type));
+
+  entry.innerHTML = getHeader(workout);
+  entry.insertAdjacentHTML('beforeend', getStats(workout));
+
+  entry.addEventListener('dblclick', promptDeletingEntry);
+
+  return entry;
 }

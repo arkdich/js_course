@@ -27,3 +27,51 @@ input[type='number'] {
     border-left: 4px solid $color-brand-4;
   }
 }
+
+.deleting {
+  position: relative;
+  transform: translateX(-15px);
+
+  &__delete,
+  &__cancel {
+    position: absolute;
+    bottom: 5px;
+    right: -31px;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border-style: none;
+    cursor: pointer;
+    background-image: url('../img/trash-can.svg');
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+
+  &__cancel {
+    width: 25px;
+    height: 25px;
+    right: -29px;
+    top: 5px;
+    bottom: unset;
+    background-image: url('../img/error.svg');
+  }
+}
+
+.entry_removin {
+  opacity: 0;
+  animation: removing_anim 0.2s linear forwards;
+}
+
+@keyframes removing_anim {
+  100% {
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
+}

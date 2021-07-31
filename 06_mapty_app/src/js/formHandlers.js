@@ -5,6 +5,7 @@ import {
 } from './components';
 import { addEntry } from './entryHandlers';
 import { setFormBlock, getFormBlock, isMobile } from './utilities';
+import { promptDeletingEntry } from './deletingHendlers';
 
 export function addForm() {
   const wrapper = document.querySelector('.entry-wrapper');
@@ -12,13 +13,14 @@ export function addForm() {
   if (getFormBlock()) return;
 
   const newEntry = document.createElement('form');
-  newEntry.className = 'entry';
+  newEntry.className = 'entry form';
   newEntry.autocomplete = 'off';
 
   newEntry.innerHTML = renderRunningCycling('running');
 
   newEntry.addEventListener('change', changeWorkoutType);
   newEntry.addEventListener('submit', addEntry);
+  newEntry.addEventListener('dblclick', promptDeletingEntry);
 
   if (isMobile()) {
     newEntry.addEventListener('keyup', changeFocus);
@@ -65,6 +67,10 @@ function changeWorkoutType(ev) {
 
   const select = ev.target;
   const cont = select.closest('.entry');
+
+  if (cont.matches('.deleting')) {
+    cont.querySelector('.deleting__cancel').click();
+  }
 
   [].forEach.call(select.options, (option, index) => {
     if (select.selectedIndex !== index) return;

@@ -1,19 +1,7 @@
 import { renderHeader, renderStats } from './components';
 import { toStartsWithUpper } from './utilities';
 
-export function createEntry(workout) {
-  const entry = document.createElement('div');
-  entry.className = 'entry entry_filled';
-
-  entry.classList.add(getBorderStyle(workout.type));
-
-  entry.innerHTML = getHeader(workout);
-  entry.insertAdjacentHTML('beforeend', getStats(workout));
-
-  return entry;
-}
-
-function getBorderStyle(type) {
+export function getBorderStyle(type) {
   switch (type) {
     case 'running':
       return 'lb_1';
@@ -28,7 +16,7 @@ function getBorderStyle(type) {
   }
 }
 
-function getHeader({ type, date, title }) {
+export function getHeader({ type, date, title }) {
   const headerTitle = title
     ? toStartsWithUpper(title)
     : toStartsWithUpper(type);
@@ -41,7 +29,7 @@ function getHeader({ type, date, title }) {
   return header;
 }
 
-function getStats(workout) {
+export function getStats(workout) {
   const stats = [];
 
   Object.keys(workout).forEach((key) => {
