@@ -157,4 +157,48 @@ body {
   }
 }
 
+.mapPopup {
+  position: relative;
+  z-index: 500;
+  width: fit-content;
+  margin-top: 10px;
+  margin-right: 10px;
+  float: right;
+  padding: 15px 34px 15px 30px;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: default;
+
+  &__text {
+    position: relative;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 400;
+
+    &:before {
+      content: '💡';
+      position: absolute;
+      left: -22px;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 2px;
+    right: 0px;
+    padding: 0px 10px;
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 300;
+    background-color: transparent;
+    -webkit-tap-highlight-color: transparent;
+    border-style: none;
+    cursor: pointer;
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+
 @import '_utilities';

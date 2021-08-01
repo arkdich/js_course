@@ -1,4 +1,4 @@
-import { renderMap } from './mapHandlers';
+import { renderMap, setupDeletionHint } from './mapHandlers';
 import { addForm } from './formHandlers';
 
 const mymap = window.L.map('map');
@@ -9,6 +9,7 @@ navigator.geolocation.getCurrentPosition(
   (value) => {
     const { latitude, longitude } = value.coords;
     renderMap(mymap, latitude, longitude);
+    setupDeletionHint();
   },
   (error) => alert(error.message)
 );
