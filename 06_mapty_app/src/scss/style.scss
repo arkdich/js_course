@@ -10,23 +10,24 @@
 }
 
 body {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
+  overflow: hidden;
 }
 
 .map-body {
   width: 100vw;
-  flex: 1;
+  height: 33.3%;
+  transition: height 0.4s ease-in;
+
+  &_fullsize {
+    height: 100%;
+  }
 }
 
 .sidebar {
   width: 100vw;
-  flex: 2;
-  overflow: auto;
-}
-
-.sidebar {
+  height: 66.6%;
+  overflow-y: auto;
   background-color: $color-dark-1;
   display: flex;
   flex-direction: column;

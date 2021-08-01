@@ -6,9 +6,12 @@ import {
 import { addEntry } from './entryHandlers';
 import { setFormBlock, getFormBlock, isMobile } from './utilities';
 import { promptDeletingEntry } from './deletingHendlers';
+import { fullscreenMap } from './mapHandlers';
 
 export function addForm() {
   const wrapper = document.querySelector('.entry-wrapper');
+
+  fullscreenMap(false);
 
   if (getFormBlock()) return;
 

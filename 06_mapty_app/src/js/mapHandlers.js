@@ -7,6 +7,13 @@ export function renderMap(map, latitude, longitude) {
   }).addTo(map);
 }
 
+export function fullscreenMap(bool) {
+  const map = document.getElementById('map');
+
+  if (bool) map.classList.add('map-body_fullsize');
+  else map.classList.remove('map-body_fullsize');
+}
+
 export function setupDeletionHint() {
   if (document.cookie.includes('hideDeletePopup')) return;
 
