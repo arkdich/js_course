@@ -1,3 +1,7 @@
+import { setFormBlock } from './utilities';
+
+let initialFire = true;
+
 export function renderMap(map, latitude, longitude) {
   map.setView([latitude, longitude], 12);
 
@@ -5,6 +9,18 @@ export function renderMap(map, latitude, longitude) {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
+}
+
+export function stretchMap() {
+  if (initialFire) {
+    initialFire = false;
+    return;
+  }
+
+  fullscreenMap(true);
+
+  document.forms[0]?.remove();
+  setFormBlock(false);
 }
 
 export function fullscreenMap(bool) {

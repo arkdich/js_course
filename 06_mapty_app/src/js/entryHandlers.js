@@ -1,17 +1,18 @@
-import RunningCycling from './classes/runningCycling';
+import Running from './classes/running';
+import Cycling from './classes/cycling';
 import Swimming from './classes/swimming';
 import Custom from './classes/custom';
 import { getWorkouts, setFormBlock, setWorkouts } from './utilities';
 import { getBorderStyle, getHeader, getStats } from './componentsHandlers';
-import { promptDeletingEntry } from './deletingHendlers';
+import { promptDeletingEntry } from './deletingHandlers';
 
-export function addEntry(ev) {
+export function addEntry(ev, coords) {
   ev.preventDefault();
 
   const form = ev.target;
 
   const workouts = getWorkouts();
-  workouts.push(createEntryObj(form));
+  workouts.push(createEntryObj(form, coords));
 
   form.remove();
   setFormBlock(false);
@@ -36,25 +37,34 @@ export function renderWorkouts() {
   cont.append(fragment);
 }
 
-function createEntryObj({ elements }) {
+function createEntryObj(formObj, coords) {
+  const { elements } = formObj;
   const {
     duration: { value: duration },
     type: { value: type },
   } = elements;
 
-  if (type === 'running' || type === 'cycling') {
+  if (type === 'running') {
+    const {
+      distance: { value: distance },
+      cadence: { value: cadence },
+    } = elements;
+    return new Running(coords, type, duration, distance, cadence);
+  }
+
+  if (type === 'cycling') {
     const {
       distance: { value: distance },
       elevation: { value: elevation },
     } = elements;
-    return new RunningCycling(type, duration, distance, elevation);
+    return new Cycling(coords, type, duration, distance, elevation);
   }
 
   if (type === 'swimming') {
     const {
       distance: { value: distance },
     } = elements;
-    return new Swimming(type, duration, distance);
+    return new Swimming(coords, type, duration, distance);
   }
 
   if (type === 'custom') {
@@ -62,7 +72,7 @@ function createEntryObj({ elements }) {
       title: { value: title },
       count: { value: count },
     } = elements;
-    return new Custom(type, duration, title, count);
+    return new Custom(coords, type, duration, title, count);
   }
 
   return {};

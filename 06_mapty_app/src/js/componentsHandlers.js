@@ -45,6 +45,9 @@ export function getStats(workout) {
     if (key === 'pace') stats.push(renderStats('⚡', workout.pace, 'm/km'));
     if (key === 'average')
       stats.push(renderStats('⚡', workout.average, 's/100m'));
+    if (key === 'cadence')
+      stats.push(renderStats('🦶', workout.cadence, 'spm'));
+    if (key === 'speed') stats.push(renderStats('⚡', workout.speed, 'km/h'));
   });
 
   return stats.join('');

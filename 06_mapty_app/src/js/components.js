@@ -10,6 +10,18 @@ export function renderSwimming() {
         </select>
       </div>
       <div class="entry__input-box">
+        <label class="entry__label">Duration</label>
+        <input
+          class="entry__input"
+          type="number"
+          name="duration"
+          id="duration"
+          placeholder="min"
+          enterkeyhint="next"
+          required
+        />
+      </div>
+      <div class="entry__input-box">
         <label class="entry__label">Distance</label>
         <input
           class="entry__input"
@@ -18,9 +30,23 @@ export function renderSwimming() {
           name="distance"
           id="distance"
           placeholder="km"
-          enterkeyhint="next"
+          enterkeyhint="send"
           required
         />
+      </div>
+      <button type="submit" hidden></button>`;
+}
+
+export function renderRunning() {
+  return `
+      <div class="entry__type-box">
+        <label class="entry__label">Type</label>
+        <select name="type" id="type" class="entry__type">
+          <option value="running" class="entry__option" selected>Running</option>
+          <option value="swimming" class="entry__option">Swimming</option>
+          <option value="cycling" class="entry__option">Cycling</option>
+          <option value="custom" class="entry__option">Custom</option>
+        </select>
       </div>
       <div class="entry__input-box">
         <label class="entry__label">Duration</label>
@@ -30,40 +56,63 @@ export function renderSwimming() {
           name="duration"
           id="duration"
           placeholder="min"
-          enterkeyhint="send"
+          enterkeyhint="next"
           required
         />
       </div>
-      <button type="submit" hidden></button>`;
-}
-
-export function renderRunningCycling(option) {
-  return `
-      <div class="entry__type-box">
-        <label class="entry__label">Type</label>
-        <select name="type" id="type" class="entry__type">
-          <option value="running" class="entry__option" ${
-            option === 'running' ? 'selected' : ''
-          }>Running</option>
-          <option value="swimming" class="entry__option">Swimming</option>
-          <option value="cycling" class="entry__option" ${
-            option === 'cycling' ? 'selected' : ''
-          }>Cycling</option>
-          <option value="custom" class="entry__option">Custom</option>
-        </select>
-      </div>
       <div class="entry__input-box">
-        <label class="entry__label">Distance</label>
+        <label class="entry__label">Cadence</label>
         <input
           class="entry__input"
           type="number"
           step="0.01"
-          name="distance"
-          id="distance"
-          placeholder="km"
+          name="cadence"
+          id="cadence"
+          placeholder="meters"
           enterkeyhint="next"
           required
         />
+      </div>
+      <div class="entry__input-box">
+      <label class="entry__label">Distance</label>
+      <input
+        class="entry__input"
+        type="number"
+        step="0.01"
+        name="distance"
+        id="distance"
+        placeholder="km"
+        enterkeyhint="send"
+        required
+      />
+    </div>
+      
+      <button type="submit" hidden></button>`;
+}
+
+export function renderCycling() {
+  return `
+      <div class="entry__type-box">
+        <label class="entry__label">Type</label>
+        <select name="type" id="type" class="entry__type">
+          <option value="running" class="entry__option">Running</option>
+          <option value="swimming" class="entry__option">Swimming</option>
+          <option value="cycling" class="entry__option" selected>Cycling</option>
+          <option value="custom" class="entry__option">Custom</option>
+        </select>
+      </div>
+      <div class="entry__input-box">
+        <label class="entry__label">Duration</label>
+        <input
+          class="entry__input"
+          type="number"
+          name="duration"
+          id="duration"
+          placeholder="min"
+          enterkeyhint="next"
+          required
+        />
+      </div>
       </div>
       <div class="entry__input-box">
         <label class="entry__label">Elev. Gain</label>
@@ -79,17 +128,17 @@ export function renderRunningCycling(option) {
         />
       </div>
       <div class="entry__input-box">
-        <label class="entry__label">Duration</label>
+        <label class="entry__label">Distance</label>
         <input
           class="entry__input"
           type="number"
-          name="duration"
-          id="duration"
-          placeholder="min"
+          step="0.01"
+          name="distance"
+          id="distance"
+          placeholder="km"
           enterkeyhint="send"
           required
         />
-      </div>
       <button type="submit" hidden></button>`;
 }
 
@@ -105,17 +154,16 @@ export function renderCustom() {
         </select>
       </div>
       <div class="entry__input-box">
-        <label class="entry__label">Count</label>
-        <input
-          class="entry__input"
-          type="number"
-          step="0.01"
-          name="count"
-          id="count"
-          placeholder="times"
-          enterkeyhint="next"
-          required
-        />
+      <label class="entry__label">Duration</label>
+      <input
+        class="entry__input"
+        type="number"
+        name="duration"
+        id="duration"
+        placeholder="min"
+        enterkeyhint="next"
+        required
+      />
       </div>
       <div class="entry__input-box">
         <label class="entry__label">Title</label>
@@ -131,13 +179,14 @@ export function renderCustom() {
         />
       </div>
       <div class="entry__input-box">
-        <label class="entry__label">Duration</label>
+        <label class="entry__label">Count</label>
         <input
           class="entry__input"
           type="number"
-          name="duration"
-          id="duration"
-          placeholder="min"
+          step="0.01"
+          name="count"
+          id="count"
+          placeholder="times"
           enterkeyhint="send"
           required
         />

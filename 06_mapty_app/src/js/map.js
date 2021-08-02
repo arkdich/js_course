@@ -1,14 +1,13 @@
-import { fullscreenMap, renderMap, setupDeletionHint } from './mapHandlers';
+import {
+  fullscreenMap,
+  renderMap,
+  setupDeletionHint,
+  stretchMap,
+} from './mapHandlers';
 import { addForm } from './formHandlers';
 import { isMobile } from './utilities';
 
 const mymap = window.L.map('map');
-
-mymap.on('click', addForm);
-
-if (isMobile()) {
-  mymap.on('movestart', stretchMap);
-}
 
 navigator.geolocation.getCurrentPosition(
   (value) => {
@@ -19,13 +18,18 @@ navigator.geolocation.getCurrentPosition(
   (error) => alert(error.message)
 );
 
-let initialFire = true;
-
-function stretchMap(ev) {
-  if (initialFire) {
-    initialFire = false;
+mymap.on('click', (ev) => {
+  if (document.getElementById('map').matches('.map-body_fullsize')) {
+    fullscreenMap(false);
+    setTimeout(() => {
+      addForm(ev);
+    }, 650);
     return;
   }
 
-  fullscreenMap(true);
+  addForm(ev);
+});
+
+if (isMobile()) {
+  mymap.on('movestart', stretchMap);
 }

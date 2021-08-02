@@ -1,15 +1,22 @@
 import {
-  renderRunningCycling,
   renderSwimming,
   renderCustom,
+  renderRunning,
+  renderCycling,
 } from './components';
 import { addEntry } from './entryHandlers';
-import { setFormBlock, getFormBlock, isMobile } from './utilities';
-import { promptDeletingEntry } from './deletingHendlers';
+import {
+  setFormBlock,
+  getFormBlock,
+  isMobile,
+  focusEntryPoint,
+} from './utilities';
+import { promptDeletingEntry } from './deletingHandlers';
 import { fullscreenMap } from './mapHandlers';
 
-export function addForm() {
+export function addForm(ev) {
   const wrapper = document.querySelector('.entry-wrapper');
+  const coords = ev.latlng;
 
   fullscreenMap(false);
 
@@ -19,10 +26,10 @@ export function addForm() {
   newEntry.className = 'entry form';
   newEntry.autocomplete = 'off';
 
-  newEntry.innerHTML = renderRunningCycling('running');
+  newEntry.innerHTML = renderRunning();
 
   newEntry.addEventListener('change', changeWorkoutType);
-  newEntry.addEventListener('submit', addEntry);
+  newEntry.addEventListener('submit', (e) => addEntry(e, coords));
   newEntry.addEventListener('dblclick', promptDeletingEntry);
 
   if (isMobile()) {
@@ -31,6 +38,7 @@ export function addForm() {
 
   wrapper.prepend(newEntry);
 
+  focusEntryPoint();
   setFormBlock(true);
 }
 
@@ -80,13 +88,13 @@ function changeWorkoutType(ev) {
 
     switch (option.value) {
       case 'running':
-        cont.innerHTML = renderRunningCycling('running');
+        cont.innerHTML = renderRunning();
         break;
       case 'swimming':
         cont.innerHTML = renderSwimming();
         break;
       case 'cycling':
-        cont.innerHTML = renderRunningCycling('cycling');
+        cont.innerHTML = renderCycling();
         break;
       case 'custom':
         cont.innerHTML = renderCustom();
@@ -95,6 +103,8 @@ function changeWorkoutType(ev) {
         break;
     }
   });
+
+  focusEntryPoint();
 }
 
 function highlightInvalid(form) {
