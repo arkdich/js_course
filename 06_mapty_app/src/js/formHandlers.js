@@ -10,9 +10,11 @@ import {
   getFormBlock,
   isMobile,
   focusEntryPoint,
+  mymap,
+  formMarker,
 } from './utilities';
 import { promptDeletingEntry } from './deletingHandlers';
-import { fullscreenMap } from './mapHandlers';
+import { fullscreenMap, renderMarker } from './mapHandlers';
 
 export function addForm(ev) {
   const wrapper = document.querySelector('.entry-wrapper');
@@ -40,6 +42,14 @@ export function addForm(ev) {
 
   focusEntryPoint();
   setFormBlock(true);
+
+  const marker = renderMarker(mymap, {
+    coords: ev.latlng,
+    type: 'Workout',
+    date: new Date().toDateString(),
+  });
+
+  formMarker.set(marker);
 }
 
 function changeFocus(ev) {

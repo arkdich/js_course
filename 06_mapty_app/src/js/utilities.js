@@ -1,5 +1,16 @@
 let isBlocked = false;
 
+export const mymap = window.L.map('map');
+
+export const formMarker = {
+  set(value) {
+    if (value instanceof window.L.Marker) this._marker = value;
+  },
+  get() {
+    return this._marker;
+  },
+};
+
 export function setFormBlock(bool) {
   isBlocked = bool;
 }

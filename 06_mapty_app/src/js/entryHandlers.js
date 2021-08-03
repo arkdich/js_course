@@ -2,23 +2,29 @@ import Running from './classes/running';
 import Cycling from './classes/cycling';
 import Swimming from './classes/swimming';
 import Custom from './classes/custom';
-import { getWorkouts, setFormBlock, setWorkouts } from './utilities';
+import { getWorkouts, setFormBlock, setWorkouts, mymap } from './utilities';
 import { getBorderStyle, getHeader, getStats } from './componentsHandlers';
 import { promptDeletingEntry } from './deletingHandlers';
+import { renderMarker } from './mapHandlers';
 
 export function addEntry(ev, coords) {
   ev.preventDefault();
 
   const form = ev.target;
+  const cont = document.querySelector('.entry-wrapper');
 
   const workouts = getWorkouts();
-  workouts.push(createEntryObj(form, coords));
+
+  const newWorkout = createEntryObj(form, coords);
+  workouts.push(newWorkout);
+
+  setWorkouts(workouts);
 
   form.remove();
   setFormBlock(false);
 
-  setWorkouts(workouts);
-  renderWorkouts();
+  cont.prepend(createEntry(newWorkout));
+  renderMarker(mymap, newWorkout).openPopup();
 }
 
 export function renderWorkouts() {
@@ -30,6 +36,7 @@ export function renderWorkouts() {
 
   workouts.forEach((workout) => {
     const entry = createEntry(workout);
+    renderMarker(mymap, workout);
 
     fragment.prepend(entry);
   });
@@ -83,6 +90,8 @@ function createEntry(workout) {
   entry.className = 'entry entry_filled';
 
   entry.classList.add(getBorderStyle(workout.type));
+
+  entry.dataset.id = workout.id;
 
   entry.innerHTML = getHeader(workout);
   entry.insertAdjacentHTML('beforeend', getStats(workout));

@@ -1,9 +1,14 @@
-import { setFormBlock } from './utilities';
+import {
+  getBorderStyle,
+  getDistanceStyle,
+  getHeader,
+} from './componentsHandlers';
+import { formMarker, getWorkouts, mymap, setFormBlock } from './utilities';
 
 let initialFire = true;
 
 export function renderMap(map, latitude, longitude) {
-  map.setView([latitude, longitude], 12);
+  map.setView([latitude, longitude], 14);
 
   window.L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
     attribution:
@@ -21,6 +26,10 @@ export function stretchMap() {
 
   document.forms[0]?.remove();
   setFormBlock(false);
+
+  const marker = formMarker.get();
+
+  if (marker) marker.remove();
 }
 
 export function fullscreenMap(bool) {
@@ -46,6 +55,47 @@ export function setupDeletionHint() {
   popup.addEventListener('click', hintConfirm);
 
   map.append(popup);
+}
+
+export function renderMarker(map, workout) {
+  const { coords, type } = workout;
+
+  const marker = window.L.marker(Object.values(coords), { id: workout.id })
+    .addTo(map)
+    .bindPopup(
+      window.L.popup({
+        className: `map-marker ${getBorderStyle(type)}`,
+      })
+    )
+    .setPopupContent(`${getDistanceStyle(type)} ${getHeader(workout)}`);
+
+  return marker;
+}
+
+export function centerOnMarker(ev) {
+  const entry = ev.target.closest('.entry_filled');
+
+  if (!entry) return;
+
+  const entryId = Number(entry.dataset.id);
+  const workout = getWorkouts().find((w) => w.id === entryId);
+
+  mymap.eachLayer((layer) => {
+    if (layer instanceof window.L.Marker) {
+      if (layer.options.id === entryId) layer.openPopup();
+    }
+  });
+
+  centerMap(workout.coords, 14);
+}
+
+export function centerMap(coords, zoom) {
+  mymap.setView(Object.values(coords), zoom, {
+    animate: true,
+    pan: {
+      duration: 1,
+    },
+  });
 }
 
 function hintConfirm(ev) {

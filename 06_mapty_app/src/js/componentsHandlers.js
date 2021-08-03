@@ -1,4 +1,4 @@
-import { renderHeader, renderStats } from './components';
+import { renderHeader, renderRunning, renderStats } from './components';
 import { toStartsWithUpper } from './utilities';
 
 export function getBorderStyle(type) {
@@ -22,7 +22,7 @@ export function getHeader({ type, date, title }) {
     : toStartsWithUpper(type);
 
   const { 1: month, 2: day } = date.split(' ');
-  const headerDate = `${month} ${day}`;
+  const headerDate = `${month} ${Number(day)}`;
 
   const header = renderHeader(headerTitle, headerDate);
 
@@ -36,7 +36,9 @@ export function getStats(workout) {
     if (key === 'date' || key === 'type') return;
 
     if (key === 'distance')
-      stats.push(renderStats('🏃‍♀️', workout.distance, 'km'));
+      stats.push(
+        renderStats(getDistanceStyle(workout.type), workout.distance, 'km')
+      );
     if (key === 'duration')
       stats.push(renderStats('⏱', workout.duration, 'min'));
     if (key === 'elevation')
@@ -51,4 +53,19 @@ export function getStats(workout) {
   });
 
   return stats.join('');
+}
+
+export function getDistanceStyle(workoutType) {
+  switch (workoutType) {
+    case 'running':
+      return '🏃‍♀️';
+    case 'swimming':
+      return '🏊‍♂️';
+    case 'cycling':
+      return '🚴‍♂️';
+    case 'custom':
+      return '🤼';
+    default:
+      return '';
+  }
 }

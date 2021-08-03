@@ -1,13 +1,12 @@
 import {
+  centerMap,
   fullscreenMap,
   renderMap,
   setupDeletionHint,
   stretchMap,
 } from './mapHandlers';
 import { addForm } from './formHandlers';
-import { isMobile } from './utilities';
-
-const mymap = window.L.map('map');
+import { isMobile, mymap } from './utilities';
 
 navigator.geolocation.getCurrentPosition(
   (value) => {
@@ -21,6 +20,10 @@ navigator.geolocation.getCurrentPosition(
 mymap.on('click', (ev) => {
   if (document.getElementById('map').matches('.map-body_fullsize')) {
     fullscreenMap(false);
+
+    const { latlng, _zoom } = ev;
+    centerMap(latlng, _zoom);
+
     setTimeout(() => {
       addForm(ev);
     }, 650);
