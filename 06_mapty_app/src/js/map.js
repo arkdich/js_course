@@ -35,4 +35,8 @@ mymap.on('click', (ev) => {
 
 if (isMobile()) {
   mymap.on('movestart', stretchMap);
+
+  mymap
+    .getContainer()
+    .insertAdjacentHTML('beforeend', '<button class="map-toggle"></button>');
 }

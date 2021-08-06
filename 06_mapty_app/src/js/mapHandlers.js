@@ -16,6 +16,15 @@ export function renderMap(map, latitude, longitude) {
   }).addTo(map);
 }
 
+export function toggleMap(ev) {
+  ev.stopPropagation();
+
+  const map = mymap.getContainer();
+
+  if (map.matches('.map-body_fullsize')) fullscreenMap(false);
+  else stretchMap();
+}
+
 export function stretchMap() {
   if (initialFire) {
     initialFire = false;

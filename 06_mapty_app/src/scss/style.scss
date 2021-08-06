@@ -24,6 +24,23 @@ body {
   }
 }
 
+.map-toggle {
+  position: relative;
+  z-index: 450;
+  float: right;
+  width: 30px;
+  height: 30px;
+  margin: 12px;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+  background-image: url('/src/img/menu.svg');
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
 .sidebar {
   width: 100vw;
   height: 55%;
@@ -31,13 +48,17 @@ body {
   background-color: $color-dark-1;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px 20px;
   overflow-x: hidden;
 
   &__logo {
-    width: 80px;
-    margin: 0px auto 15px auto;
+    width: 90px;
+    margin: 0px auto 5px auto;
   }
+}
+
+.entry-wrapper {
+  margin-bottom: 5px;
 }
 
 .entry {
@@ -48,9 +69,10 @@ body {
   row-gap: 5px;
   column-gap: 10px;
   height: 88.2px;
+  max-width: 400px;
   padding: 12px 10px;
   border-radius: 5px;
-  margin: 7px 0px;
+  margin: 9px 0px;
   color: $color-light-2;
   transition: transform 0.3s ease;
 
@@ -84,14 +106,20 @@ body {
     user-select: none;
   }
 
+  &__type,
   &__input {
-    width: 70px;
-    padding: 2px 10px;
+    width: 100px;
+    padding: 2px 7px;
     font-size: 1rem;
     font-family: inherit;
     border-radius: 5px;
     background-color: $color-light-3;
     outline: none;
+  }
+
+  &__input {
+    width: 70px;
+    padding: 2px 10px;
 
     &_invalid {
       border-color: rgb(245, 16, 16);
@@ -104,16 +132,6 @@ body {
     &::placeholder {
       font-size: 0.9rem;
     }
-  }
-
-  &__type {
-    width: 100px;
-    padding: 2px 7px;
-    font-size: 1rem;
-    font-family: inherit;
-    border-radius: 5px;
-    background-color: $color-light-3;
-    outline: none;
   }
 
   &__option {
@@ -148,6 +166,8 @@ body {
 }
 
 .footer {
+  margin-top: auto;
+
   &__text {
     color: $color-light-2;
     text-align: center;
@@ -224,4 +244,4 @@ body {
   }
 }
 
-@import '_utilities';
+@import '_utilities', '_media';

@@ -1,14 +1,27 @@
-/* Chrome, Safari, Edge, Opera */
+// hiding input arrows
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* Firefox */
 input[type='number'] {
   -moz-appearance: textfield;
 }
+
+// hiding scrollbar
+.sidebar::-webkit-scrollbar,
+.entry-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar,
+.entry-wrapper {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+// classes
 
 .lb {
   &_1 {

@@ -1,0 +1,37 @@
+@media (min-width: 660px) {
+  body {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  .map-body {
+    height: 100%;
+    width: calc(100% - 400px);
+  }
+
+  .sidebar {
+    padding: 8px 25px;
+    height: 100%;
+    width: 400px;
+
+    &__logo {
+      width: 100px;
+    }
+  }
+}
+
+@media (max-width: 340px) {
+  .sidebar {
+    padding: 10px;
+  }
+
+  .entry {
+    &__type {
+      width: 80px;
+    }
+
+    &__input {
+      width: 50px;
+    }
+  }
+}
