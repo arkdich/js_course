@@ -12,6 +12,7 @@
   },
   "rules": {
     "no-unused-vars": ["warn", { "vars": "all" }],
+    "no-underscore-dangle": "off",
     "node/no-unsupported-features/es-syntax": "off",
     "no-multi-assign": "off",
     "no-plusplus": "off",

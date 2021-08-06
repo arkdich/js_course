@@ -26,7 +26,7 @@ export function toggleMap(ev) {
 export function stretchMap() {
   fullscreenMap(true);
 
-  document.querySelector('form').remove();
+  document.querySelector('.form')?.remove();
   setFormBlock(false);
 
   const marker = formMarker.get();

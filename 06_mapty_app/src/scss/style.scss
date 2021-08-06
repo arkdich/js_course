@@ -9,6 +9,10 @@
   font-family: 'Manrope', sans-serif;
 }
 
+body {
+  overflow: hidden;
+}
+
 .map-body {
   width: 100vw;
   height: 45%;
@@ -39,14 +43,16 @@
   position: relative;
   z-index: 450;
   float: right;
-  width: 40px;
-  height: 40px;
+  width: 42px;
+  height: 35px;
   margin: 12px;
-  background-color: transparent;
-  border-style: none;
   cursor: pointer;
   background: url('/src/img/menu.svg') no-repeat center;
-  background-size: 35px 35px;
+  background-size: 30px 30px;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  box-shadow: 0 1px 5px rgb(0 0 0 / 15%);
 
   &:active {
     transform: scale(0.9);
@@ -68,7 +74,7 @@
   max-width: 400px;
   padding: 12px 10px;
   border-radius: 5px;
-  margin: 9px 0px;
+  margin: 9px auto;
   color: $color-light-2;
   transition: transform 0.3s ease;
 

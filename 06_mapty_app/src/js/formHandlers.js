@@ -35,7 +35,7 @@ export function addForm(ev) {
   newEntry.addEventListener('dblclick', promptDeletingEntry);
 
   if (isMobile()) {
-    newEntry.addEventListener('keyup', changeFocus);
+    newEntry.addEventListener('change', changeFocus);
   }
 
   wrapper.prepend(newEntry);
@@ -54,7 +54,8 @@ export function addForm(ev) {
 
 function changeFocus(ev) {
   ev.preventDefault();
-  if (!ev.target.matches('.entry__input') || ev.key !== 'Enter') return;
+
+  if (!ev.target.matches('.entry__input')) return;
 
   const form = ev.target.closest('.entry');
   const targetInput = ev.target;

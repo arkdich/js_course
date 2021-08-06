@@ -3,7 +3,6 @@ import {
   fullscreenMap,
   renderMap,
   setupDeletionHint,
-  stretchMap,
 } from './mapHandlers';
 import { addForm } from './formHandlers';
 import { isMobile, mymap } from './utilities';

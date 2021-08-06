@@ -32,7 +32,7 @@ export function toStartsWithUpper(str) {
 }
 
 export function isMobile() {
-  return window.matchMedia('only screen and (max-width: 760px)').matches;
+  return 'ontouchstart' in document.documentElement;
 }
 
 export function focusEntryPoint() {
