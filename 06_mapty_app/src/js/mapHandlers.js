@@ -5,8 +5,6 @@ import {
 } from './componentsHandlers';
 import { formMarker, getWorkouts, mymap, setFormBlock } from './utilities';
 
-let initialFire = true;
-
 export function renderMap(map, latitude, longitude) {
   map.setView([latitude, longitude], 14);
 
@@ -26,14 +24,9 @@ export function toggleMap(ev) {
 }
 
 export function stretchMap() {
-  if (initialFire) {
-    initialFire = false;
-    return;
-  }
-
   fullscreenMap(true);
 
-  document.forms[0]?.remove();
+  document.querySelector('form').remove();
   setFormBlock(false);
 
   const marker = formMarker.get();

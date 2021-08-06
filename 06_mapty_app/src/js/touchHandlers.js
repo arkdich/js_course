@@ -1,3 +1,5 @@
+import { stretchMap } from './mapHandlers';
+
 let startingY;
 let endingY;
 
@@ -10,7 +12,5 @@ export function touchEnd(ev) {
 
   endingY = ev.changedTouches[0].clientY;
 
-  if (endingY > startingY) {
-    document.getElementById('map').classList.add('map-body_fullsize');
-  }
+  if (endingY > startingY) stretchMap();
 }

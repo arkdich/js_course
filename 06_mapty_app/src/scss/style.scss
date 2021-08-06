@@ -9,11 +9,6 @@
   font-family: 'Manrope', sans-serif;
 }
 
-body {
-  height: 100vh;
-  overflow: hidden;
-}
-
 .map-body {
   width: 100vw;
   height: 45%;
@@ -21,23 +16,6 @@ body {
 
   &_fullsize {
     height: 100%;
-  }
-}
-
-.map-toggle {
-  position: relative;
-  z-index: 450;
-  float: right;
-  width: 30px;
-  height: 30px;
-  margin: 12px;
-  background-color: transparent;
-  border-style: none;
-  cursor: pointer;
-  background-image: url('/src/img/menu.svg');
-
-  &:active {
-    transform: scale(0.9);
   }
 }
 
@@ -54,6 +32,24 @@ body {
   &__logo {
     width: 90px;
     margin: 0px auto 5px auto;
+  }
+}
+
+.map-toggle {
+  position: relative;
+  z-index: 450;
+  float: right;
+  width: 40px;
+  height: 40px;
+  margin: 12px;
+  background-color: transparent;
+  border-style: none;
+  cursor: pointer;
+  background: url('/src/img/menu.svg') no-repeat center;
+  background-size: 35px 35px;
+
+  &:active {
+    transform: scale(0.9);
   }
 }
 

@@ -68,7 +68,7 @@ export function renderRunning() {
           step="0.01"
           name="cadence"
           id="cadence"
-          placeholder="meters"
+          placeholder="steps"
           enterkeyhint="next"
           required
         />
