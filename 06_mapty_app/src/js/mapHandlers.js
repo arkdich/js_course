@@ -3,15 +3,26 @@ import {
   getDistanceStyle,
   getHeader,
 } from './componentsHandlers';
-import { formMarker, getWorkouts, mymap, setFormBlock } from './utilities';
+import {
+  formBlock,
+  formMarker,
+  leaflet,
+  mymap,
+  workoutArray,
+} from './utilities';
 
 export function renderMap(map, latitude, longitude) {
   map.setView([latitude, longitude], 14);
 
-  window.L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
+  leaflet
+    .tileLayer(
+      'https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png',
+      {
+        attribution:
+          '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+      }
+    )
+    .addTo(map);
 }
 
 export function toggleMap(ev) {
@@ -27,7 +38,7 @@ export function stretchMap() {
   fullscreenMap(true);
 
   document.querySelector('.form')?.remove();
-  setFormBlock(false);
+  formBlock.set(false);
 
   const marker = formMarker.get();
 
@@ -62,10 +73,11 @@ export function setupDeletionHint() {
 export function renderMarker(map, workout) {
   const { coords, type } = workout;
 
-  const marker = window.L.marker(Object.values(coords), { id: workout.id })
+  const marker = leaflet
+    .marker(Object.values(coords), { id: workout.id })
     .addTo(map)
     .bindPopup(
-      window.L.popup({
+      leaflet.popup({
         className: `map-marker ${getBorderStyle(type)}`,
       })
     )
@@ -80,10 +92,10 @@ export function centerOnMarker(ev) {
   if (!entry) return;
 
   const entryId = Number(entry.dataset.id);
-  const workout = getWorkouts().find((w) => w.id === entryId);
+  const workout = workoutArray.get().find((w) => w.id === entryId);
 
   mymap.eachLayer((layer) => {
-    if (layer instanceof window.L.Marker) {
+    if (layer instanceof leaflet.Marker) {
       if (layer.options.id === entryId) layer.openPopup();
     }
   });

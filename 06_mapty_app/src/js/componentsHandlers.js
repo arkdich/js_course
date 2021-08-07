@@ -1,4 +1,4 @@
-import { renderHeader, renderRunning, renderStats } from './components';
+import { renderHeader, renderStats } from './components';
 import { toStartsWithUpper } from './utilities';
 
 export function getBorderStyle(type) {

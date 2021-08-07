@@ -2,7 +2,7 @@ import Running from './classes/running';
 import Cycling from './classes/cycling';
 import Swimming from './classes/swimming';
 import Custom from './classes/custom';
-import { getWorkouts, setFormBlock, setWorkouts, mymap } from './utilities';
+import { mymap, formBlock, workoutArray } from './utilities';
 import { getBorderStyle, getHeader, getStats } from './componentsHandlers';
 import { promptDeletingEntry } from './deletingHandlers';
 import { renderMarker } from './mapHandlers';
@@ -13,15 +13,15 @@ export function addEntry(ev, coords) {
   const form = ev.target;
   const cont = document.querySelector('.entry-wrapper');
 
-  const workouts = getWorkouts();
+  const workouts = workoutArray.get();
 
   const newWorkout = createEntryObj(form, coords);
   workouts.push(newWorkout);
 
-  setWorkouts(workouts);
+  workoutArray.set(workouts);
 
   form.remove();
-  setFormBlock(false);
+  formBlock.set(false);
 
   cont.prepend(createEntry(newWorkout));
   renderMarker(mymap, newWorkout).openPopup();
@@ -29,7 +29,7 @@ export function addEntry(ev, coords) {
 
 export function renderWorkouts() {
   const cont = document.querySelector('.entry-wrapper');
-  const workouts = getWorkouts();
+  const workouts = workoutArray.get();
   const fragment = new DocumentFragment();
 
   cont.innerHTML = '';

@@ -6,12 +6,11 @@ import {
 } from './components';
 import { addEntry } from './entryHandlers';
 import {
-  setFormBlock,
-  getFormBlock,
   isMobile,
   focusEntryPoint,
   mymap,
   formMarker,
+  formBlock,
 } from './utilities';
 import { promptDeletingEntry } from './deletingHandlers';
 import { fullscreenMap, renderMarker } from './mapHandlers';
@@ -22,7 +21,7 @@ export function addForm(ev) {
 
   fullscreenMap(false);
 
-  if (getFormBlock()) return;
+  if (formBlock.get()) return;
 
   const newEntry = document.createElement('form');
   newEntry.className = 'entry form';
@@ -41,7 +40,7 @@ export function addForm(ev) {
   wrapper.prepend(newEntry);
 
   focusEntryPoint();
-  setFormBlock(true);
+  formBlock.set(true);
 
   const marker = renderMarker(mymap, {
     coords: ev.latlng,
@@ -78,7 +77,7 @@ function changeFocus(ev) {
       highlightInvalid(form);
 
       form.dispatchEvent(
-        new Event('invalid', { bubbles: true, cancelable: true })
+        new Event('invalid', { bubbles: false, cancelable: true })
       );
     }
   }
@@ -94,26 +93,22 @@ function changeWorkoutType(ev) {
     cont.querySelector('.deleting__cancel').click();
   }
 
-  [].forEach.call(select.options, (option, index) => {
-    if (select.selectedIndex !== index) return;
-
-    switch (option.value) {
-      case 'running':
-        cont.innerHTML = renderRunning();
-        break;
-      case 'swimming':
-        cont.innerHTML = renderSwimming();
-        break;
-      case 'cycling':
-        cont.innerHTML = renderCycling();
-        break;
-      case 'custom':
-        cont.innerHTML = renderCustom();
-        break;
-      default:
-        break;
-    }
-  });
+  switch (select.value) {
+    case 'running':
+      cont.innerHTML = renderRunning();
+      break;
+    case 'swimming':
+      cont.innerHTML = renderSwimming();
+      break;
+    case 'cycling':
+      cont.innerHTML = renderCycling();
+      break;
+    case 'custom':
+      cont.innerHTML = renderCustom();
+      break;
+    default:
+      break;
+  }
 
   focusEntryPoint();
 }

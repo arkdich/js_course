@@ -1,31 +1,42 @@
-let isBlocked = false;
-
 export const mymap = window.L.map('map');
+export const leaflet = window.L;
 
 export const formMarker = {
-  set(value) {
-    if (value instanceof window.L.Marker) this._marker = value;
-  },
   get() {
     return this._marker;
   },
+
+  set(value) {
+    if (value instanceof leaflet.Marker) this._marker = value;
+  },
 };
 
-export function setFormBlock(bool) {
-  isBlocked = bool;
-}
+export const formBlock = {
+  _flag: false,
 
-export function getFormBlock() {
-  return isBlocked;
-}
+  get() {
+    return this._flag;
+  },
 
-export function getWorkouts() {
-  return JSON.parse(localStorage.getItem('workouts')) ?? [];
-}
+  set(value) {
+    if (typeof value === 'boolean') this._flag = value;
+  },
+};
 
-export function setWorkouts(workouts) {
-  localStorage.setItem('workouts', JSON.stringify(workouts));
-}
+export const workoutArray = {
+  _workouts: JSON.parse(localStorage.getItem('workouts')) ?? [],
+
+  get() {
+    return this._workouts;
+  },
+
+  set(value) {
+    if (!(value instanceof Array)) return;
+
+    localStorage.setItem('workouts', JSON.stringify(value));
+    this._workouts = value;
+  },
+};
 
 export function toStartsWithUpper(str) {
   return str.replace(str[0], str[0].toUpperCase());

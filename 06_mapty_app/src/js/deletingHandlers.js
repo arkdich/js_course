@@ -1,4 +1,4 @@
-import { getWorkouts, setFormBlock, setWorkouts } from './utilities';
+import { formBlock, workoutArray } from './utilities';
 
 export function promptDeletingEntry(ev) {
   const cont = ev.target.closest('.entry');
@@ -20,14 +20,15 @@ function deletingHandler(ev) {
   if (!ev.target.matches('button')) return;
 
   if (ev.target.matches('.deleting__delete')) {
-    setFormBlock(false);
-    this.classList.add('entry_removin');
+    formBlock.set(false);
+    this.classList.add('entry_removing');
 
     setTimeout(() => {
-      const wrapper = this.closest('.entry-wrapper');
-      const index = Array.from(wrapper.children).indexOf(this);
+      const entryIndex = workoutArray
+        .get()
+        .findIndex((w) => w.id === Number(this.dataset.id));
 
-      deleteWorkout(index);
+      deleteWorkout(entryIndex);
 
       this.remove();
     }, 200);
@@ -45,10 +46,9 @@ function deletingHandler(ev) {
 }
 
 function deleteWorkout(index) {
-  const workouts = getWorkouts();
-  const indexCopy = index === 0 ? -1 : -Math.abs(index) - 1;
+  const workouts = workoutArray.get();
 
-  workouts.splice(indexCopy, 1);
+  workouts.splice(index, 1);
 
-  setWorkouts(workouts);
+  workoutArray.set(workouts);
 }
