@@ -1,2 +1,2 @@
 # js_course
-backup of [this](https://www.udemy.com/course/the-complete-javascript-course "Udemy")
+Projects made during [this](https://www.udemy.com/course/the-complete-javascript-course "Udemy") course, most of them with additional features
